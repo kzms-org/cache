@@ -1,0 +1,56 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'auth_controller.dart';
+
+// **************************************************************************
+// StoreGenerator
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+
+mixin _$AuthController on _AuthControllerBase, Store {
+  final _$userAtom = Atom(name: '_AuthControllerBase.user');
+
+  @override
+  AuthUserModel get user {
+    _$userAtom.context.enforceReadPolicy(_$userAtom);
+    _$userAtom.reportObserved();
+    return super.user;
+  }
+
+  @override
+  set user(AuthUserModel value) {
+    _$userAtom.context.conditionallyRunInAction(() {
+      super.user = value;
+      _$userAtom.reportChanged();
+    }, _$userAtom, name: '${_$userAtom.name}_set');
+  }
+
+  final _$loginWithEmailPasswordAsyncAction =
+      AsyncAction('loginWithEmailPassword');
+
+  @override
+  Future<dynamic> loginWithEmailPassword(String email, String password) {
+    return _$loginWithEmailPasswordAsyncAction
+        .run(() => super.loginWithEmailPassword(email, password));
+  }
+
+  final _$_AuthControllerBaseActionController =
+      ActionController(name: '_AuthControllerBase');
+
+  @override
+  dynamic setUser(AuthUserModel value) {
+    final _$actionInfo = _$_AuthControllerBaseActionController.startAction();
+    try {
+      return super.setUser(value);
+    } finally {
+      _$_AuthControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String toString() {
+    final string = 'user: ${user.toString()}';
+    return '{$string}';
+  }
+}
