@@ -6,13 +6,13 @@ abstract class WalletUiTheme {}
 
 abstract class ThemeMixin {
   ThemeData getTheme(BuildContext context) {
-    final primaryIconColor = HexColor('#FFFFFF');
-    final iconColor = HexColor('#7099b2');
+    final primaryIconColor = HexColor('#000000');
+    final iconColor = HexColor('#E64678');
     final accentIconColor = HexColor('#24485e');
-    final secundaryColor = HexColor('#84939d');
-    final backgroudColor = HexColor('#112A39');
+    final secundaryColor = HexColor('#E64678');
+    final backgroudColor = HexColor('#E5E5E5');
     final primaryColor = HexColor('#315FD6');
-    final accentColor = HexColor('#F5A623');
+    final accentColor = HexColor('#E64678');
 
     return ThemeData(
       textTheme: GoogleFonts.montserratTextTheme(

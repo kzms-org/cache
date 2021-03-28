@@ -10,6 +10,8 @@ import 'shared/auth/repositories/auth_repository.dart';
 import 'shared/auth/repositories/auth_repository_interface.dart';
 
 class AppModule extends MainModule {
+
+  // Provide a list of dependencies to inject into Cache
   @override
   List<Bind> get binds => [
         Bind((i) => AppController()),
@@ -17,6 +19,7 @@ class AppModule extends MainModule {
         Bind((i) => AuthController()),
       ];
 
+  // Provide all routes for the modular app
   @override
   List<ModularRouter> get routers => [
         ModularRouter('/security', module: SecurityModule()),
