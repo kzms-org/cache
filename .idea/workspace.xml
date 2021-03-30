@@ -19,16 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac6c908e-70c0-488b-9f40-717ee3950e4c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/modules/security/login/login_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/security/login/login_controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/modules/security/login/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/security/login/login_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/shared/auth/auth_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/shared/auth/auth_controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/shared/auth/repositories/auth_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/shared/auth/repositories/auth_repository.dart" afterDir="false" />
-    </list>
+    <list default="true" id="ac6c908e-70c0-488b-9f40-717ee3950e4c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
