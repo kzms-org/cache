@@ -1,5 +1,5 @@
 import 'auth_repository_interface.dart';
-
+import 'package:http/http.dart' as http;
 import '../models/auth_user_module.dart';
 
 class AuthRepository implements IAuthRepository {
@@ -7,11 +7,7 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<AuthUserModel> getEmailPasswordLogin(String name, String email) {
-    _user = AuthUserModel(
-      name: name,
-      email: email,
-    );
-    return getUser();
+    print('email authrepo: '+ email);
   }
 
   @override

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:cache/app/shared/auth/repositories/auth_repository_interface.dart';
+import 'package:http/http.dart' as http;
 
 import 'models/auth_user_module.dart';
 part 'auth_controller.g.dart';

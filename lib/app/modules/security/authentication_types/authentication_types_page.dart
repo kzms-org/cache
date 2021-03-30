@@ -23,10 +23,10 @@ class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
   Widget createTitle(String title) {
     return Container(
       width: 281,
-      height: 37,
+      height: 45,
       child: TextWidget.title(
         title,
-        fontSize: 30,
+        fontSize: 40,
       ),
     );
   }
@@ -109,8 +109,8 @@ class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
             logo: Image(
               image: AssetImage("assets/Logo.png"),
             ),
-            title: 'Wallet UI',
-            description: 'Believe in the Golden Rule, Gold alway Rules.',
+            title: 'Cache',
+            description: 'You are rich, we just help you realize that!',
           ),
           Container(
             height: 113,
