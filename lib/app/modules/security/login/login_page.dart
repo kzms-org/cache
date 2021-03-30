@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
             ButtonWidget(
               text: 'Login',
               onTap: () {
-
+                print('email inloginpage: '+ email);
                 loginController.loginWithUsernameAndPassword(email, password);
               },
             ),

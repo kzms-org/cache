@@ -20,23 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac6c908e-70c0-488b-9f40-717ee3950e4c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/app/google-services.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/chatbot_controller.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/chatbot_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/app_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/app_controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/app_module.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/app_module.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/modules/security/authentication_types/authentication_types_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/security/authentication_types/authentication_types_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/security/login/login_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/security/login/login_controller.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/security/login/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/security/login/login_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/theme.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/shared/auth/auth_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/shared/auth/auth_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/shared/auth/repositories/auth_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/shared/auth/repositories/auth_repository.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,8 +59,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="last_opened_file_path" value="$USER_HOME$/AndroidStudioProjects/cache" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -110,30 +101,30 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1063" y="466" width="424" height="491" key="FileChooserDialogImpl" timestamp="1616850922049">
+    <state x="1063" y="466" width="424" height="491" key="FileChooserDialogImpl" timestamp="1617112445208">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state x="1063" y="466" width="424" height="491" key="FileChooserDialogImpl/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1616850922049" />
-    <state width="2514" height="267" key="GridCell.Tab.0.bottom" timestamp="1616932341947">
+    <state x="1063" y="466" width="424" height="491" key="FileChooserDialogImpl/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617112445208" />
+    <state width="1234" height="365" key="GridCell.Tab.0.bottom" timestamp="1617120361043">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state width="2514" height="267" key="GridCell.Tab.0.bottom/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1616932341947" />
-    <state width="2514" height="267" key="GridCell.Tab.0.center" timestamp="1616932341947">
+    <state width="1234" height="365" key="GridCell.Tab.0.bottom/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617120361043" />
+    <state width="1234" height="365" key="GridCell.Tab.0.center" timestamp="1617120361043">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state width="2514" height="267" key="GridCell.Tab.0.center/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1616932341947" />
-    <state width="2514" height="267" key="GridCell.Tab.0.left" timestamp="1616932341946">
+    <state width="1234" height="365" key="GridCell.Tab.0.center/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617120361043" />
+    <state width="1234" height="365" key="GridCell.Tab.0.left" timestamp="1617120361043">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state width="2514" height="267" key="GridCell.Tab.0.left/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1616932341946" />
-    <state width="2514" height="267" key="GridCell.Tab.0.right" timestamp="1616932341947">
+    <state width="1234" height="365" key="GridCell.Tab.0.left/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617120361043" />
+    <state width="1234" height="365" key="GridCell.Tab.0.right" timestamp="1617120361043">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state width="2514" height="267" key="GridCell.Tab.0.right/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1616932341947" />
-    <state x="769" y="343" width="1022" height="737" key="SettingsEditor" timestamp="1616850636860">
+    <state width="1234" height="365" key="GridCell.Tab.0.right/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617120361043" />
+    <state x="769" y="343" width="1413" height="737" key="SettingsEditor" timestamp="1617114440981">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state x="769" y="343" width="1022" height="737" key="SettingsEditor/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1616850636860" />
+    <state x="769" y="343" width="1413" height="737" key="SettingsEditor/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617114440981" />
     <state x="969" y="273" width="621" height="870" key="find.popup" timestamp="1616860885126">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
