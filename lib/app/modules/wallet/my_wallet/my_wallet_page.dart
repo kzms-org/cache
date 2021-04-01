@@ -798,12 +798,12 @@ class _MyWalletPageState extends State<MyWalletPage> {
                     onTap: () {
                       selectedTab = 3;
                       changepage();
-                      Modular.to.pushReplacementNamed("/wallet/shopping-list");
+                      Modular.to.pushReplacementNamed("/wallet/chatbot");
                     },
                     child: Container(
                       width: 66,
                       child: SvgPicture.asset(
-                        "assets/Pulse_machine.svg",
+                        "assets/chatbot.svg",
                         color: button3,
                       ),
                     ),

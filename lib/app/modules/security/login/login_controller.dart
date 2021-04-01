@@ -17,33 +17,33 @@ abstract class _LoginControllerBase with Store {
   bool loading = false;
 
   @action
-  Future<dynamic> loginWithUsernameAndPassword(String email, String password) async {
-    print("email: in logincontroller "+email);
-    final url  = "https://10.0.2.2:5000/test";
-    Modular.to.pushReplacementNamed('/wallet');
-    return await http.post(
-      //Uri.http('10.0.2.2', 'test'),
-      url,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'email': email,
-        'password': password
-      }),
-    );
-
-  }
-
-  // Future loginWithUsernameAndPassword(String email, String password) async {
-  //   try {
-  //     loading = true;
-  //     await authController.loginWithEmailPassword(email, password);
-  //     //Modular.to.pushReplacementNamed('/wallet');
-  //   } catch (e) {
-  //     loading = true;
-  //   }
+  // Future<dynamic> loginWithUsernameAndPassword(String email, String password) async {
+  //   Modular.get()
+  //   print("email: in logincontroller "+email);
+  //   final url  = "http://10.0.2.2:5000/signin";
+  //   return await http.post(
+  //     //Uri.http('10.0.2.2', 'test'),
+  //     url,
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode(<String, String>{
+  //       'email': email,
+  //       'password': password
+  //     }),
+  //   );
+  //
   // }
+
+  Future loginWithUsernameAndPassword(String email, String password) async {
+    try {
+      loading = true;
+      //await authController.loginWithEmailPassword(email, password);
+      Modular.to.pushReplacementNamed('/wallet');
+    } catch (e) {
+      loading = true;
+    }
+  }
 
   signUp() {
     Modular.to.pushReplacementNamed('/security/signup');
