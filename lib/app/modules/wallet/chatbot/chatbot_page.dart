@@ -4,10 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:focused_menu/modals.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cache/play_ui/button/button_widget.dart';
 import 'package:cache/play_ui/play_ui.dart';
 import 'package:cache/play_ui/text_widget/text_widget.dart';
 import 'package:focused_menu/focused_menu.dart';
+import 'package:cache/play_ui/modal/modal.dart';
+
 
 class ChatbotPage extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class ChatbotPage extends StatefulWidget {
 
 
 class _ChatbotPageState extends State<ChatbotPage> {
-  Map<String,List<ListItem>> questions = {
+  Map<String,List<String>> questions = {
     "Forecast": [
       "Show me my forecast for the next week.",
       "How much will I have at the end of the month?"
@@ -28,8 +29,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
       "My income this year.",
       "Show me the spending graph."
     ]
-  }
-
+  };
+  Modal modal = new Modal();
 
   // NavBar items START....................
   int selectedTab = 3;
@@ -158,8 +159,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
                   bottomOffsetHeight: 100,
                   openWithTap: true,
                   menuItems: <FocusedMenuItem>[
-                    FocusedMenuItem(title: Text("Forecast"), onPressed: () {}),
-                    FocusedMenuItem(title: Text("Statistics"), onPressed: () {}),
+                    FocusedMenuItem(title: Text("Forecast"), onPressed: () => modal.mainBottomSheet(context, questions["Forecast"])),
+                    FocusedMenuItem(title: Text("Statistics"), onPressed: () => modal.mainBottomSheet(context, questions["Statistics"])),
                   ],
                   onPressed: (){},
                   child: Container(
@@ -231,8 +232,6 @@ class _ChatbotPageState extends State<ChatbotPage> {
   }
 
   // NavBar items END......................
-
-  void chatBotAskingOptions(BuildContext context) async {}
 
   Widget createLogo(Widget logo) {
     return Container(
