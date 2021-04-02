@@ -139,8 +139,7 @@ class _AccountsPageState extends State<AccountsPage> {
         ),
         centerTitle: true,
       ),
-      body: //scaffold's body
-          SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(

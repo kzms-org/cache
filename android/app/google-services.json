@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "664936347491",
-    "project_id": "cache-b41d7",
-    "storage_bucket": "cache-b41d7.appspot.com"
+    "project_number": "531224139665",
+    "project_id": "cache-5d175",
+    "storage_bucket": "cache-5d175.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:664936347491:android:2ca07794b019580b0e8556",
+        "mobilesdk_app_id": "1:531224139665:android:39d8f111d475a029a06c30",
         "android_client_info": {
           "package_name": "com.kzms.cache"
         }
       },
       "oauth_client": [
         {
-          "client_id": "664936347491-8sup825tlc6u1jfuvv0c7thik5g72hoa.apps.googleusercontent.com",
+          "client_id": "531224139665-lepr1nqijnigr5i15ovkpjlc64nopf6r.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB3XF-Qp3btzfdlt4oCt5SXGy3ceAqw-pY"
+          "current_key": "AIzaSyDJmsZk1LuwX6_hUdsRgxy9QxW9idPCiqE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "664936347491-8sup825tlc6u1jfuvv0c7thik5g72hoa.apps.googleusercontent.com",
+              "client_id": "531224139665-lepr1nqijnigr5i15ovkpjlc64nopf6r.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
