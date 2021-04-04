@@ -7,6 +7,8 @@ import 'package:cache/play_ui/button/button_widget.dart';
 import 'package:cache/play_ui/play_ui.dart';
 import 'package:cache/play_ui/text_widget/text_widget.dart';
 
+import 'package:cache/app/modules/security/auth.dart';
+
 class AuthenticationTypesPage extends StatefulWidget {
   @override
   _AuthenticationTypesPageState createState() =>
@@ -14,6 +16,8 @@ class AuthenticationTypesPage extends StatefulWidget {
 }
 
 class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
+  final AuthService _auth = AuthService();
+
   Widget createLogo(Widget logo) {
     return Container(
       child: logo,
@@ -149,6 +153,26 @@ class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
             ),
             onTap: () {
               print("Login with Twitter Pressed");
+            },
+          ),
+          Container(
+            height: 10,
+          ),
+          ButtonWidget.icon(
+            text: 'Login Anonymously',
+            backgroudColor: HexColor('#1c3a4d'),
+            color: HexColor('#58b5ef'),
+            onTap: () async{
+              print("Anonymous login");
+              dynamic result = await _auth.logInAnonymously();
+
+              if(result == null){
+                print('error signing in..');
+              }else{
+                print('signed in');
+                print(result);
+                Modular.to.pushReplacementNamed("/wallet");
+              }
             },
           ),
           Container(

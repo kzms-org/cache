@@ -18,6 +18,7 @@ class ChatbotPage extends StatefulWidget {
 
 
 class _ChatbotPageState extends State<ChatbotPage> {
+
   Map<String,List<String>> questions = {
     "Forecast": [
       "Show me my forecast for the next week.",
@@ -31,6 +32,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
     ]
   };
   Modal modal = new Modal();
+
 
   // NavBar items START....................
   int selectedTab = 3;
@@ -206,6 +208,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
                     child: SvgPicture.asset(
                       "assets/chatbot.svg",
                       color: button3,
+                      height:48,
+                      width: 48,
                     ),
                   ),
                 ),

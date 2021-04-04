@@ -6,4 +6,5 @@ export 'page_scaffold/page_scaffold_widget.dart';
 export 'switch/switch_widget.dart';
 export 'text_field/text_field_widget.dart';
 export 'text_widget/text_widget.dart';
+export 'easy_widgets/easy_widgets.dart';
 export 'horizontal_list_view_widget/horizontal_list_view_widget.dart';
