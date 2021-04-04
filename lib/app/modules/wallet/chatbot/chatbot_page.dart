@@ -18,6 +18,7 @@ class ChatbotPage extends StatefulWidget {
 
 
 class _ChatbotPageState extends State<ChatbotPage> {
+
   Map<String,List<String>> questions = {
     "Forecast": [
       "Show me my forecast for the next week.",
@@ -31,6 +32,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
     ]
   };
   Modal modal = new Modal();
+
 
   // NavBar items START....................
   int selectedTab = 3;

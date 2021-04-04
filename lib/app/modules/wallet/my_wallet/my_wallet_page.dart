@@ -16,19 +16,6 @@ class _MyWalletPageState extends State<MyWalletPage> {
   String totalMoney2 = ".90";
   String lastWeekComp = "+25% ";
 
-  List<int> money = [23, 544, 765, 76, 54, 65, 34, 6745, 234, 564];
-  List from = [
-    "Paypal",
-    "Amazon",
-    "CheapEverything",
-    "Aliexpress",
-    "Toyota",
-    "USP",
-    "Amazon",
-    "Credit",
-    "CheapEverything",
-    "Paypal"
-  ];
   int selectedTab = 0;
   int tabcount = 5;
   Color button0 = const Color(0xffe3a33d);

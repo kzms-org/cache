@@ -9,18 +9,28 @@ class RecordsPage extends StatefulWidget {
 }
 
 class _RecordsPageState extends State<RecordsPage> {
-  List<int> money = [23, 544, 765, 76, 54, 65, 34, 6745, 234, 564];
+
+  List<int> money = [
+    23,
+    544,
+    15,
+    76,
+    54,
+    65,
+    34,
+    145,
+    204,
+  ];
   List from = [
-    "Paypal",
-    "Amazon",
-    "CheapEverything",
-    "Aliexpress",
-    "Toyota",
-    "USP",
-    "Amazon",
-    "Credit",
-    "CheapEverything",
-    "Paypal"
+    "Paypal Transfer",
+    "Amazon - Gaming Keyboard",
+    "Cheap Mouse",
+    "Aliexpress Order",
+    "Toyota car servicing",
+    "USP Delivery",
+    "Credit card Payment",
+    "Panda Grocery Shopping",
+    "Saco Blue paint Container",
   ];
   int selectedTab = 1;
   int tabcount = 5;
@@ -283,18 +293,28 @@ class _RecordsPageState extends State<RecordsPage> {
   }
 }
 
-List<int> money = [23, 544, 765, 76, 54, 65, 34, 6745, 234, 564];
+
+List<int> money = [
+  23,
+  544,
+  15,
+  76,
+  54,
+  65,
+  34,
+  145,
+  204,
+];
 List from = [
-  "Paypal",
-  "Amazon",
-  "CheapEverything",
-  "Aliexpress",
-  "Toyota",
-  "USP",
-  "Amazon",
-  "Credit",
-  "CheapEverything",
-  "Paypal"
+  "Paypal Transfer",
+  "Amazon - Gaming Keyboard",
+  "Cheap Mouse",
+  "Aliexpress Order",
+  "Toyota car servicing",
+  "USP Delivery",
+  "Credit card Payment",
+  "Panda Grocery Shopping",
+  "Saco Blue paint Container",
 ];
 
 class Page1 extends StatelessWidget {

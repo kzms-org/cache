@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cache/play_ui/easy_widgets/easy_widgets.dart';
 
 class AccountsPage extends StatefulWidget {
   @override
@@ -9,38 +10,31 @@ class AccountsPage extends StatefulWidget {
 }
 
 class _AccountsPageState extends State<AccountsPage> {
-  String username = "Jordan Lane";
-  String date = "21 Feb";
+  String username = "User";
+  String date = returnDate();
+
 
   List<int> money = [
     23,
     544,
-    765,
+    15,
     76,
     54,
     65,
     34,
-    6745,
-    234,
-    564,
-    34,
-    6745,
-    234,
+    145,
+    204,
   ];
   List from = [
-    "Paypal",
-    "Amazon",
-    "CheapEverything",
-    "Aliexpress",
-    "Toyota",
-    "USP",
-    "Amazon",
-    "Credit",
-    "CheapEverything",
-    "Paypal",
-    "Amazon",
-    "Credit",
-    "CheapEverything",
+    "Paypal Transfer",
+    "Amazon - Gaming Keyboard",
+    "Cheap Mouse",
+    "Aliexpress Order",
+    "Toyota car servicing",
+    "USP Delivery",
+    "Credit card Payment",
+    "Panda Grocery Shopping",
+    "Saco Blue paint Container",
   ];
   int selectedTab = 4;
   int tabcount = 5;
@@ -275,8 +269,7 @@ class _AccountsPageState extends State<AccountsPage> {
                               shape: BoxShape.circle,
                               image: new DecorationImage(
                                   fit: BoxFit.cover,
-                                  image:
-                                  AssetImage("assets/profilephoto.png")))),
+                                  image: AssetImage("assets/profilephoto.png")))),
                       Container(
                         width: 15,
                       ),
@@ -297,7 +290,7 @@ class _AccountsPageState extends State<AccountsPage> {
                             width: 96,
                             height: 17.666667938232422,
                             child: Text(
-                              'Today, 21 Jan',
+                              date,
                               style: GoogleFonts.montserrat(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -445,71 +438,6 @@ class _AccountsPageState extends State<AccountsPage> {
             ),
             Container(
               height: 36,
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(18.3, 0, 18.3, 0),
-              child: Container(
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xff000000).withOpacity(0.25),
-                        blurRadius:
-                        15.0, // has the effect of softening the shadow
-                        spreadRadius:
-                        0.5, // has the effect of extending the shadow
-                        offset: Offset(
-                          0.0, // horizontal, move right 10
-                          10.0, // vertical, move down 10
-                        ),
-                      ),
-                    ],
-                    color: const Color(0xff1c3a4d),
-                    borderRadius: BorderRadius.circular(15)),
-                alignment: Alignment.center,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.fromLTRB(25, 0, 0, 0),
-                                child: Text(
-                                  'Extensions',
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Container(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.only(bottom: 25),
-                          scrollDirection: Axis.vertical,
-                          reverse: false,
-                          itemBuilder: (_, int index) =>
-                              Extentions(money[index], from[index]),
-                          itemCount: money.length,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              height: 50,
             ),
           ],
         ),
