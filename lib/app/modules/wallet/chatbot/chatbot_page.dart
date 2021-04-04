@@ -206,6 +206,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
                     child: SvgPicture.asset(
                       "assets/chatbot.svg",
                       color: button3,
+                      height:48,
+                      width: 48,
                     ),
                   ),
                 ),
