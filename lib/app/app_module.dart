@@ -5,9 +5,7 @@ import 'app_widget.dart';
 import 'modules/security/security_module.dart';
 import 'modules/user/user_module.dart';
 import 'modules/wallet/wallet_module.dart';
-import 'shared/auth/auth_controller.dart';
-import 'shared/auth/repositories/auth_repository.dart';
-import 'shared/auth/repositories/auth_repository_interface.dart';
+
 
 class AppModule extends MainModule {
 
@@ -15,8 +13,6 @@ class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
         Bind((i) => AppController()),
-        Bind<IAuthRepository>((i) => AuthRepository()),
-        Bind((i) => AuthController()),
       ];
 
   // Provide all routes for the modular app

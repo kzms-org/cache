@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:cache/app/shared/auth/auth_controller.dart';
+
 part 'login_controller.g.dart';
 
 class LoginController = _LoginControllerBase with _$LoginController;
@@ -11,7 +11,7 @@ abstract class _LoginControllerBase with Store {
   String email;
   String password;
 
-  AuthController authController = Modular.get();
+
 
   @observable
   bool loading = false;
@@ -32,6 +32,6 @@ abstract class _LoginControllerBase with Store {
   }
 
   logoff() async {
-    await authController.logoff();
+
   }
 }

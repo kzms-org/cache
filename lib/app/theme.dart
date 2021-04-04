@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cache/play_ui/play_ui.dart';
 
-abstract class WalletUiTheme {}
+abstract class CacheTheme {}
 
 abstract class ThemeMixin {
   ThemeData getTheme(BuildContext context) {

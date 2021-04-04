@@ -106,6 +106,124 @@ class _AccountsPageState extends State<AccountsPage> {
     }
   }
 
+  Widget navBar() {
+    return Container(
+      color: const Color(0xff1b394c),
+      child: SafeArea(
+        child: Container(
+          height: 66.5,
+          decoration: BoxDecoration(
+            color: const Color(0xff1b394c),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xff000000).withOpacity(0.25),
+                blurRadius: 15.0, // has the effect of softening the shadow
+                spreadRadius: 0.5, // has the effect of extending the shadow
+                offset: Offset(
+                  0.0, // horizontal, move right 10
+                  -20.0, // vertical, move down 10
+                ),
+              ),
+            ],
+          ),
+          child: Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    selectedTab = 0;
+                    changepage();
+                    Modular.to.pushReplacementNamed("/wallet");
+                  },
+                  child: Container(
+                    width: 66,
+                    child: SvgPicture.asset(
+                      "assets/Wallet.svg",
+                      color: button0,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    selectedTab = 1;
+                    changepage();
+                    Modular.to.pushReplacementNamed("/wallet/records");
+                  },
+                  child: Container(
+                    width: 66,
+                    child: SvgPicture.asset(
+                      "assets/Horizontal_view.svg",
+                      color: button1,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Modular.to.pushNamed("wallet/add-funds");
+                  },
+                  child: Container(
+                    width: 48.0,
+                    height: 48.0,
+                    decoration: new BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xff000000).withOpacity(0.5),
+                          blurRadius:
+                          15.0, // has the effect of softening the shadow
+                          spreadRadius:
+                          0.5, // has the effect of extending the shadow
+                          offset: Offset(
+                            0.0, // horizontal, move right 10
+                            0.0, // vertical, move down 10
+                          ),
+                        ),
+                      ],
+                      shape: BoxShape.circle,
+                      color: const Color(0xff315fd6),
+                    ),
+                    child: Icon(Icons.add, color: button2),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    selectedTab = 3;
+                    changepage();
+                    Modular.to.pushReplacementNamed("/wallet/chatbot");
+                  },
+                  child: Container(
+                    width: 66,
+                    child: SvgPicture.asset(
+                      "assets/chatbot.svg",
+                      color: button3,
+                      height: 48,
+                      width: 48,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    selectedTab = 4;
+                    changepage();
+                  },
+                  child: Container(
+                    width: 66,
+                    child: SvgPicture.asset(
+                      "assets/Credit_card.svg",
+                      color: button4,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff112a39),
@@ -158,7 +276,7 @@ class _AccountsPageState extends State<AccountsPage> {
                               image: new DecorationImage(
                                   fit: BoxFit.cover,
                                   image:
-                                      AssetImage("assets/profilephoto.png")))),
+                                  AssetImage("assets/profilephoto.png")))),
                       Container(
                         width: 15,
                       ),
@@ -214,9 +332,9 @@ class _AccountsPageState extends State<AccountsPage> {
                       BoxShadow(
                         color: const Color(0xff000000).withOpacity(0.25),
                         blurRadius:
-                            15.0, // has the effect of softening the shadow
+                        15.0, // has the effect of softening the shadow
                         spreadRadius:
-                            0.5, // has the effect of extending the shadow
+                        0.5, // has the effect of extending the shadow
                         offset: Offset(
                           0.0, // horizontal, move right 10
                           10.0, // vertical, move down 10
@@ -302,9 +420,9 @@ class _AccountsPageState extends State<AccountsPage> {
                             BoxShadow(
                               color: const Color(0xff000000).withOpacity(0.25),
                               blurRadius:
-                                  15.0, // has the effect of softening the shadow
+                              15.0, // has the effect of softening the shadow
                               spreadRadius:
-                                  0.5, // has the effect of extending the shadow
+                              0.5, // has the effect of extending the shadow
                               offset: Offset(
                                 10.0, // horizontal, move right 10
                                 10.0, // vertical, move down 10
@@ -336,9 +454,9 @@ class _AccountsPageState extends State<AccountsPage> {
                       BoxShadow(
                         color: const Color(0xff000000).withOpacity(0.25),
                         blurRadius:
-                            15.0, // has the effect of softening the shadow
+                        15.0, // has the effect of softening the shadow
                         spreadRadius:
-                            0.5, // has the effect of extending the shadow
+                        0.5, // has the effect of extending the shadow
                         offset: Offset(
                           0.0, // horizontal, move right 10
                           10.0, // vertical, move down 10
@@ -396,120 +514,10 @@ class _AccountsPageState extends State<AccountsPage> {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        color: const Color(0xff1b394c),
-        child: SafeArea(
-          child: Container(
-            height: 66.5,
-            decoration: BoxDecoration(
-              color: const Color(0xff1b394c),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xff000000).withOpacity(0.25),
-                  blurRadius: 15.0, // has the effect of softening the shadow
-                  spreadRadius: 0.5, // has the effect of extending the shadow
-                  offset: Offset(
-                    0.0, // horizontal, move right 10
-                    -20.0, // vertical, move down 10
-                  ),
-                ),
-              ],
-            ),
-            child: Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      selectedTab = 0;
-                      changepage();
-                      Modular.to.pushReplacementNamed("/wallet");
-                    },
-                    child: Container(
-                      width: 66,
-                      child: SvgPicture.asset(
-                        "assets/Wallet.svg",
-                        color: button0,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      selectedTab = 1;
-                      changepage();
-                      Modular.to.pushReplacementNamed("/wallet/records");
-                    },
-                    child: Container(
-                      width: 66,
-                      child: SvgPicture.asset(
-                        "assets/Horizontal_view.svg",
-                        color: button1,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Modular.to.pushNamed("wallet/add-funds");
-                    },
-                    child: Container(
-                      width: 48.0,
-                      height: 48.0,
-                      decoration: new BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xff000000).withOpacity(0.5),
-                            blurRadius:
-                                15.0, // has the effect of softening the shadow
-                            spreadRadius:
-                                0.5, // has the effect of extending the shadow
-                            offset: Offset(
-                              0.0, // horizontal, move right 10
-                              0.0, // vertical, move down 10
-                            ),
-                          ),
-                        ],
-                        shape: BoxShape.circle,
-                        color: const Color(0xff315fd6),
-                      ),
-                      child: Icon(Icons.add, color: button2),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      selectedTab = 3;
-                      changepage();
-                      Modular.to.pushReplacementNamed("/wallet/shopping-list");
-                    },
-                    child: Container(
-                      width: 66,
-                      child: SvgPicture.asset(
-                        "assets/Pulse_machine.svg",
-                        color: button3,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      selectedTab = 4;
-                      changepage();
-                    },
-                    child: Container(
-                      width: 66,
-                      child: SvgPicture.asset(
-                        "assets/Credit_card.svg",
-                        color: button4,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+      bottomNavigationBar: navBar(),
     );
   }
+
 }
 
 class BankCardListUp extends StatelessWidget {

@@ -6,7 +6,7 @@ class AppWidget extends StatelessWidget with ThemeMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Wallet UI',
+      title: 'Cache',
       theme: getTheme(context),
       initialRoute: '/security/auth-types',
       onGenerateRoute: Modular.generateRoute,
