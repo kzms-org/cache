@@ -7,15 +7,16 @@ import 'package:provider/provider.dart';
 import 'package:cache/app/modules/user/cacheuser.dart';
 import 'app/modules/security/auth.dart';
 
-// void main() => runApp(ModularApp(
-//       module: AppModule(),
-//     ));
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-      ModularApp(
+    StreamProvider<CacheUser>.value(
+      value: AuthService().user,
+      child: ModularApp(
         module: AppModule(),
-      ));
+      ))
+    );
 }

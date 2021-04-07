@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cache/app/modules/security/profile/profile_page.dart';
 import 'package:cache/app/modules/security/signup/signup_page.dart';
-
 import 'authentication_types/authentication_types_page.dart';
 import 'login/login_controller.dart';
 import 'login/login_page.dart';

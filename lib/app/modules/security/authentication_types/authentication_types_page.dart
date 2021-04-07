@@ -111,7 +111,11 @@ class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
         children: <Widget>[
           createHeader(
             logo: Image(
-              image: AssetImage("assets/Logo.png"),
+              image: AssetImage(
+                  "assets/Logo.png"
+              ),
+              height:40,
+              width:40
             ),
             title: 'Cache',
             description: 'You are rich, we just help you realize that!',

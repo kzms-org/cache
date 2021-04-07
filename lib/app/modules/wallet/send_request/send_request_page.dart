@@ -10,7 +10,7 @@ class SendRequestPage extends StatefulWidget {
 class _SendRequestPageState extends State<SendRequestPage> {
   Widget build(BuildContext context) {
     return DefaultTabController(
-      // Tabbar'ımızın kaç elemanı olucak ?
+
       length: 3,
       child: Scaffold(
           appBar: AppBar(
@@ -71,8 +71,7 @@ class _SendRequestPageState extends State<SendRequestPage> {
               ],
             ),
           ),
-          // TabBarView içerisine Tabbar içerisindeki elemanlarla
-          // eşleşicek sayfaları ekliyoruz
+
           body: TabBarView(
             children: <Widget>[
               Page1(),
