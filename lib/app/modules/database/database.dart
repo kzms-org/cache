@@ -17,13 +17,20 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('ChatBot');
 
   // Add user information to database
-    Future<void> addUserToDatabase(String email, String username) async{
-      return await userCollection.doc(uid).set({
-       'userID': this.uid,
-       'email': email,
-       'username': username,
-       'registerDate': DateTime.now();
+  Future<void> addUserToDatabase(String email, String username) async{
+    return await userCollection.doc(uid).set({
+     'userID': this.uid,
+     'email': email,
+     'username': username,
+     'registerDate': DateTime.now(),
+    });
+  }
 
-      });
-    }
+  // Upload transactions
+  Future<void> uploadTransactions() async {
+    // return await transactionsCollection.doc(uid).set({
+    //   'transactionID': ,
+    // });
+  }
+
 }
