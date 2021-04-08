@@ -25,7 +25,7 @@ abstract class _SignUpControllerBase with Store {
         dynamic result = await _auth.signUpWithEmailAndPassword(email, password);
 
         if(result == null){
-          print('error signing in.. Try Again!');
+          print('error signing up.. Try Again!');
         }else{
           print('signed in check result below');
           print(result);
@@ -39,6 +39,6 @@ abstract class _SignUpControllerBase with Store {
     } catch (e) {
       loading = true;
     }
-    Modular.to.pushReplacementNamed('/wallet');
+
   }
 }

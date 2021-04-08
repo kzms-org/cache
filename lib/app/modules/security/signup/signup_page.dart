@@ -13,6 +13,10 @@ class _SignUpPageState extends State<SignUpPage> {
   bool isSwitched = false;
   Color checkbox1Color = const Color(0xff112a39);
   Color checkboxborderColor1 = const Color(0xff7099b2);
+  String username;
+  String email;
+  String emailConfirmation;
+  String password;
 
   final signUpController = Modular.get<SignUpController>();
 
@@ -46,7 +50,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 padding: EdgeInsets.fromLTRB(27.9, 0, 27.9, 0),
                 height: 72,
                 child: Text(
-                  'Great men always kept records of their coin.',
+                  'The most difficult thing is the decision to act, the rest is merely tenacity.',
                   style: GoogleFonts.montserrat(
                     fontSize: 24,
                     color: Color(0xffeeeeee),
@@ -87,12 +91,16 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(27.9, 0, 27.9, 0),
-                    child: TextField(
+                    child:
+                    TextField(
                         style: GoogleFonts.montserrat(
                           fontSize: 13.33,
                           fontWeight: FontWeight.w600,
                           color: Color(0xffeeeeee),
                         ),
+                        onChanged: (String value) {
+                          username = value;
+                        },
                         obscureText: false,
                         decoration: InputDecoration(
                           hintStyle: TextStyle(
@@ -120,6 +128,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           fontWeight: FontWeight.w600,
                           color: Color(0xffeeeeee),
                         ),
+                        onChanged: (String value) {
+                          email = value;
+                        },
                         obscureText: false,
                         decoration: InputDecoration(
                           hintStyle: TextStyle(
@@ -147,6 +158,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           fontWeight: FontWeight.w600,
                           color: Color(0xffeeeeee),
                         ),
+                        onChanged: (String value) {
+                          emailConfirmation = value;
+                        },
                         obscureText: false,
                         decoration: InputDecoration(
                           hintStyle: TextStyle(
@@ -174,6 +188,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           fontWeight: FontWeight.w600,
                           color: Color(0xffeeeeee),
                         ),
+                        onChanged: (String value) {
+                          password = value;
+                        },
                         obscureText: true,
                         decoration: InputDecoration(
                           hintStyle: TextStyle(
@@ -249,7 +266,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               GestureDetector(
                 onTap: () {
-                  signUpController.signUp("", "", "", "");
+                  signUpController.signUp(username, email, emailConfirmation, password);
                 },
                 child: Container(
                   width: 321,
@@ -292,7 +309,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      'Already signed?',
+                      'Already Registered?',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         fontSize: 12.67,
