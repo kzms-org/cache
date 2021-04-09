@@ -9,19 +9,19 @@ import 'records/records_page.dart';
 import 'send_request/send_request_page.dart';
 import 'chatbot/chatbot_page.dart';
 
-class WalletModule extends ChildModule {
+class WalletModule extends Module {
   @override
   List<Bind> get binds => [];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter('/', child: (_, args) => MyWalletPage()),
-        ModularRouter('/records', child: (_, args) => RecordsPage()),
-        ModularRouter('/accounts', child: (_, args) => AccountsPage()),
-        ModularRouter('/add-funds', child: (_, args) => AddFundsPage()),
-        ModularRouter('/send-request', child: (_, args) => SendRequestPage()),
-        ModularRouter('/open-item', child: (_, args) => OpenItemPage()),
-        ModularRouter('/edit-item', child: (_, args) => EditItemPage()),
-        ModularRouter('/chatbot', child: (_, args) => ChatbotPage()),
+  List<ModularRoute> get routes => [
+      ChildRoute('/', child: (_, args) => MyWalletPage()),
+      ChildRoute('/records', child: (_, args) => RecordsPage()),
+      ChildRoute('/accounts', child: (_, args) => AccountsPage()),
+      ChildRoute('/add-funds', child: (_, args) => AddFundsPage()),
+      ChildRoute('/send-request', child: (_, args) => SendRequestPage()),
+      ChildRoute('/open-item', child: (_, args) => OpenItemPage()),
+      ChildRoute('/edit-item', child: (_, args) => EditItemPage()),
+      ChildRoute('/chatbot', child: (_, args) => ChatbotPage()),
       ];
 }

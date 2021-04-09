@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cache/app/theme.dart';
 import 'package:provider/provider.dart';
-
 import 'modules/user/cacheuser.dart';
 
 class AppWidget extends StatelessWidget with ThemeMixin {
@@ -13,15 +12,14 @@ class AppWidget extends StatelessWidget with ThemeMixin {
       title: 'Cache',
       theme: getTheme(context),
       initialRoute: returnInitialRoute(context),
-      onGenerateRoute: Modular.generateRoute,
-      navigatorKey: Modular.navigatorKey,
-    );
+
+    ).modular();
   }
 
-  returnInitialRoute(BuildContext context) {
+  String returnInitialRoute(BuildContext context) {
     final user = Provider.of<CacheUser>(context);
     print(user);
-
+    print(Modular.initialRoute);
     if(user == null)
       return "/security/auth-types";
     else
