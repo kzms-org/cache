@@ -33,7 +33,6 @@ class _ChatbotPageState extends State<ChatbotPage> {
   };
   Modal modal = new Modal();
 
-
   // NavBar items START....................
   int selectedTab = 3;
   Color button0 = const Color(0xff386785);
@@ -161,8 +160,12 @@ class _ChatbotPageState extends State<ChatbotPage> {
                   bottomOffsetHeight: 100,
                   openWithTap: true,
                   menuItems: <FocusedMenuItem>[
-                    FocusedMenuItem(title: Text("Forecast"), onPressed: () => modal.mainBottomSheet(context, questions["Forecast"])),
-                    FocusedMenuItem(title: Text("Statistics"), onPressed: () => modal.mainBottomSheet(context, questions["Statistics"])),
+                    FocusedMenuItem(
+                        title: Text("Forecast", style:TextStyle(color: Colors.black)),
+                        onPressed: () => modal.mainBottomSheet(context, questions["Forecast"])
+
+                    ),
+                    FocusedMenuItem(title: Text("Statistics", style:TextStyle(color: Colors.black)), onPressed: () => modal.mainBottomSheet(context, questions["Statistics"])),
                   ],
                   onPressed: (){},
                   child: Container(
@@ -237,59 +240,6 @@ class _ChatbotPageState extends State<ChatbotPage> {
 
   // NavBar items END......................
 
-  Widget createLogo(Widget logo) {
-    return Container(
-      child: logo,
-    );
-  }
-
-  Widget createTitle(String title) {
-    return Container(
-      width: 281,
-      height: 45,
-      child: TextWidget.title(
-        title,
-        fontSize: 40,
-      ),
-    );
-  }
-
-  Widget createDescription(String description) {
-    return Container(
-      width: 324,
-      height: 72,
-      child: TextWidget.subTitle(
-        description,
-        textAlign: TextAlign.center,
-        fontSize: 17,
-      ),
-    );
-  }
-
-  Widget createHeader({Widget logo, String title, String description}) {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 50,
-        ),
-        createLogo(logo),
-        Container(
-          height: 18,
-        ),
-        createTitle(title),
-        Container(
-          height: 9,
-        ),
-        createDescription(description),
-        Container(
-          width: 33.33,
-          height: 5.33,
-          color: const Color(0xff86959C),
-        )
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -300,7 +250,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
           icon: Icon(Icons.dehaze, color: const Color(0xff7099b2)),
           color: const Color(0xff7099b2),
           onPressed: () {
-            Modular.to.pushNamed('/security/profile');
+            //Modular.to.pushNamed('/security/profile');
+            print('sidebar');
           },
         ),
         elevation: 0,

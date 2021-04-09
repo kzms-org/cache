@@ -32,6 +32,17 @@ class _RecordsPageState extends State<RecordsPage> {
     "Panda Grocery Shopping",
     "Saco Blue paint Container",
   ];
+  List income = [
+    "Paypal Transfer",
+    "Amazon ",
+    "Sold Mouse",
+    "Aliexpress Shop",
+    "Toyota car sold",
+    "Delivery commission",
+    "Land Payment",
+    "Grocery sales",
+    "Paint sales",
+  ];
   int selectedTab = 1;
   int tabcount = 5;
   Color button0 = const Color(0xff386785);
@@ -219,13 +230,7 @@ class _RecordsPageState extends State<RecordsPage> {
         appBar: AppBar(
           backgroundColor: const Color(0xff1c3a4d),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.add, color: const Color(0xff7099b2)),
-              color: const Color(0xff7099b2),
-              onPressed: () {
-                print("Ad Button Pressed");
-              },
-            ),
+
           ],
           title: Text(
             'Records',
@@ -241,10 +246,9 @@ class _RecordsPageState extends State<RecordsPage> {
             icon: Icon(Icons.dehaze, color: const Color(0xff7099b2)),
             color: const Color(0xff7099b2),
             onPressed: () {
-              Modular.to.pushNamed('/security/profile');
+              print('sidebar');
             },
           ),
-          // elemanlarımızın iconları, isimleri vb.
           bottom: TabBar(
             unselectedLabelColor: const Color(0xffeeeeee).withOpacity(0.5),
             labelColor: Color(0xfff5a623),
@@ -361,7 +365,6 @@ class Expenses extends StatelessWidget {
       onTap: () {},
       child: GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('wallet/open-item');
         },
         child: Card(
           elevation: 0,

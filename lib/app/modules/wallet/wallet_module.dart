@@ -7,7 +7,6 @@ import 'add_funds/add_funds_page.dart';
 import 'my_wallet/my_wallet_page.dart';
 import 'records/records_page.dart';
 import 'send_request/send_request_page.dart';
-import 'shopping_list/shopping_list_page.dart';
 import 'chatbot/chatbot_page.dart';
 
 class WalletModule extends ChildModule {
@@ -18,7 +17,6 @@ class WalletModule extends ChildModule {
   List<ModularRouter> get routers => [
         ModularRouter('/', child: (_, args) => MyWalletPage()),
         ModularRouter('/records', child: (_, args) => RecordsPage()),
-        ModularRouter('/shopping-list', child: (_, args) => ShoppingListPage()),
         ModularRouter('/accounts', child: (_, args) => AccountsPage()),
         ModularRouter('/add-funds', child: (_, args) => AddFundsPage()),
         ModularRouter('/send-request', child: (_, args) => SendRequestPage()),

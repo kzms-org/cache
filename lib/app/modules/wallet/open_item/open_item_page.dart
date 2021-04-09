@@ -31,7 +31,7 @@ class _OpenItemPageState extends State<OpenItemPage> {
             icon: Icon(Icons.edit, color: const Color(0xff7099b2)),
             color: const Color(0xff7099b2),
             onPressed: () {
-              Modular.to.pushNamed('wallet/edit-item');
+
             },
           ),
           IconButton(

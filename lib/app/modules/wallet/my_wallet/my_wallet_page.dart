@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cache/play_ui/easy_widgets/easy_widgets.dart';
 
 class MyWalletPage extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class MyWalletPage extends StatefulWidget {
 class _MyWalletPageState extends State<MyWalletPage> {
   double notificationOpacity = 1;
   bool notification = false;
-  String date = "21 Feb";
+  String date = returnDate();
   String totalMoney1 = "6791";
   String totalMoney2 = ".90";
   String lastWeekComp = "+25% ";
@@ -224,22 +225,22 @@ class _MyWalletPageState extends State<MyWalletPage> {
                   backgroundColor: Colors.red.withOpacity(notificationOpacity),
                 ),
               ),
-              IconButton(
-                icon: Icon(Icons.notifications, color: const Color(0xff7099b2)),
-                color: const Color(0xff7099b2),
-                onPressed: () {
-                  print("Notifications Button Pressed");
-                  setState(() {
-                    if (notification == true) {
-                      notificationOpacity = 1;
-                      notification = false;
-                    } else {
-                      notificationOpacity = 0;
-                      notification = true;
-                    }
-                  });
-                },
-              ),
+              // IconButton(
+              //   icon: Icon(Icons.notifications, color: const Color(0xff7099b2)),
+              //   color: const Color(0xff7099b2),
+              //   onPressed: () {
+              //     print("Notifications Button Pressed");
+              //     setState(() {
+              //       if (notification == true) {
+              //         notificationOpacity = 1;
+              //         notification = false;
+              //       } else {
+              //         notificationOpacity = 0;
+              //         notification = true;
+              //       }
+              //     });
+              //   },
+              // ),
             ],
           ),
           IconButton(
@@ -255,12 +256,12 @@ class _MyWalletPageState extends State<MyWalletPage> {
           icon: Icon(Icons.dehaze, color: const Color(0xff7099b2)),
           color: const Color(0xff7099b2),
           onPressed: () {
-            Modular.to.pushNamed('/security/profile');
+            print('sidebar');
           },
         ),
         elevation: 0,
         title: Text(
-          'My Wallet',
+          'Dashboard',
           textAlign: TextAlign.center,
           style: GoogleFonts.montserrat(
             fontSize: 14,
@@ -383,20 +384,6 @@ class _MyWalletPageState extends State<MyWalletPage> {
                           )
                         ],
                       ),
-                      Container(
-                          alignment: Alignment.bottomLeft,
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                lastWeekComp + ' Comp. last week',
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 12.67,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xffeeeeee).withOpacity(0.5),
-                                ),
-                              ),
-                            ],
-                          )),
                     ],
                   ),
                 ),
