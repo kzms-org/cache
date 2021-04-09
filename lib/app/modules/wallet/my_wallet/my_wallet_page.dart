@@ -256,7 +256,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
           icon: Icon(Icons.dehaze, color: const Color(0xff7099b2)),
           color: const Color(0xff7099b2),
           onPressed: () {
-            print('sidebar');
+            Modular.to.pushNamed('/security/profile');
           },
         ),
         elevation: 0,
@@ -271,6 +271,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
         ),
         centerTitle: true,
       ),
+
       body: //scaffold's body
           SingleChildScrollView(
         child: Column(

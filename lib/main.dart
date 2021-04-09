@@ -16,6 +16,7 @@ void main() async {
   runApp(
     StreamProvider<CacheUser>.value(
       value: AuthService().user,
+      initialData: null,
       child: ModularApp(
         module: AppModule(),
         child: AppWidget(),

@@ -1,3 +1,4 @@
+import 'package:cache/app/modules/database/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cache/app/modules/user/cacheuser.dart';
 
@@ -7,7 +8,7 @@ class AuthService{
     final FirebaseAuth _auth = FirebaseAuth.instance;
 
     CacheUser _userFromFirebaseUser(User user) {
-      return user != null ? CacheUser(uid: user.uid): null;
+      return user != null ? CacheUser(uid: user.uid, email:user.email): null;
     }
 
     Stream<CacheUser> get user {
@@ -35,6 +36,7 @@ class AuthService{
         UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
         User user = result.user;
         print(user);
+        //await Database(uid: user.uid).addUserToDatabase(email, username);
         return user;
       } catch (error) {
         print(error.toString());
@@ -43,14 +45,25 @@ class AuthService{
     }
 
     // Register with email and password
-    Future signUpWithEmailAndPassword(String email, String password) async {
+    Future signUpWithEmailAndPassword(String email, String password, String username) async {
       try {
         UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
         User user = result.user;
+        print(user);
+        await Database(uid: user.uid).addUserToDatabase(email, username);
+
         return _userFromFirebaseUser(user);
-      } catch (error) {
-        print(error.toString());
-        return null;
+
+      }catch (error) {
+
+        if(error.code == 'ERROR_EMAIL_ALREADY_IN_USE'){
+
+          return 1;
+        }else {
+
+          print(error.toString());
+          return null;
+        }
       }
     }
     // sign out

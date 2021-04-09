@@ -1,6 +1,6 @@
 class CacheUser {
 
   final String uid;
-
-  CacheUser({ this.uid });
+  final String email;
+  CacheUser({ this.uid, this.email });
 }

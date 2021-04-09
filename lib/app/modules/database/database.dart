@@ -1,10 +1,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DatabaseService {
+class Database {
   final String uid;
 
-  DatabaseService(this.uid);
+
 
   // Get references to collections
   final CollectionReference userCollection =
@@ -16,10 +16,14 @@ class DatabaseService {
   final CollectionReference chatbotCollection =
       FirebaseFirestore.instance.collection('ChatBot');
 
+
+  Database({this.uid});
+
   // Add user information to database
   Future<void> addUserToDatabase(String email, String username) async{
+    print("in addUserToDataBase");
     return await userCollection.doc(uid).set({
-     'userID': this.uid,
+     'name': username,
      'email': email,
      'username': username,
      'registerDate': DateTime.now(),

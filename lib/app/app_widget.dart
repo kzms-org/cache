@@ -18,8 +18,7 @@ class AppWidget extends StatelessWidget with ThemeMixin {
 
   String returnInitialRoute(BuildContext context) {
     final user = Provider.of<CacheUser>(context);
-    print(user);
-    print(Modular.initialRoute);
+
     if(user == null)
       return "/security/auth-types";
     else

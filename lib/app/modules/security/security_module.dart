@@ -1,3 +1,4 @@
+import 'package:cache/app/modules/security/profile/profile_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cache/app/modules/security/profile/profile_page.dart';
 import 'package:cache/app/modules/security/signup/signup_page.dart';
@@ -11,6 +12,7 @@ class SecurityModule extends Module {
   List<Bind> get binds => [
         Bind((i) => LoginController()),
         Bind((i) => SignUpController()),
+        Bind((i) => ProfileController()),
       ];
 
   @override
