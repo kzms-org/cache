@@ -23,18 +23,29 @@ class Database {
   Future<void> addUserToDatabase(String email, String username) async{
     print("in addUserToDataBase");
     return await userCollection.doc(uid).set({
+      'uid': this.uid,
      'name': username,
      'email': email,
      'username': username,
      'registerDate': DateTime.now(),
+     'firstName':"",
+     'lastName': "",
+     'DateOfBirth':DateTime.utc(1998,12,2),
     });
   }
 
   // Upload transactions
   Future<void> uploadTransactions() async {
-    // return await transactionsCollection.doc(uid).set({
-    //   'transactionID': ,
-    // });
+    return await transactionsCollection.doc(uid).set({
+      'transactionID': "",
+      'description': "",
+      'transactionType': "",
+      'transactionCategory': "",
+      ''
+      'amount': "",
+    });
   }
+
+
 
 }

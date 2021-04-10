@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:focused_menu/modals.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cache/play_ui/play_ui.dart';
 import 'package:cache/play_ui/text_widget/text_widget.dart';
@@ -32,6 +31,13 @@ class _ChatbotPageState extends State<ChatbotPage> {
     ]
   };
   Modal modal = new Modal();
+  final List<ChatMessage> _messages = <ChatMessage>[
+
+    ChatMessage(type: true, name: "Anonymous", text: "Hi, this is Mohammed"),
+    ChatMessage(type: false, name: "CacheBot", text: "Hello Mohammed, this is CacheBot"),
+    ChatMessage(type: false, name: "CacheBot", text: "How may I help you today?"),
+    ChatMessage(type: true, name: "Anonymous", text: "Tell me how much money I will spend next week?"),
+  ];
 
   // NavBar items START....................
   int selectedTab = 3;
@@ -266,10 +272,107 @@ class _ChatbotPageState extends State<ChatbotPage> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(children: <Widget>[]),
-      ),
+      body: Column(children: <Widget>[
+          Flexible(
+            child: ListView.builder(
+                padding: EdgeInsets.all(5.0),
+                itemBuilder: (_, int index) => _messages[index],
+                itemCount: _messages.length,
+            )
+          ),
+        ]),
       bottomNavigationBar: navBar(),
     );
   }
 }
+
+class ChatMessage extends StatelessWidget {
+  final String text;
+  final String name;
+  final bool type;
+
+  ChatMessage({this.type, this.name, this.text});
+
+  List<Widget> chatbotMessage(BuildContext context){
+    return <Widget>[
+      // for the avatar side
+      Container(
+        margin: const EdgeInsets.only(right: 10),
+        child: CircleAvatar( child:  SvgPicture.asset("assets/chatbot.svg")),
+      ),
+      // For the name and the message side
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              this.name,
+              style: GoogleFonts.montserrat(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: Color(0xffeeeeee),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top:5.0),
+              child: Text(this.text),
+            )
+          ],
+        )
+      ),
+    ];
+  }
+
+  List<Widget> userMessage(BuildContext context){
+    return <Widget>[
+
+      // For the name and the message side
+      Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Text(
+                this.name,
+                style: GoogleFonts.montserrat(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xffeeeeee),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top:5.0),
+                child: Text(this.text),
+              )
+            ],
+          )
+      ),
+      // for the avatar side
+      Container(
+          width: 52.0,
+          height: 52.0,
+        margin: const EdgeInsets.only(left: 10),
+          decoration: new BoxDecoration(
+              shape: BoxShape.circle,
+              image: new DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage("assets/profilephoto.png")))
+
+
+      ),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 15.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: this.type ? userMessage(context) : chatbotMessage(context),
+      )
+    );
+  }
+
+
+}
+
