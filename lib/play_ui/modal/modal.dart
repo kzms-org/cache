@@ -1,6 +1,11 @@
+import 'dart:async';
+
+import 'package:cache/app/modules/wallet/chatbot/chatbot_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+StreamController<dynamic> streamController = new StreamController<ChatMessage>();
 
 class Modal{
 
@@ -13,7 +18,7 @@ class Modal{
             children: <Widget>[
           for ( var i in data )
 
-              _createTile(context, i.toString(), Icons.message,_sendToCloud(i.toString())),
+              _createTile(context, i.toString(), Icons.message,  _sendToCloud(i.toString())),
             ],
           );
         }
@@ -26,12 +31,18 @@ class Modal{
       title: Text(name),
       onTap: (){
         Navigator.pop(context);
-        //action();
+
       },
     );
   }
 
   _sendToCloud(String str){
+    streamController.add(new ChatMessage(
+      type: true,
+      name: "Anonymous",
+      text: str,
+    ));
+
     Map <String,dynamic> user_question= {"Message": "Message", "Question":str};
     FirebaseFirestore.instance.collection("questions").add(user_question);
     print("works");

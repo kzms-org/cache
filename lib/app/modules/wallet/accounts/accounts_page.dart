@@ -201,7 +201,6 @@ class _AccountsPageState extends State<AccountsPage> {
   Widget build(BuildContext context) {
     final user = Provider.of<CacheUser>(context);
 
-
     return Scaffold(
       backgroundColor: const Color(0xff112a39),
       appBar: AppBar(

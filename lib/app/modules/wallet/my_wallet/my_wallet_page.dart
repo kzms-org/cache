@@ -134,7 +134,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Modular.to.pushNamed("wallet/add-funds");
+                    Modular.to.pushNamed("/wallet/add-funds");
                   },
                   child: Container(
                     width: 48.0,

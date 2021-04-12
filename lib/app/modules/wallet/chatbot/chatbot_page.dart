@@ -1,10 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cache/play_ui/play_ui.dart';
-import 'package:cache/play_ui/text_widget/text_widget.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:cache/play_ui/modal/modal.dart';
 
@@ -32,7 +32,6 @@ class _ChatbotPageState extends State<ChatbotPage> {
   };
   Modal modal = new Modal();
   final List<ChatMessage> _messages = <ChatMessage>[
-
     ChatMessage(type: true, name: "Anonymous", text: "Hi, this is Mohammed"),
     ChatMessage(type: false, name: "CacheBot", text: "Hello Mohammed, this is CacheBot"),
     ChatMessage(type: false, name: "CacheBot", text: "How may I help you today?"),
@@ -356,7 +355,6 @@ class ChatMessage extends StatelessWidget {
               image: new DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage("assets/profilephoto.png")))
-
 
       ),
     ];
