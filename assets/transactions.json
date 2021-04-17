@@ -1,0 +1,22 @@
+{
+  "transactions":[
+      {
+        "description": "MIHOYO1",
+        "TransactionType": "Credit Card1",
+        "transactionsCategory": "Gaming1",
+        "amount": 1345.23
+      },
+      {
+        "description": "MIHOYO2",
+        "TransactionType": "Credit Card2",
+        "transactionsCategory": "Gaming2",
+        "amount": 2345.23
+      },
+    {
+      "description": "MIHOYO3",
+      "TransactionType": "Credit Card3",
+      "transactionsCategory": "Gaming3",
+      "amount": 3345.23
+    }
+  ]
+}

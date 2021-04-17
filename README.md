@@ -20,3 +20,6 @@ samples, guidance on mobile development, and a full API reference.
 Resources:
 
 Migrate from Modular 2.0 to 3.0: https://medium.com/flutterando/migration-guide-modular-2-0-to-3-0-24ecf31d5e8b
+
+
+animations resource: https://medium.com/flutterdevs/introduction-to-animation-in-flutter-954dbaadc0eb
