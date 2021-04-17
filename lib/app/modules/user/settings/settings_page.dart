@@ -10,7 +10,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return DefaultTabController(
-      // Tabbar'ımızın kaç elemanı olucak ?
       length: 2,
       child: Scaffold(
         appBar: AppBar(
@@ -33,7 +32,6 @@ class _SettingsPageState extends State<SettingsPage> {
               Modular.to.pop();
             },
           ),
-          // elemanlarımızın iconları, isimleri vb.
           bottom: TabBar(
             unselectedLabelColor: const Color(0xffeeeeee).withOpacity(0.5),
             labelColor: Color(0xfff5a623),
@@ -68,8 +66,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ],
           ),
         ),
-        // TabBarView içerisine Tabbar içerisindeki elemanlarla
-        // eşleşicek sayfaları ekliyoruz
+
         body: TabBarView(
           children: <Widget>[
             Page1(),

@@ -22,7 +22,8 @@ abstract class _SignUpControllerBase with Store {
         print('correct information given');
 
         // register the user
-        dynamic result = await _auth.signUpWithEmailAndPassword(email, password);
+        dynamic result = await _auth.signUpWithEmailAndPassword(email, password, username);
+        print(result);
 
         if(result == null){
           print('error signing up.. Try Again!');

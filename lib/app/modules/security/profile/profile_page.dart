@@ -1,3 +1,5 @@
+import 'package:cache/app/modules/security/auth.dart';
+import 'package:cache/app/modules/security/profile/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +11,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String username = "Jordan Lane";
+  final profileController = Modular.get<ProfileController>();
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff112a39),
@@ -82,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Modular.to.pushReplacementNamed('/user/activity');
+                      //Modular.to.pushReplacementNamed('/user/activity');
                     },
                     child: Container(
                       height: 22,
@@ -192,7 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Modular.to.pushReplacementNamed('/user/settings');
+                      //Modular.to.pushReplacementNamed('/user/settings');
                     },
                     child: Container(
                       height: 22,
@@ -259,7 +264,9 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             GestureDetector(
               onTap: () {
-                Modular.to.pushReplacementNamed("/security/auth-types");
+                print("profile page signout button pressed");
+                profileController.signOut();
+
               },
               child: Container(
                 padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
