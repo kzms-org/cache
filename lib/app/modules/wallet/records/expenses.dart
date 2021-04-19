@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:intl/intl.dart';
 
 class Expenses extends StatelessWidget {
   final double money;
   final String from;
-  Expenses(this.money, this.from);
+  final DateTime date;
+
+  Expenses(this.money, this.from, this.date);
+
   @override
   Widget build(BuildContext context) {
     return new GestureDetector(
       onTap: () {},
       child: GestureDetector(
-        onTap: () {
-        },
+        onTap: () {},
         child: Card(
           elevation: 0,
           color: Colors.transparent,
@@ -52,8 +54,10 @@ class Expenses extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
+                                width: 200,
                                 child: Text(
                                   from,
+                                  overflow: TextOverflow.ellipsis,
                                   style: GoogleFonts.montserrat(
                                     fontSize: 14.67,
                                     fontWeight: FontWeight.w600,
@@ -62,8 +66,10 @@ class Expenses extends StatelessWidget {
                                 ),
                               ),
                               Container(
+                                width: 200,
                                 child: Text(
                                   from,
+                                  overflow: TextOverflow.ellipsis,
                                   style: GoogleFonts.montserrat(
                                     fontSize: 10.67,
                                     fontWeight: FontWeight.w600,
@@ -90,8 +96,9 @@ class Expenses extends StatelessWidget {
                             ),
                           ),
                           Container(
+                            width: 70,
                             child: Text(
-                              '21 Feb, 2018',
+                              DateFormat("d MMM, yyyy").format(date),
                               textAlign: TextAlign.end,
                               style: GoogleFonts.montserrat(
                                 fontSize: 10.67,

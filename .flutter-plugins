@@ -9,6 +9,7 @@ firebase_core_web=/home/mohammed/snap/flutter/common/flutter/.pub-cache/hosted/p
 firebase_storage=/home/mohammed/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-8.0.3/
 firebase_storage_web=/home/mohammed/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage_web-1.0.3/
 flutter_plugin_android_lifecycle=/home/mohammed/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.1/
+multipart_request=/home/mohammed/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/multipart_request-0.3.1/
 path_provider=/home/mohammed/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.1/
 path_provider_linux=/home/mohammed/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.0.0/
 path_provider_macos=/home/mohammed/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.0/

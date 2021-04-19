@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cache/app/modules/database/database.dart';
 import 'package:cache/app/modules/pythonapi/python_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,22 +32,26 @@ abstract class _AddFundsControllerBase with Store {
       File  fileToUpload = File(filePickerResult.files.single.path);
 
       String dir = path.dirname(fileToUpload.path);
+      print(dir);
       String newPath = path.join(dir,"receiptReport.csv");
-      fileToUpload.renameSync(newPath);
-
+      print(newPath);
+      File renamedCSVFile = await File(fileToUpload.path).copy(newPath);
+      print(renamedCSVFile.path);
 
       // Send this file to the python script here
-      final  result = await pythonApi.sendCSVFileUsingPostRequest("/csvPreProcessing",fileToUpload);
-      print(result);
+      final  result = await pythonApi.sendCSVFileUsingPostRequest("/csvPreProcessing",renamedCSVFile);
+      print("http result clean csv");
+      print(result.toString());
+      Map<String, dynamic> allTransactions = jsonDecode(result);
       // read the returned file and iterate through it all and add to collection
-      await Database(uid: user.uid).uploadTransactionsCSV();
+      await Database(uid: user.uid).uploadTransactionsCSV(allTransactions);
 
 
-      String fileName = basename(fileToUpload.path);
-      Reference firebaseStorageRef = FirebaseStorage.instance.ref().child('uploads/$fileName');
-      UploadTask uploadTask = firebaseStorageRef.putFile(fileToUpload);
-      TaskSnapshot taskSnapshot = uploadTask.snapshot;
-      taskSnapshot.ref.getDownloadURL().then((value) => print("Done: $value"));
+      // String fileName = basename(fileToUpload.path);
+      // Reference firebaseStorageRef = FirebaseStorage.instance.ref().child('uploads/$fileName');
+      // UploadTask uploadTask = firebaseStorageRef.putFile(fileToUpload);
+      // TaskSnapshot taskSnapshot = uploadTask.snapshot;
+      // taskSnapshot.ref.getDownloadURL().then((value) => print("Done: $value"));
 
     }
   }

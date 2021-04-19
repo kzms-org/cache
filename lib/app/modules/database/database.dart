@@ -9,55 +9,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:intl/intl.dart';
 // Add/Delete/update/Get collections: https://medium.com/flutterdevs/using-firebase-firestore-in-flutter-b0ea2c62bc7
 // sub Collections: https://medium.com/flutterdevs/firestore-subcollections-in-flutter-b717c193a13a
 
 class Database {
   final String uid;
-
-  Map allTransactionsJSON = {
-    "expense":[
-      {
-        "description": "MIHOYO1",
-        "TransactionType": "Credit Card1",
-        "transactionsCategory": "Gaming1",
-        "amount": 1345.23
-      },
-      {
-        "description": "MIHOYO2",
-        "TransactionType": "Credit Card2",
-        "transactionsCategory": "Gaming2",
-        "amount": 2345.23
-      },
-      {
-        "description": "MIHOYO3",
-        "TransactionType": "Credit Card3",
-        "transactionsCategory": "Gaming3",
-        "amount": 3345.23
-      }
-    ],
-    "income":[
-      {
-        "description": "Stipend1",
-        "TransactionType": "Bank Transfer1",
-        "transactionsCategory": "stipend1",
-        "amount": 1345.23
-      },
-      {
-        "description": "stipend2",
-        "TransactionType": "Bank Transfer2",
-        "transactionsCategory": "stipend2",
-        "amount": 2345.23
-      },
-      {
-        "description": "stipend3",
-        "TransactionType": "Bank Transfer3",
-        "transactionsCategory": "stipend3",
-        "amount": 3345.23
-      }
-    ]
-  };
-
 
 
   // Get references to collections
@@ -90,7 +47,7 @@ class Database {
 
 
   // Upload transactions CSV file
-  Future<void> uploadTransactionsCSV() async {
+  Future<void> uploadTransactionsCSV(Map allTransactionsJSON) async {
     //Map allTransactions = jsonDecode(allTransactionsJSON);
 
 
@@ -101,10 +58,10 @@ class Database {
       doc(uid).
       collection("user_income").
       add({
-        'description': transaction["description"],
-        'transactionType': transaction["TransactionType"],
-        'transactionCategory': transaction["transactionsCategory"],
-        'amount': transaction["amount"],
+        'description': transaction["Store_or_Item"],
+
+        'transactionDate': new DateFormat("yyyy-MM-dd").parse(transaction["Date"]),
+        'amount': transaction["Credit"],
       });
     });
 
@@ -115,10 +72,9 @@ class Database {
       doc(uid).
       collection("user_expense").
       add({
-        'description': transaction["description"],
-        'transactionType': transaction["TransactionType"],
-        'transactionCategory': transaction["transactionsCategory"],
-        'amount': transaction["amount"],
+        'description': transaction["Store_or_Item"],
+        'transactionDate': new DateFormat("yyyy-MM-dd").parse(transaction["Date"]),
+        'amount': transaction["Debit"],
       });
     });
 
@@ -146,14 +102,13 @@ class Database {
 
   // INCOMES
   List<UserTransaction> _allIncomeFromSnapshot(QuerySnapshot snapshot) {
-
+    print(snapshot.docs.first.data()["transactionDate"].toDate().toString());
     return snapshot.docs.map((doc) {
       return UserTransaction(
 
         transactionID: doc.id,
         description: doc.data()["description"],
-        category: doc.data()["transactionCategory"],
-        transactionDate: DateTime.utc(1998,12,2),
+        transactionDate:  DateFormat("yyyy-MM-dd").parse(doc.data()["transactionDate"].toDate().toString()),
         transactionAmount: doc.data()["amount"],
         transactionType: "income",
       );
@@ -163,7 +118,7 @@ class Database {
 
   Stream<List<UserTransaction>> getIncomeSnapshot() {
     CollectionReference incomeCollection = FirebaseFirestore.instance.collection('Transactions/$uid/user_income');
-    return incomeCollection.orderBy("amount").limit(20).snapshots().
+    return incomeCollection.orderBy("transactionDate").limit(20).snapshots().
     map(_allIncomeFromSnapshot);
   }
 
@@ -175,8 +130,7 @@ class Database {
 
         transactionID: doc.id,
         description: doc.data()["description"],
-        category: doc.data()["transactionCategory"],
-        transactionDate: DateTime.utc(1998,12,2),
+        transactionDate:  DateFormat("yyyy-MM-dd").parse(doc.data()["transactionDate"].toDate().toString()),
         transactionAmount: doc.data()["amount"],
         transactionType: "expense",
       );
@@ -186,7 +140,7 @@ class Database {
   // Retrieve Transactions of a user
   Stream<List<UserTransaction>> getExpenseSnapshot() {
     CollectionReference expenseCollection = FirebaseFirestore.instance.collection('Transactions/$uid/user_expense');
-    return expenseCollection.orderBy("amount").limit(20).snapshots().
+    return expenseCollection.orderBy("transactionDate").limit(20).snapshots().
     map(_allExpenseFromSnapshot);
   }
   

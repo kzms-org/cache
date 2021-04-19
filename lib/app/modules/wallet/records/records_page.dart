@@ -83,7 +83,7 @@ class _RecordsPageState extends State<RecordsPage> {
   }
 
   Widget navBar() {
-    return  Container(
+    return Container(
       color: const Color(0xff1b394c),
       child: SafeArea(
         child: Container(
@@ -146,9 +146,9 @@ class _RecordsPageState extends State<RecordsPage> {
                         BoxShadow(
                           color: const Color(0xff000000).withOpacity(0.5),
                           blurRadius:
-                          15.0, // has the effect of softening the shadow
+                              15.0, // has the effect of softening the shadow
                           spreadRadius:
-                          0.5, // has the effect of extending the shadow
+                              0.5, // has the effect of extending the shadow
                           offset: Offset(
                             0.0, // horizontal, move right 10
                             0.0, // vertical, move down 10
@@ -172,7 +172,7 @@ class _RecordsPageState extends State<RecordsPage> {
                     child: SvgPicture.asset(
                       "assets/chatbot.svg",
                       color: button3,
-                      height:48,
+                      height: 48,
                       width: 48,
                     ),
                   ),
@@ -205,9 +205,7 @@ class _RecordsPageState extends State<RecordsPage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xff1c3a4d),
-          actions: <Widget>[
-
-          ],
+          actions: <Widget>[],
           title: Text(
             'Records',
             textAlign: TextAlign.center,
@@ -271,7 +269,6 @@ class _RecordsPageState extends State<RecordsPage> {
   }
 }
 
-
 class Page1 extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser;
 
@@ -280,31 +277,29 @@ class Page1 extends StatelessWidget {
     return Container(
         color: const Color(0xff112a39),
         child: Center(
-          child: StreamBuilder<List<UserTransaction>>(
-              stream: Database(uid: user.uid).getExpenseSnapshot(),
-              builder:
-                  (context, snapshot){
-                if (snapshot.hasData) {
-                  List<UserTransaction> expenses = snapshot.data;
-                  return ListView.builder(
-                    padding: EdgeInsets.only(bottom: 50),
-                    scrollDirection: Axis.vertical,
-                    reverse: false,
-                    itemBuilder: (_, int index) =>
-                        Expenses(expenses[index].transactionAmount, expenses[index].description),
-                    itemCount: expenses.length,
-                  );
-                }else{
-                  return Center(child: CircularProgressIndicator());
-                }
-              }
-          )
-        ));
+            child: StreamBuilder<List<UserTransaction>>(
+                stream: Database(uid: user.uid).getExpenseSnapshot(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<UserTransaction> expenses = snapshot.data;
+                    return ListView.builder(
+                      padding: EdgeInsets.only(bottom: 50),
+                      scrollDirection: Axis.vertical,
+                      reverse: true,
+                      itemBuilder: (_, int index) => Expenses(
+                          expenses[index].transactionAmount,
+                          expenses[index].description,
+                        expenses[index].transactionDate,),
+                      itemCount: expenses.length,
+                    );
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                })));
   }
 }
 
 class Page2 extends StatelessWidget {
-
   final user = FirebaseAuth.instance.currentUser;
 
   @override
@@ -313,25 +308,27 @@ class Page2 extends StatelessWidget {
     return Container(
         color: const Color(0xff112a39),
         child: Center(
-          child: StreamBuilder<List<UserTransaction>>(
-            stream: Database(uid: user.uid).getIncomeSnapshot(),
-            builder:
-            (context, snapshot){
-              if (snapshot.hasData) {
-                List<UserTransaction> incomes = snapshot.data;
-                return ListView.builder(
-                  padding: EdgeInsets.only(bottom: 50),
-                  scrollDirection: Axis.vertical,
-                  reverse: false,
-                  itemBuilder: (_, int index) =>
-                      Earns(incomes[index].transactionAmount, incomes[index].description),
-                  itemCount: incomes.length,
-                );
-              }else{
-                return Center(child: CircularProgressIndicator());
-              }
-  }
-    )
-        ));
+            child: StreamBuilder<List<UserTransaction>>(
+                stream: Database(uid: user.uid).getIncomeSnapshot(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<UserTransaction> incomes = snapshot.data;
+
+                    return ListView.builder(
+                      padding: EdgeInsets.only(bottom: 50),
+                      scrollDirection: Axis.vertical,
+                      reverse: true,
+                      itemBuilder: (_, int index) => Earns(
+                          incomes[index].transactionAmount,
+                          incomes[index].description,
+                          incomes[index].transactionDate,
+                      ),
+
+                      itemCount: incomes.length,
+                    );
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                })));
   }
 }
