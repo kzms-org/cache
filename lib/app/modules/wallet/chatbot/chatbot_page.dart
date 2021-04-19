@@ -304,7 +304,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
                   physics: ScrollPhysics(),
                   padding: EdgeInsets.fromLTRB(1.0, 5.0, 1.0, 5.0),
                   shrinkWrap: true,
-                  reverse: false,
+                  reverse: true,
                   itemBuilder: (_, int index) => _messages[index],
                   itemCount: _messages.length,
                 ),

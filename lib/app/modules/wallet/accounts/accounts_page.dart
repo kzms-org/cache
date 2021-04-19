@@ -262,8 +262,9 @@ class _AccountsPageState extends State<AccountsPage> {
                           Container(
                             child: Text(
                               user.email,
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.montserrat(
-                                fontSize: 20,
+                                fontSize: 15,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xffeeeeee),
                               ),

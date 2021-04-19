@@ -118,7 +118,7 @@ class Database {
 
   Stream<List<UserTransaction>> getIncomeSnapshot() {
     CollectionReference incomeCollection = FirebaseFirestore.instance.collection('Transactions/$uid/user_income');
-    return incomeCollection.orderBy("transactionDate").limit(20).snapshots().
+    return incomeCollection.orderBy("transactionDate",descending: true).limit(20).snapshots().
     map(_allIncomeFromSnapshot);
   }
 
@@ -140,7 +140,7 @@ class Database {
   // Retrieve Transactions of a user
   Stream<List<UserTransaction>> getExpenseSnapshot() {
     CollectionReference expenseCollection = FirebaseFirestore.instance.collection('Transactions/$uid/user_expense');
-    return expenseCollection.orderBy("transactionDate").limit(20).snapshots().
+    return expenseCollection.orderBy("transactionDate",descending: true).limit(20).snapshots().
     map(_allExpenseFromSnapshot);
   }
   

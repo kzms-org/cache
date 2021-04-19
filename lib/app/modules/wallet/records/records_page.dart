@@ -285,7 +285,7 @@ class Page1 extends StatelessWidget {
                     return ListView.builder(
                       padding: EdgeInsets.only(bottom: 50),
                       scrollDirection: Axis.vertical,
-                      reverse: true,
+                      reverse: false,
                       itemBuilder: (_, int index) => Expenses(
                           expenses[index].transactionAmount,
                           expenses[index].description,
@@ -317,7 +317,7 @@ class Page2 extends StatelessWidget {
                     return ListView.builder(
                       padding: EdgeInsets.only(bottom: 50),
                       scrollDirection: Axis.vertical,
-                      reverse: true,
+                      reverse: false,
                       itemBuilder: (_, int index) => Earns(
                           incomes[index].transactionAmount,
                           incomes[index].description,
