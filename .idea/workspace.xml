@@ -20,20 +20,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac6c908e-70c0-488b-9f40-717ee3950e4c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/transactions.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/app/modules/pythonapi/python_api.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/modules/database/chatbot.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/modules/database/expense.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/modules/database/income.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/chat_message.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/modules/wallet/records/earns.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/modules/wallet/records/expenses.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ios/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/transactions.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/database/database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/database/database.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/database/transaction.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/database/transaction.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/pythonapi/python_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/pythonapi/python_api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/accounts/accounts_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/accounts/accounts_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/add_funds/add_funds_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/add_funds/add_funds_controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/chatbot_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/chatbot_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/log.md" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/log.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/test.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/my_wallet/my_wallet_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/my_wallet/my_wallet_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/records/records_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/records/records_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/records/records_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/records/records_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/play_ui/modal/modal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/play_ui/modal/modal.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +77,7 @@
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
+    <property name="settings.editor.selected.configurable" value="emulator" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -140,53 +147,43 @@
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
     <state x="1063" y="466" width="424" height="491" key="FileChooserDialogImpl/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617112445208" />
-    <state width="1224" height="493" key="GridCell.Tab.0.bottom" timestamp="1618657977675">
+    <state width="1234" height="420" key="GridCell.Tab.0.bottom" timestamp="1618834595005">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state width="2514" height="447" key="GridCell.Tab.0.bottom/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617570897433" />
-    <state width="1224" height="493" key="GridCell.Tab.0.bottom/0.27.2560.1363@0.27.2560.1363" timestamp="1618657977675" />
-    <state width="1234" height="223" key="GridCell.Tab.0.bottom/0.27.4480.1363@0.27.4480.1363" timestamp="1617619837594" />
-    <state width="1224" height="493" key="GridCell.Tab.0.center" timestamp="1618657977675">
+    <state width="2514" height="420" key="GridCell.Tab.0.bottom/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1618795481459" />
+    <state width="1234" height="420" key="GridCell.Tab.0.bottom/0.27.2560.1363@0.27.2560.1363" timestamp="1618834595005" />
+    <state width="2514" height="206" key="GridCell.Tab.0.bottom/0.27.4480.1363@0.27.4480.1363" timestamp="1618770433473" />
+    <state width="1234" height="420" key="GridCell.Tab.0.center" timestamp="1618834595003">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state width="2514" height="447" key="GridCell.Tab.0.center/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617570897433" />
-    <state width="1224" height="493" key="GridCell.Tab.0.center/0.27.2560.1363@0.27.2560.1363" timestamp="1618657977675" />
-    <state width="1234" height="223" key="GridCell.Tab.0.center/0.27.4480.1363@0.27.4480.1363" timestamp="1617619837593" />
-    <state width="1224" height="493" key="GridCell.Tab.0.left" timestamp="1618657977674">
+    <state width="2514" height="420" key="GridCell.Tab.0.center/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1618795481459" />
+    <state width="1234" height="420" key="GridCell.Tab.0.center/0.27.2560.1363@0.27.2560.1363" timestamp="1618834595003" />
+    <state width="2514" height="206" key="GridCell.Tab.0.center/0.27.4480.1363@0.27.4480.1363" timestamp="1618770433473" />
+    <state width="1234" height="420" key="GridCell.Tab.0.left" timestamp="1618834595002">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state width="2514" height="447" key="GridCell.Tab.0.left/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617570897433" />
-    <state width="1224" height="493" key="GridCell.Tab.0.left/0.27.2560.1363@0.27.2560.1363" timestamp="1618657977674" />
-    <state width="1234" height="223" key="GridCell.Tab.0.left/0.27.4480.1363@0.27.4480.1363" timestamp="1617619837593" />
-    <state width="1224" height="493" key="GridCell.Tab.0.right" timestamp="1618657977675">
+    <state width="2514" height="420" key="GridCell.Tab.0.left/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1618795481459" />
+    <state width="1234" height="420" key="GridCell.Tab.0.left/0.27.2560.1363@0.27.2560.1363" timestamp="1618834595002" />
+    <state width="2514" height="206" key="GridCell.Tab.0.left/0.27.4480.1363@0.27.4480.1363" timestamp="1618770433472" />
+    <state width="1234" height="420" key="GridCell.Tab.0.right" timestamp="1618834595004">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state width="2514" height="447" key="GridCell.Tab.0.right/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617570897433" />
-    <state width="1224" height="493" key="GridCell.Tab.0.right/0.27.2560.1363@0.27.2560.1363" timestamp="1618657977675" />
-    <state width="1234" height="223" key="GridCell.Tab.0.right/0.27.4480.1363@0.27.4480.1363" timestamp="1617619837594" />
-    <state x="786" y="103" width="1413" height="737" key="SettingsEditor" timestamp="1617544121767">
-      <screen x="0" y="27" width="2560" height="1363" />
+    <state width="2514" height="420" key="GridCell.Tab.0.right/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1618795481459" />
+    <state width="1234" height="420" key="GridCell.Tab.0.right/0.27.2560.1363@0.27.2560.1363" timestamp="1618834595004" />
+    <state width="2514" height="206" key="GridCell.Tab.0.right/0.27.4480.1363@0.27.4480.1363" timestamp="1618770433473" />
+    <state x="2560" y="103" width="1920" height="737" key="SettingsEditor" timestamp="1618754617638">
+      <screen x="0" y="27" width="4480" height="1363" />
     </state>
     <state x="786" y="103" width="1413" height="737" key="SettingsEditor/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617544121767" />
+    <state x="2560" y="103" width="1920" height="737" key="SettingsEditor/0.27.4480.1363@0.27.4480.1363" timestamp="1618754617638" />
     <state x="969" y="273" width="714" height="870" key="find.popup" timestamp="1618237966824">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
     <state x="969" y="273" width="714" height="870" key="find.popup/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617548593537" />
     <state x="969" y="273" width="714" height="870" key="find.popup/0.27.2560.1363@0.27.2560.1363" timestamp="1618237966824" />
-    <state x="1583" y="336" width="672" height="678" key="search.everywhere.popup" timestamp="1618605992547">
+    <state x="1583" y="336" width="672" height="678" key="search.everywhere.popup" timestamp="1618673438714">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state x="1583" y="336" width="672" height="678" key="search.everywhere.popup/0.27.2560.1363@0.27.2560.1363" timestamp="1618605992547" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/app/modules/wallet/chatbot/chatbot_page.dart</url>
-          <line>294</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="1583" y="336" width="672" height="678" key="search.everywhere.popup/0.27.2560.1363@0.27.2560.1363" timestamp="1618673438714" />
   </component>
 </project>

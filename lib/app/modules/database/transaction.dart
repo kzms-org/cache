@@ -1,13 +1,13 @@
-class Transaction {
+class UserTransaction {
   // transactionType is a flag, 0/false means expense, 1/true means income
   String transactionID;
   String description;
   String category;
   DateTime transactionDate;
   double transactionAmount;
-  bool transactionType;
+  String transactionType;
 
-  Transaction({
+  UserTransaction({
     this.transactionID,
     this.description,
     this.category,

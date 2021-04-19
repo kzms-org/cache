@@ -1,6 +1,7 @@
 import 'package:cache/app/modules/database/database.dart';
 import 'package:cache/app/modules/pythonapi/python_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:path/path.dart' as path;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mobx/mobx.dart';
@@ -25,11 +26,16 @@ abstract class _AddFundsControllerBase with Store {
     );
 
     if(filePickerResult != null){
+
       File  fileToUpload = File(filePickerResult.files.single.path);
-      print("file Successfully uploaded");
+
+      String dir = path.dirname(fileToUpload.path);
+      String newPath = path.join(dir,"receiptReport.csv");
+      fileToUpload.renameSync(newPath);
+
 
       // Send this file to the python script here
-      final  result = await pythonApi.getData("/",fileToUpload);
+      final  result = await pythonApi.sendCSVFileUsingPostRequest("/csvPreProcessing",fileToUpload);
       print(result);
       // read the returned file and iterate through it all and add to collection
       await Database(uid: user.uid).uploadTransactionsCSV();
