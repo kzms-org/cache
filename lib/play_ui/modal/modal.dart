@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cache/app/modules/wallet/chatbot/chat_message.dart';
 import 'package:cache/app/modules/wallet/chatbot/chatbot_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

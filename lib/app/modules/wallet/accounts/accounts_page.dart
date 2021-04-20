@@ -135,7 +135,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Modular.to.pushNamed("wallet/add-funds");
+                    Modular.to.pushNamed("/wallet/add-funds");
                   },
                   child: Container(
                     width: 48.0,
@@ -262,8 +262,9 @@ class _AccountsPageState extends State<AccountsPage> {
                           Container(
                             child: Text(
                               user.email,
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.montserrat(
-                                fontSize: 20,
+                                fontSize: 15,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xffeeeeee),
                               ),

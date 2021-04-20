@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:cache/app/modules/wallet/chatbot/chat_message.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,10 +17,9 @@ class ChatbotPage extends StatefulWidget {
 }
 
 
-
 class _ChatbotPageState extends State<ChatbotPage> {
 
-  Map<String,List<String>> questions = {
+  Map<String, List<String>> questions = {
     "Forecast": [
       "Show me my forecast for the next week.",
       "How much will I have at the end of the month?"
@@ -32,10 +33,22 @@ class _ChatbotPageState extends State<ChatbotPage> {
   };
   Modal modal = new Modal();
   final List<ChatMessage> _messages = <ChatMessage>[
-    ChatMessage(type: true, name: "Anonymous", text: "Hi, this is Mohammed"),
+    ChatMessage(type: true,  name: "Anonymous",text: "Hi, this is Mohammed"),
     ChatMessage(type: false, name: "CacheBot", text: "Hello Mohammed, this is CacheBot"),
     ChatMessage(type: false, name: "CacheBot", text: "How may I help you today?"),
-    ChatMessage(type: true, name: "Anonymous", text: "Tell me how much money I will spend next week?"),
+    ChatMessage(type: true,  name: "Anonymous",text: "Tell me how much money I will spend next week?"),
+    ChatMessage(type: true,  name: "Anonymous",text: "Hi, this is Mohammed"),
+    ChatMessage(type: false, name: "CacheBot", text: "Hello Mohammed, this is CacheBot"),
+    ChatMessage(type: false, name: "CacheBot", text: "How may I help you today?"),
+    ChatMessage(type: true,  name: "Anonymous",text: "Tell me how much money I will spend next week?"),
+    ChatMessage(type: true,  name: "Anonymous",text: "Hi, this is Mohammed"),
+    ChatMessage(type: false, name: "CacheBot", text: "Hello Mohammed, this is CacheBot"),
+    ChatMessage(type: false, name: "CacheBot", text: "How may I help you today?"),
+    ChatMessage(type: true,  name: "Anonymous",text: "Tell me how much money I will spend next week?"),
+    ChatMessage(type: true,  name: "Anonymous",text: "Hi, this is Mohammed"),
+    ChatMessage(type: false, name: "CacheBot", text: "Hello Mohammed, this is CacheBot"),
+    ChatMessage(type: false, name: "CacheBot", text: "How may I help you today?"),
+    ChatMessage(type: true,  name: "Anonymous",text: "Tell me how much money I will spend next week?"),
   ];
 
   // NavBar items START....................
@@ -155,10 +168,14 @@ class _ChatbotPageState extends State<ChatbotPage> {
                   ),
                 ),
                 FocusedMenuHolder(
-                  menuWidth: MediaQuery.of(context).size.width*0.50,
+                  menuWidth: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.50,
                   blurSize: 5.0,
                   menuItemExtent: 45,
-                  menuBoxDecoration: BoxDecoration(color: Colors.grey,borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                  menuBoxDecoration: BoxDecoration(color: Colors.grey,
+                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
                   duration: Duration(milliseconds: 100),
                   animateMenuItems: true,
                   blurBackgroundColor: Colors.black54,
@@ -166,13 +183,20 @@ class _ChatbotPageState extends State<ChatbotPage> {
                   openWithTap: true,
                   menuItems: <FocusedMenuItem>[
                     FocusedMenuItem(
-                        title: Text("Forecast", style:TextStyle(color: Colors.black)),
-                        onPressed: () => modal.mainBottomSheet(context, questions["Forecast"])
+                        title: Text(
+                            "Forecast", style: TextStyle(color: Colors.black)),
+                        onPressed: () =>
+                            modal.mainBottomSheet(
+                                context, questions["Forecast"])
 
                     ),
-                    FocusedMenuItem(title: Text("Statistics", style:TextStyle(color: Colors.black)), onPressed: () => modal.mainBottomSheet(context, questions["Statistics"])),
+                    FocusedMenuItem(title: Text(
+                        "Statistics", style: TextStyle(color: Colors.black)),
+                        onPressed: () =>
+                            modal.mainBottomSheet(
+                                context, questions["Statistics"])),
                   ],
-                  onPressed: (){},
+                  onPressed: () {},
                   child: Container(
                     width: 48.0,
                     height: 48.0,
@@ -181,9 +205,9 @@ class _ChatbotPageState extends State<ChatbotPage> {
                         BoxShadow(
                           color: const Color(0xff000000).withOpacity(0.5),
                           blurRadius:
-                              15.0, // has the effect of softening the shadow
+                          15.0, // has the effect of softening the shadow
                           spreadRadius:
-                              0.5, // has the effect of extending the shadow
+                          0.5, // has the effect of extending the shadow
                           offset: Offset(
                             0.0, // horizontal, move right 10
                             0.0, // vertical, move down 10
@@ -216,7 +240,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
                     child: SvgPicture.asset(
                       "assets/chatbot.svg",
                       color: button3,
-                      height:48,
+                      height: 48,
                       width: 48,
                     ),
                   ),
@@ -271,106 +295,23 @@ class _ChatbotPageState extends State<ChatbotPage> {
         ),
         centerTitle: true,
       ),
-      body: Column(children: <Widget>[
-          Flexible(
-            child: ListView.builder(
-                padding: EdgeInsets.all(5.0),
-                itemBuilder: (_, int index) => _messages[index],
-                itemCount: _messages.length,
-            )
-          ),
-        ]),
+      body: SingleChildScrollView(
+
+          child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                ListView.builder(
+                  physics: ScrollPhysics(),
+                  padding: EdgeInsets.fromLTRB(1.0, 5.0, 1.0, 5.0),
+                  shrinkWrap: true,
+                  reverse: true,
+                  itemBuilder: (_, int index) => _messages[index],
+                  itemCount: _messages.length,
+                ),
+
+              ])),
       bottomNavigationBar: navBar(),
     );
   }
-}
-
-class ChatMessage extends StatelessWidget {
-  final String text;
-  final String name;
-  final bool type;
-
-  ChatMessage({this.type, this.name, this.text});
-
-  List<Widget> chatbotMessage(BuildContext context){
-    return <Widget>[
-      // for the avatar side
-      Container(
-        margin: const EdgeInsets.only(right: 10),
-        child: CircleAvatar( child:  SvgPicture.asset("assets/chatbot.svg")),
-      ),
-      // For the name and the message side
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              this.name,
-              style: GoogleFonts.montserrat(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                color: Color(0xffeeeeee),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top:5.0),
-              child: Text(this.text),
-            )
-          ],
-        )
-      ),
-    ];
-  }
-
-  List<Widget> userMessage(BuildContext context){
-    return <Widget>[
-
-      // For the name and the message side
-      Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Text(
-                this.name,
-                style: GoogleFonts.montserrat(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xffeeeeee),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top:5.0),
-                child: Text(this.text),
-              )
-            ],
-          )
-      ),
-      // for the avatar side
-      Container(
-          width: 52.0,
-          height: 52.0,
-        margin: const EdgeInsets.only(left: 10),
-          decoration: new BoxDecoration(
-              shape: BoxShape.circle,
-              image: new DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage("assets/profilephoto.png")))
-
-      ),
-    ];
-  }
-
-  @override
-  Widget build(BuildContext context){
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 15.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: this.type ? userMessage(context) : chatbotMessage(context),
-      )
-    );
-  }
-
-
 }
 
