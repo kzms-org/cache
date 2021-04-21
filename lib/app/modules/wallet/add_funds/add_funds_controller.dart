@@ -22,37 +22,54 @@ abstract class _AddFundsControllerBase with Store {
   final user = FirebaseAuth.instance.currentUser;
 
   // uses filepicker class select a file from the device.
-  Future SelectFileToUpload() async{
+  Future selectFileToUpload() async{
+    // when user clicks on upload csv file open the file picker
     FilePickerResult filePickerResult = await FilePicker.platform.pickFiles(type: FileType.custom,
     allowedExtensions: ['csv','jpg'],
     );
 
     if(filePickerResult != null){
 
+      // get the path to the file
       File  fileToUpload = File(filePickerResult.files.single.path);
 
+      // Rename the file to receiptReport.csv
       String dir = path.dirname(fileToUpload.path);
-      print(dir);
+
       String newPath = path.join(dir,"receiptReport.csv");
-      print(newPath);
+
       File renamedCSVFile = await File(fileToUpload.path).copy(newPath);
-      print(renamedCSVFile.path);
+
 
       // Send this file to the python script here
       final  result = await pythonApi.sendCSVFileUsingPostRequest("/csvPreProcessing",renamedCSVFile);
-      print("http result clean csv");
-      print(result.toString());
+
+      // read the json object with all transactions
       Map<String, dynamic> allTransactions = jsonDecode(result);
-      // read the returned file and iterate through it all and add to collection
+      // add to collection
       await Database(uid: user.uid).uploadTransactionsCSV(allTransactions);
 
 
-      // String fileName = basename(fileToUpload.path);
-      // Reference firebaseStorageRef = FirebaseStorage.instance.ref().child('uploads/$fileName');
-      // UploadTask uploadTask = firebaseStorageRef.putFile(fileToUpload);
-      // TaskSnapshot taskSnapshot = uploadTask.snapshot;
-      // taskSnapshot.ref.getDownloadURL().then((value) => print("Done: $value"));
 
+
+    }
+  }
+
+  Future uploadFileToFirebaseStorage() async{
+    FilePickerResult filePickerResult = await FilePicker.platform.pickFiles(type: FileType.custom,
+      allowedExtensions: ['csv','jpg'],
+    );
+
+    if(filePickerResult != null) {
+
+      File fileToUpload = File(filePickerResult.files.single.path);
+
+      String fileName = basename(fileToUpload.path);
+      Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(
+          'uploads/$fileName');
+      UploadTask uploadTask = firebaseStorageRef.putFile(fileToUpload);
+      TaskSnapshot taskSnapshot = uploadTask.snapshot;
+      taskSnapshot.ref.getDownloadURL().then((value) => print("Done: $value"));
     }
   }
 }

@@ -25,7 +25,7 @@ class ChatMessage extends StatelessWidget {
               width:250,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: this.type ? Colors.orange : Colors.blue,
+                color: this.type ? Colors.blueGrey : Colors.blue,
               ),
               padding: EdgeInsets.all(10),
               child:Container(
@@ -33,7 +33,7 @@ class ChatMessage extends StatelessWidget {
                       overflow: TextOverflow.visible,
                       style: GoogleFonts.montserrat(
                         fontSize: 15,
-                        color: Colors.white,
+                        color: this.type ? Colors.white : Colors.white,
                         fontWeight: FontWeight.normal,
 
                       ))),

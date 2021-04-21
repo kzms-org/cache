@@ -30,7 +30,6 @@ abstract class _LoginControllerBase with Store {
         print('error signing in.. Try Again!');
       }else{
         print('signed in check result below');
-        print(result);
         Modular.to.pushReplacementNamed("/wallet");
       }
     } catch (e) {

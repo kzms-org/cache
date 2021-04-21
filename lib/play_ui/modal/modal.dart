@@ -1,16 +1,18 @@
 import 'dart:async';
 
+import 'package:cache/app/modules/database/database.dart';
+import 'package:cache/app/modules/user/simpleUser.dart';
 import 'package:cache/app/modules/wallet/chatbot/chat_message.dart';
 import 'package:cache/app/modules/wallet/chatbot/chatbot_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-StreamController<dynamic> streamController = new StreamController<ChatMessage>();
+import 'package:provider/provider.dart';
 
 class Modal{
 
   mainBottomSheet(BuildContext context, List<String> data){
+
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context){
@@ -19,34 +21,29 @@ class Modal{
             children: <Widget>[
           for ( var i in data )
 
-              _createTile(context, i.toString(), Icons.message,  _sendToCloud(i.toString())),
+              _createTile(context, i.toString(), Icons.message ),
             ],
           );
         }
     );
   }
 
-  ListTile _createTile(BuildContext context, String name, IconData icon, Function action){
+  ListTile _createTile(BuildContext context, String name, IconData icon){
     return ListTile(
       leading: Icon(icon),
       title: Text(name),
       onTap: (){
+        _sendToCloud(name, context);
         Navigator.pop(context);
+
 
       },
     );
   }
 
-  _sendToCloud(String str){
-    streamController.add(new ChatMessage(
-      type: true,
-      name: "Anonymous",
-      text: str,
-    ));
-
-    Map <String,dynamic> user_question= {"Message": "Message", "Question":str};
-    FirebaseFirestore.instance.collection("questions").add(user_question);
-    print("works");
+  _sendToCloud(String message, BuildContext context){
+    final user = Provider.of<SimpleUser>(context, listen: false);
+    Database(uid: user.uid).uploadMessage(message, true, user.firstName);
   }
 
   _action2(){

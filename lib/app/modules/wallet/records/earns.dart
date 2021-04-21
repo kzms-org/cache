@@ -90,7 +90,7 @@ class Earns extends StatelessWidget {
                         children: <Widget>[
                           Container(
                             child: Text(
-                              "+\$" + money.toString(),
+                              "+" + money.toString()+" sar",
                               textAlign: TextAlign.end,
                               style: GoogleFonts.montserrat(
                                 fontSize: 14.67,

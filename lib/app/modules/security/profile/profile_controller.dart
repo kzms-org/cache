@@ -9,7 +9,6 @@ abstract class _ProfileControllerBase with Store {
   final _auth = AuthService();
 
   Future<void> signOut(){
-    print("About to sign out of app");
     _auth.signOut();
     print("successfully signed out of the cache app");
     return Modular.to.pushReplacementNamed("/security/auth-types");
