@@ -14,6 +14,8 @@ class _SignUpPageState extends State<SignUpPage> {
   Color checkbox1Color = const Color(0xff112a39);
   Color checkboxborderColor1 = const Color(0xff7099b2);
   String username;
+  String firstName;
+  String lastName;
   String email;
   String emailConfirmation;
   String password;
@@ -52,7 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Text(
                   'The most difficult thing is the decision to act, the rest is merely tenacity.',
                   style: GoogleFonts.montserrat(
-                    fontSize: 24,
+                    fontSize: 20,
                     color: Color(0xffeeeeee),
                   ),
                 ),
@@ -81,7 +83,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Container(
                     padding: EdgeInsets.fromLTRB(27.9, 0, 27.9, 0),
                     child: Text(
-                      'USERNAME',
+                      'FIRST NAME',
                       style: GoogleFonts.montserrat(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
@@ -99,7 +101,38 @@ class _SignUpPageState extends State<SignUpPage> {
                           color: Color(0xffeeeeee),
                         ),
                         onChanged: (String value) {
-                          username = value;
+                          firstName = value;
+                        },
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                        )),
+                  ),
+                  Container(height: 20),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(27.9, 0, 27.9, 0),
+                    child: Text(
+                      'LAST NAME',
+                      style: GoogleFonts.montserrat(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff84939d),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(27.9, 0, 27.9, 0),
+                    child:
+                    TextField(
+                        style: GoogleFonts.montserrat(
+                          fontSize: 13.33,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xffeeeeee),
+                        ),
+                        onChanged: (String value) {
+                          lastName = value;
                         },
                         obscureText: false,
                         decoration: InputDecoration(
@@ -266,7 +299,16 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               GestureDetector(
                 onTap: () {
-                  signUpController.signUp(username, email, emailConfirmation, password);
+                  if(!isSwitched)
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      duration: Duration(seconds: 2),
+                      content: Text("Must accept Terms & Conditions",style: GoogleFonts.montserrat(
+                        color: Colors.white
+                      )),
+                      backgroundColor: Colors.redAccent,
+                    ));
+                  else
+                    signUpController.signUp(firstName,lastName, email, emailConfirmation, password);
                 },
                 child: Container(
                   width: 321,

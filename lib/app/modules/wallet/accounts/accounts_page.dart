@@ -1,4 +1,5 @@
 import 'package:cache/app/modules/user/cacheuser.dart';
+import 'package:cache/app/modules/user/simpleUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
@@ -199,7 +200,9 @@ class _AccountsPageState extends State<AccountsPage> {
 
 
   Widget build(BuildContext context) {
-    final user = Provider.of<CacheUser>(context);
+    final user = Provider.of<SimpleUser>(context);
+
+    print(user);
 
     return Scaffold(
       backgroundColor: const Color(0xff112a39),
@@ -261,7 +264,7 @@ class _AccountsPageState extends State<AccountsPage> {
                         children: <Widget>[
                           Container(
                             child: Text(
-                              user.email,
+                              user.firstName,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.montserrat(
                                 fontSize: 15,

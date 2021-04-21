@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cache/play_ui/text_widget/text_widget.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class PageScaffoldWidget extends StatelessWidget {
   final Widget child;
@@ -36,7 +37,8 @@ class PageScaffoldWidget extends StatelessWidget {
                         color: Theme.of(context).iconTheme.color,
                       ),
                       onPressed: () {
-                        if (Navigator.canPop(context)) Navigator.pop(context);
+                        if (Navigator.canPop(context)) {Modular.to.pop();}
+                        else{ print("cannot pop"); }
                       },
                     ),
               elevation: 0,

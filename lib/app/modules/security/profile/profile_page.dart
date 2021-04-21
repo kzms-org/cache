@@ -1,8 +1,10 @@
 import 'package:cache/app/modules/security/auth.dart';
 import 'package:cache/app/modules/security/profile/profile_controller.dart';
+import 'package:cache/app/modules/user/simpleUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -10,11 +12,15 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String username = "Jordan Lane";
   final profileController = Modular.get<ProfileController>();
 
 
   Widget build(BuildContext context) {
+    final user = Provider.of<SimpleUser>(context);
+
+
+
+
     return Scaffold(
       backgroundColor: const Color(0xff112a39),
       appBar: AppBar(
@@ -45,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      username,
+                      user.firstName,
                       style: GoogleFonts.montserrat(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,

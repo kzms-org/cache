@@ -1,6 +1,10 @@
 import 'dart:async';
 
+import 'package:cache/app/modules/database/database.dart';
+import 'package:cache/app/modules/database/messages.dart';
+import 'package:cache/app/modules/user/simpleUser.dart';
 import 'package:cache/app/modules/wallet/chatbot/chat_message.dart';
+import 'package:cache/app/modules/wallet/chatbot/chatbot_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -9,6 +13,7 @@ import 'package:focused_menu/modals.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:cache/play_ui/modal/modal.dart';
+import 'package:provider/provider.dart';
 
 
 class ChatbotPage extends StatefulWidget {
@@ -18,6 +23,7 @@ class ChatbotPage extends StatefulWidget {
 
 
 class _ChatbotPageState extends State<ChatbotPage> {
+  ChatBotController chatBotController = Modular.get<ChatBotController>();
 
   Map<String, List<String>> questions = {
     "Forecast": [
@@ -32,24 +38,6 @@ class _ChatbotPageState extends State<ChatbotPage> {
     ]
   };
   Modal modal = new Modal();
-  final List<ChatMessage> _messages = <ChatMessage>[
-    ChatMessage(type: true,  name: "Anonymous",text: "Hi, this is Mohammed"),
-    ChatMessage(type: false, name: "CacheBot", text: "Hello Mohammed, this is CacheBot"),
-    ChatMessage(type: false, name: "CacheBot", text: "How may I help you today?"),
-    ChatMessage(type: true,  name: "Anonymous",text: "Tell me how much money I will spend next week?"),
-    ChatMessage(type: true,  name: "Anonymous",text: "Hi, this is Mohammed"),
-    ChatMessage(type: false, name: "CacheBot", text: "Hello Mohammed, this is CacheBot"),
-    ChatMessage(type: false, name: "CacheBot", text: "How may I help you today?"),
-    ChatMessage(type: true,  name: "Anonymous",text: "Tell me how much money I will spend next week?"),
-    ChatMessage(type: true,  name: "Anonymous",text: "Hi, this is Mohammed"),
-    ChatMessage(type: false, name: "CacheBot", text: "Hello Mohammed, this is CacheBot"),
-    ChatMessage(type: false, name: "CacheBot", text: "How may I help you today?"),
-    ChatMessage(type: true,  name: "Anonymous",text: "Tell me how much money I will spend next week?"),
-    ChatMessage(type: true,  name: "Anonymous",text: "Hi, this is Mohammed"),
-    ChatMessage(type: false, name: "CacheBot", text: "Hello Mohammed, this is CacheBot"),
-    ChatMessage(type: false, name: "CacheBot", text: "How may I help you today?"),
-    ChatMessage(type: true,  name: "Anonymous",text: "Tell me how much money I will spend next week?"),
-  ];
 
   // NavBar items START....................
   int selectedTab = 3;
@@ -271,6 +259,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<SimpleUser>(context);
+
     return Scaffold(
       backgroundColor: const Color(0xff112a39),
       appBar: AppBar(
@@ -300,14 +290,25 @@ class _ChatbotPageState extends State<ChatbotPage> {
           child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                ListView.builder(
+                StreamBuilder(
+                stream: Database(uid: user.uid).getAllMessagesWithChatBot(),
+                builder: (context, snapshot){
+                  if(snapshot.hasData){
+                    List<Messages> messages = snapshot.data;
+                return ListView.builder(
                   physics: ScrollPhysics(),
                   padding: EdgeInsets.fromLTRB(1.0, 5.0, 1.0, 5.0),
                   shrinkWrap: true,
                   reverse: true,
-                  itemBuilder: (_, int index) => _messages[index],
-                  itemCount: _messages.length,
-                ),
+                  itemBuilder: (_, int index) => ChatMessage(type: messages[index].userMessage,
+                                                              name: messages[index].senderName,
+                                                              text: messages[index].message),
+                  itemCount: messages.length,
+                );}else{
+                    return Center(child:CircularProgressIndicator());
+                  }
+
+                  }),
 
               ])),
       bottomNavigationBar: navBar(),

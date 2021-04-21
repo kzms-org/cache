@@ -2,6 +2,7 @@
 // import 'package:flutter_modular/flutter_modular.dart';
 //
 // import 'package:cache/play_ui/text_widget/text_widget.dart';
+// import 'package:flutter_svg/svg.dart';
 //
 // class NavBarWidget extends StatefulWidget {
 //
@@ -10,8 +11,17 @@
 //       _NavBarWidgetState();
 // }
 //
+// class _NavBarWidgetState extends State<NavBarWidget>{
 //
-// int selectedTab = 0;
+//   NavigationBar navigationBar = NavigationBar()
+//
+//   Color button0;
+//   Color button1;
+//   Color button2;
+//   Color button3;
+//   Color button4;
+//
+//
 //
 //   void changepage() {
 //     if (selectedTab == 0) {
@@ -65,8 +75,10 @@
 //       print("4");
 //     }
 //   }
+//
 //   @override
 //   Widget build(BuildContext context) {
+//     // TODO: implement build
 //     return Container(
 //       color: const Color(0xff1b394c),
 //       child: SafeArea(
@@ -180,4 +192,16 @@
 //       ),
 //     );
 //   }
+//
+//
 // }
+//
+// class NavigationBar{
+//
+//   int selectedTab;
+//   Color currentPageColor = const Color(0xffe3a33d);
+//   Color otherPagesColor = const Color(0xff386785);
+//   Color centralButtonColor = Colors.white;
+// }
+//
+//

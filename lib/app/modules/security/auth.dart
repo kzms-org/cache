@@ -8,8 +8,10 @@ class AuthService{
     final FirebaseAuth _auth = FirebaseAuth.instance;
 
     CacheUser _userFromFirebaseUser(User user) {
+
       return user != null ? CacheUser(uid: user.uid, email:user.email): null;
     }
+
 
     Stream<CacheUser> get user {
       return _auth.authStateChanges().map(_userFromFirebaseUser);
@@ -32,12 +34,15 @@ class AuthService{
     // sign in with email and password
     Future logInWithEmailAndPassword(String email, String password) async {
       try {
-        print(email);
+
         UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+
+
         User user = result.user;
-        print(user);
-        //await Database(uid: user.uid).addUserToDatabase(email, username);
-        return user;
+
+        print(" \n \n \n USER!!! $user \n \n \n ");
+
+        return _userFromFirebaseUser(user);
       } catch (error) {
         print(error.toString());
         return null;
@@ -45,12 +50,12 @@ class AuthService{
     }
 
     // Register with email and password
-    Future signUpWithEmailAndPassword(String email, String password, String username) async {
+    Future signUpWithEmailAndPassword(String email, String password, String firstName, String lastName) async {
       try {
+
         UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
         User user = result.user;
-        print(user);
-        await Database(uid: user.uid).addUserToDatabase(email, username);
+        await Database(uid: user.uid).addUserToDatabase(email, firstName, lastName);
 
         return _userFromFirebaseUser(user);
 

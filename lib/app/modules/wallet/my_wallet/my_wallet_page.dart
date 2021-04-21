@@ -1,8 +1,12 @@
+import 'package:cache/app/modules/database/database.dart';
+import 'package:cache/app/modules/user/cacheuser.dart';
+import 'package:cache/app/modules/user/simpleUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cache/play_ui/easy_widgets/easy_widgets.dart';
+import 'package:provider/provider.dart';
 
 class MyWalletPage extends StatefulWidget {
   @override
@@ -80,7 +84,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
     }
   }
 
-  Widget navBar(){
+  Widget navBar() {
     return Container(
       color: const Color(0xff1b394c),
       child: SafeArea(
@@ -170,7 +174,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                     child: SvgPicture.asset(
                       "assets/chatbot.svg",
                       color: button3,
-                      height:48,
+                      height: 48,
                       width: 48,
                     ),
                   ),
@@ -197,7 +201,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
     );
   }
 
-  Widget returnRiyalSVG(){
+  Widget returnRiyalSVG() {
     return Container(
       width: 23.33333396911621,
       height: 42.66666793823242,
@@ -211,6 +215,8 @@ class _MyWalletPageState extends State<MyWalletPage> {
   }
 
   Widget build(BuildContext context) {
+    final user = Provider.of<SimpleUser>(context);
+
     return Scaffold(
       backgroundColor: const Color(0xff112a39),
       appBar: AppBar(
@@ -273,7 +279,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
       ),
 
       body: //scaffold's body
-          SingleChildScrollView(
+      SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -285,9 +291,9 @@ class _MyWalletPageState extends State<MyWalletPage> {
                       BoxShadow(
                         color: const Color(0xff000000).withOpacity(0.25),
                         blurRadius:
-                            15.0, // has the effect of softening the shadow
+                        15.0, // has the effect of softening the shadow
                         spreadRadius:
-                            0.5, // has the effect of extending the shadow
+                        0.5, // has the effect of extending the shadow
                         offset: Offset(
                           0.0, // horizontal, move right 10
                           10.0, // vertical, move down 10
@@ -365,24 +371,38 @@ class _MyWalletPageState extends State<MyWalletPage> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
                           returnRiyalSVG(),
-                          Text(
-                            totalMoney1,
-                            style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.w200,
-                              fontSize: 73.33,
-                              color: Color(0xffffffff),
-                            ),
-                          ),
-                          Container(
-                            height: 42.66666793823242,
-                            child: Text(
-                              totalMoney2,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 24,
-                                color: Color(0xffeeeeee).withOpacity(0.75),
-                              ),
-                            ),
-                          )
+                          StreamBuilder(
+                              stream: Database(uid: user.uid)
+                                  .getUserTransactionInfo(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+
+                                  var balance = snapshot.data.toString();
+                                  print(balance);
+                                  return Text(
+                                      balance.toString(),
+                                  style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w200,
+                                  fontSize: 73.33,
+                                  color: Color(0xffffffff),)
+
+                                );
+
+                              }else{
+                                  return Text("no data found");
+                                }
+                              }),
+
+                          // Container(
+                          //   height: 42.66666793823242,
+                          //   child: Text(
+                          //     totalMoney2,
+                          //     style: GoogleFonts.montserrat(
+                          //       fontSize: 24,
+                          //       color: Color(0xffeeeeee).withOpacity(0.75),
+                          //     ),
+                          //   ),
+                          // )
                         ],
                       ),
                     ],
@@ -401,9 +421,9 @@ class _MyWalletPageState extends State<MyWalletPage> {
                       BoxShadow(
                         color: const Color(0xff000000).withOpacity(0.25),
                         blurRadius:
-                            15.0, // has the effect of softening the shadow
+                        15.0, // has the effect of softening the shadow
                         spreadRadius:
-                            0.5, // has the effect of extending the shadow
+                        0.5, // has the effect of extending the shadow
                         offset: Offset(
                           0.0, // horizontal, move right 10
                           10.0, // vertical, move down 10
@@ -454,7 +474,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                               children: <Widget>[
                                 Container(
                                   transform:
-                                      Matrix4.translationValues(15, 0, 0.0),
+                                  Matrix4.translationValues(15, 0, 0.0),
                                   child: Text(
                                     dropdownValue,
                                     style: GoogleFonts.montserrat(
@@ -466,7 +486,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                                 ),
                                 Container(
                                   transform:
-                                      Matrix4.translationValues(-10, 0, 0.0),
+                                  Matrix4.translationValues(-10, 0, 0.0),
                                   child: Theme(
                                     data: Theme.of(context).copyWith(
                                       canvasColor: const Color(0xff0e2737),
@@ -479,12 +499,12 @@ class _MyWalletPageState extends State<MyWalletPage> {
                                           'Mount',
                                           'Year'
                                         ].map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
+                                                (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
                                         onChanged: (String newValue) {
                                           setState(() {
                                             print(newValue);
@@ -526,7 +546,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                                         width: 29,
                                         child: CircleAvatar(
                                           backgroundColor:
-                                              const Color(0xff1c3a4d),
+                                          const Color(0xff1c3a4d),
                                         ),
                                       ),
                                     ),
@@ -536,7 +556,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                                   ),
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
                                         width: 60.33333206176758,
@@ -583,7 +603,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                                         width: 29,
                                         child: CircleAvatar(
                                           backgroundColor:
-                                              const Color(0xff1c3a4d),
+                                          const Color(0xff1c3a4d),
                                         ),
                                       ),
                                     ),
@@ -593,7 +613,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                                   ),
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
                                         width: 60.33333206176758,
