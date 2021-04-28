@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cache/app/modules/database/database.dart';
 import 'package:cache/app/modules/user/simpleUser.dart';
 import 'package:cache/app/modules/wallet/chatbot/chat_message.dart';
+import 'package:cache/app/modules/wallet/chatbot/chatbot_controller.dart';
 import 'package:cache/app/modules/wallet/chatbot/chatbot_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,7 +11,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
 class Modal{
-
+  ChatBotController chatBotController = ChatBotController();
   mainBottomSheet(BuildContext context, List<String> data){
 
     showModalBottomSheet(
@@ -42,15 +43,7 @@ class Modal{
   }
 
   _sendToCloud(String message, BuildContext context){
-    final user = Provider.of<SimpleUser>(context, listen: false);
-    Database(uid: user.uid).uploadMessage(message, true, user.firstName);
+    chatBotController.uploadUserMessage(message, context);
   }
 
-  _action2(){
-    print('action 2');
-  }
-
-  _action3(){
-    print('action 3');
-  }
 }

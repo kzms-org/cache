@@ -175,7 +175,7 @@ class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
               }else{
                 print('signed in');
                 print(result);
-                Modular.to.pushReplacementNamed("/wallet");
+                Modular.to.pushReplacementNamed("/wallet/dashboard");
               }
             },
           ),

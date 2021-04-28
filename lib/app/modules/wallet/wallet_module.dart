@@ -1,3 +1,4 @@
+import 'package:cache/app/AuthGuard.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cache/app/modules/wallet/edit_item/edit_item_page.dart';
 import 'package:cache/app/modules/wallet/open_item/open_item_page.dart';
@@ -20,7 +21,7 @@ class WalletModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-      ChildRoute('/', child: (_, args) => MyWalletPage()),
+      ChildRoute('/dashboard', child: (_, args) => MyWalletPage()),
       ChildRoute('/records', child: (_, args) => RecordsPage()),
       ChildRoute('/accounts', child: (_, args) => AccountsPage()),
       ChildRoute('/add-funds', child: (_, args) => AddFundsPage()),

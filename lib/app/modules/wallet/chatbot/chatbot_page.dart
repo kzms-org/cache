@@ -13,6 +13,7 @@ import 'package:focused_menu/modals.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:cache/play_ui/modal/modal.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 
@@ -25,18 +26,7 @@ class ChatbotPage extends StatefulWidget {
 class _ChatbotPageState extends State<ChatbotPage> {
   ChatBotController chatBotController = Modular.get<ChatBotController>();
 
-  Map<String, List<String>> questions = {
-    "Forecast": [
-      "Show me my forecast for the next week.",
-      "How much will I have at the end of the month?"
-    ],
-    "Statistics": [
-      "How much money am I spending on average.",
-      "My income this month.",
-      "My income this year.",
-      "Show me the spending graph."
-    ]
-  };
+
   Modal modal = new Modal();
 
   // NavBar items START....................
@@ -46,6 +36,67 @@ class _ChatbotPageState extends State<ChatbotPage> {
   Color button2 = Colors.white;
   Color button3 = const Color(0xffe3a33d);
   Color button4 = const Color(0xff386785);
+
+
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<SimpleUser>(context);
+
+    return Scaffold(
+      backgroundColor: const Color(0xff112a39),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(Icons.dehaze, color: const Color(0xff7099b2)),
+          color: const Color(0xff7099b2),
+          onPressed: () {
+            //Modular.to.pushNamed('/security/profile');
+            print('sidebar');
+          },
+        ),
+        elevation: 0,
+        title: Text(
+          'CacheBot',
+          textAlign: TextAlign.center,
+          style: GoogleFonts.montserrat(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Color(0xffeeeeee),
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+          reverse: true,
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.end,
+              verticalDirection: VerticalDirection.up,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                StreamBuilder(
+                stream: Database(uid: user.uid).getAllMessagesWithChatBot(),
+                builder: (context, snapshot){
+                  if(snapshot.hasData){
+                    List<Messages> messages = snapshot.data;
+                return ListView.builder(
+                  physics: ScrollPhysics(),
+                  padding: EdgeInsets.fromLTRB(1.0, 5.0, 1.0, 5.0),
+                  shrinkWrap: true,
+                  reverse: true,
+                  itemBuilder: (_, int index) => ChatMessage(type: messages[index].userMessage,
+                                                              name: messages[index].senderName,
+                                                              text: messages[index].message),
+                  itemCount: messages.length,
+                );}else{
+                    return Center(child:CircularProgressIndicator());
+                  }
+                  }),
+
+              ])),
+      bottomNavigationBar: navBar(),
+    );
+  }
 
   // Gives color to specific icons in the navbar.
   void changepage() {
@@ -131,7 +182,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
                   onTap: () {
                     selectedTab = 0;
                     changepage();
-                    Modular.to.pushReplacementNamed("/wallet");
+                    Modular.to.pushReplacementNamed("/wallet/dashboard");
                   },
                   child: Container(
                     width: 66,
@@ -175,14 +226,14 @@ class _ChatbotPageState extends State<ChatbotPage> {
                             "Forecast", style: TextStyle(color: Colors.black)),
                         onPressed: () =>
                             modal.mainBottomSheet(
-                                context, questions["Forecast"])
+                                context, chatBotController.questions["Forecast"])
 
                     ),
                     FocusedMenuItem(title: Text(
                         "Statistics", style: TextStyle(color: Colors.black)),
                         onPressed: () =>
                             modal.mainBottomSheet(
-                                context, questions["Statistics"])),
+                                context, chatBotController.questions["Statistics"])),
                   ],
                   onPressed: () {},
                   child: Container(
@@ -255,64 +306,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
     );
   }
 
-  // NavBar items END......................
+// NavBar items END......................
 
-  @override
-  Widget build(BuildContext context) {
-    final user = Provider.of<SimpleUser>(context);
-
-    return Scaffold(
-      backgroundColor: const Color(0xff112a39),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: Icon(Icons.dehaze, color: const Color(0xff7099b2)),
-          color: const Color(0xff7099b2),
-          onPressed: () {
-            //Modular.to.pushNamed('/security/profile');
-            print('sidebar');
-          },
-        ),
-        elevation: 0,
-        title: Text(
-          'CacheBot',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.montserrat(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: Color(0xffeeeeee),
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-
-          child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                StreamBuilder(
-                stream: Database(uid: user.uid).getAllMessagesWithChatBot(),
-                builder: (context, snapshot){
-                  if(snapshot.hasData){
-                    List<Messages> messages = snapshot.data;
-                return ListView.builder(
-                  physics: ScrollPhysics(),
-                  padding: EdgeInsets.fromLTRB(1.0, 5.0, 1.0, 5.0),
-                  shrinkWrap: true,
-                  reverse: true,
-                  itemBuilder: (_, int index) => ChatMessage(type: messages[index].userMessage,
-                                                              name: messages[index].senderName,
-                                                              text: messages[index].message),
-                  itemCount: messages.length,
-                );}else{
-                    return Center(child:CircularProgressIndicator());
-                  }
-
-                  }),
-
-              ])),
-      bottomNavigationBar: navBar(),
-    );
-  }
 }
 

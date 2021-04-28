@@ -110,7 +110,7 @@ class _AccountsPageState extends State<AccountsPage> {
                   onTap: () {
                     selectedTab = 0;
                     changepage();
-                    Modular.to.pushReplacementNamed("/wallet");
+                    Modular.to.pushReplacementNamed("/wallet/dashboard");
                   },
                   child: Container(
                     width: 66,

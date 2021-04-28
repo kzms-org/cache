@@ -145,13 +145,12 @@ class Database {
   }
 
   // TRANSACTION INFORMATION
-  Map<String,String> _userTransactionInfoSnapshot(DocumentSnapshot snapshot) {
-    Map<String, String> userInfo = {"Balance": snapshot.data()["balance"],};
+  Map<String,dynamic> _userTransactionInfoSnapshot(DocumentSnapshot snapshot) {
+    return snapshot.data();
 
-    return userInfo;
 
   }
-  Stream<Map<String,String>> getUserTransactionInfo() {
+  Stream<Map<String,dynamic>> getUserTransactionInfo() {
     return transactionsCollection
         .doc(uid)
         .snapshots()

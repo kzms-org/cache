@@ -55,4 +55,22 @@ class PythonApi {
 
     return responseString.body;
   }
+  Future<dynamic> getChatBotReply(String route, Map<String,List<String>> questionMap, int question) async{
+    print(apiURL + " sending data here");
+
+    // inset data into a variable
+    Map<String, dynamic> data = {
+      "questionMap": questionMap,
+      "question": question,
+    };
+
+    // send data using post request
+    Response response = await http.post(Uri.https(apiURL, route),
+                headers: {"content-type":"application/json"},
+                body: data,
+    );
+
+    return response.body;
+  }
+
 }
