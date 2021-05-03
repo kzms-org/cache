@@ -1,7 +1,16 @@
+import 'package:cache/app/modules/database/database.dart';
+import 'package:cache/app/modules/database/transaction.dart';
+import 'package:cache/app/modules/user/cacheuser.dart';
+import 'package:cache/app/modules/wallet/records/earns.dart';
+import 'package:cache/app/modules/wallet/records/expenses.dart';
+import 'package:cache/app/modules/wallet/records/records_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class RecordsPage extends StatefulWidget {
   @override
@@ -9,40 +18,8 @@ class RecordsPage extends StatefulWidget {
 }
 
 class _RecordsPageState extends State<RecordsPage> {
+  RecordsController recordsController = RecordsController();
 
-  List<int> money = [
-    23,
-    544,
-    15,
-    76,
-    54,
-    65,
-    34,
-    145,
-    204,
-  ];
-  List from = [
-    "Paypal Transfer",
-    "Amazon - Gaming Keyboard",
-    "Cheap Mouse",
-    "Aliexpress Order",
-    "Toyota car servicing",
-    "USP Delivery",
-    "Credit card Payment",
-    "Panda Grocery Shopping",
-    "Saco Blue paint Container",
-  ];
-  List income = [
-    "Paypal Transfer",
-    "Amazon ",
-    "Sold Mouse",
-    "Aliexpress Shop",
-    "Toyota car sold",
-    "Delivery commission",
-    "Land Payment",
-    "Grocery sales",
-    "Paint sales",
-  ];
   int selectedTab = 1;
   int tabcount = 5;
   Color button0 = const Color(0xff386785);
@@ -51,7 +28,7 @@ class _RecordsPageState extends State<RecordsPage> {
   Color button3 = const Color(0xff386785);
   Color button4 = const Color(0xff386785);
 
-//This bottombar is customized so we use a spesfic code for bottombar.
+//This bottombar is customized so we use a specific code for bottombar.
   void changepage() {
     if (selectedTab == 0) {
       setState(() {
@@ -106,7 +83,7 @@ class _RecordsPageState extends State<RecordsPage> {
   }
 
   Widget navBar() {
-    return  Container(
+    return Container(
       color: const Color(0xff1b394c),
       child: SafeArea(
         child: Container(
@@ -134,7 +111,7 @@ class _RecordsPageState extends State<RecordsPage> {
                   onTap: () {
                     selectedTab = 0;
                     changepage();
-                    Modular.to.pushReplacementNamed("/wallet");
+                    Modular.to.pushReplacementNamed("/wallet/dashboard");
                   },
                   child: Container(
                     width: 66,
@@ -159,7 +136,7 @@ class _RecordsPageState extends State<RecordsPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Modular.to.pushNamed("wallet/add-funds");
+                    Modular.to.pushNamed("/wallet/add-funds");
                   },
                   child: Container(
                     width: 48.0,
@@ -169,9 +146,9 @@ class _RecordsPageState extends State<RecordsPage> {
                         BoxShadow(
                           color: const Color(0xff000000).withOpacity(0.5),
                           blurRadius:
-                          15.0, // has the effect of softening the shadow
+                              15.0, // has the effect of softening the shadow
                           spreadRadius:
-                          0.5, // has the effect of extending the shadow
+                              0.5, // has the effect of extending the shadow
                           offset: Offset(
                             0.0, // horizontal, move right 10
                             0.0, // vertical, move down 10
@@ -195,7 +172,7 @@ class _RecordsPageState extends State<RecordsPage> {
                     child: SvgPicture.asset(
                       "assets/chatbot.svg",
                       color: button3,
-                      height:48,
+                      height: 48,
                       width: 48,
                     ),
                   ),
@@ -224,14 +201,11 @@ class _RecordsPageState extends State<RecordsPage> {
 
   Widget build(BuildContext context) {
     return DefaultTabController(
-      // Tabbar'ımızın kaç elemanı olucak ?
       length: 2,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xff1c3a4d),
-          actions: <Widget>[
-
-          ],
+          actions: <Widget>[],
           title: Text(
             'Records',
             textAlign: TextAlign.center,
@@ -283,8 +257,6 @@ class _RecordsPageState extends State<RecordsPage> {
             ],
           ),
         ),
-        // TabBarView içerisine Tabbar içerisindeki elemanlarla
-        // eşleşicek sayfaları ekliyoruz
         body: TabBarView(
           children: <Widget>[
             Page1(),
@@ -297,306 +269,66 @@ class _RecordsPageState extends State<RecordsPage> {
   }
 }
 
-
-List<int> money = [
-  23,
-  544,
-  15,
-  76,
-  54,
-  65,
-  34,
-  145,
-  204,
-];
-List from = [
-  "Paypal Transfer",
-  "Amazon - Gaming Keyboard",
-  "Cheap Mouse",
-  "Aliexpress Order",
-  "Toyota car servicing",
-  "USP Delivery",
-  "Credit card Payment",
-  "Panda Grocery Shopping",
-  "Saco Blue paint Container",
-];
-
 class Page1 extends StatelessWidget {
+  final user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Container(
         color: const Color(0xff112a39),
         child: Center(
-          child: ListView.builder(
-            padding: EdgeInsets.only(bottom: 50),
-            scrollDirection: Axis.vertical,
-            reverse: false,
-            itemBuilder: (_, int index) => Expenses(money[index], from[index]),
-            itemCount: money.length,
-          ),
-        ));
+            child: StreamBuilder<List<UserTransaction>>(
+                stream: Database(uid: user.uid).getExpenseSnapshot(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<UserTransaction> expenses = snapshot.data;
+                    return ListView.builder(
+                      padding: EdgeInsets.only(bottom: 50),
+                      scrollDirection: Axis.vertical,
+                      reverse: false,
+                      itemBuilder: (_, int index) => Expenses(
+                          expenses[index].transactionAmount,
+                          expenses[index].description,
+                        expenses[index].transactionDate,),
+                      itemCount: expenses.length,
+                    );
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                })));
   }
 }
 
 class Page2 extends StatelessWidget {
+  final user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<CacheUser>(context);
     return Container(
         color: const Color(0xff112a39),
         child: Center(
-          child: ListView.builder(
-            padding: EdgeInsets.only(bottom: 50),
-            scrollDirection: Axis.vertical,
-            reverse: false,
-            itemBuilder: (_, int index) => Earns(money[index], from[index]),
-            itemCount: money.length,
-          ),
-        ));
-  }
-}
+            child: StreamBuilder<List<UserTransaction>>(
+                stream: Database(uid: user.uid).getIncomeSnapshot(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<UserTransaction> incomes = snapshot.data;
 
-class Expenses extends StatelessWidget {
-  final int money;
-  final String from;
-  Expenses(this.money, this.from);
-  @override
-  Widget build(BuildContext context) {
-    return new GestureDetector(
-      onTap: () {},
-      child: GestureDetector(
-        onTap: () {
-        },
-        child: Card(
-          elevation: 0,
-          color: Colors.transparent,
-          child: Container(
-            width: 136,
-            height: 80,
-            child: Container(
-              padding: EdgeInsets.fromLTRB(20, 25, 15, 0),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            child: CircleAvatar(
-                              backgroundColor: const Color(0xff2a4f67),
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  '\$',
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xfff5a623),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 14,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  from,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 14.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffeeeeee),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  from,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 10.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xff888888),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
+                    return ListView.builder(
+                      padding: EdgeInsets.only(bottom: 50),
+                      scrollDirection: Axis.vertical,
+                      reverse: false,
+                      itemBuilder: (_, int index) => Earns(
+                          incomes[index].transactionAmount,
+                          incomes[index].description,
+                          incomes[index].transactionDate,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              "-\$" + money.toString(),
-                              textAlign: TextAlign.end,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 14.67,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xffdd5757),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              '21 Feb, 2018',
-                              textAlign: TextAlign.end,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 10.67,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff888888),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 14,
-                  ),
-                  Container(
-                      padding: EdgeInsets.fromLTRB(50, 0, 0, 0),
-                      child: Container(
-                        height: 1,
-                        color: const Color(0xff23475d),
-                      )),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
-class Earns extends StatelessWidget {
-  final int money;
-  final String from;
-  Earns(this.money, this.from);
-  @override
-  Widget build(BuildContext context) {
-    return new GestureDetector(
-      onTap: () {
-        print("object");
-        //Navigator.pushNamed(context, "sayfa.arasayfa.sohbet");
-      },
-      child: GestureDetector(
-        onTap: () {
-          print(this.from);
-        },
-        child: Card(
-          elevation: 0,
-          color: Colors.transparent,
-          child: Container(
-            width: 136,
-            height: 80,
-            child: Container(
-              padding: EdgeInsets.fromLTRB(20, 25, 15, 0),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            child: CircleAvatar(
-                              backgroundColor: const Color(0xff2a4f67),
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  '\$',
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xfff5a623),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 14,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  from,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 14.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffeeeeee),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  from,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 10.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xff888888),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              "+\$" + money.toString(),
-                              textAlign: TextAlign.end,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 14.67,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff60ba67),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              '21 Feb, 2018',
-                              textAlign: TextAlign.end,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 10.67,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff888888),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 14,
-                  ),
-                  Container(
-                      padding: EdgeInsets.fromLTRB(50, 0, 0, 0),
-                      child: Container(
-                        height: 1,
-                        color: const Color(0xff23475d),
-                      )),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+                      itemCount: incomes.length,
+                    );
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                })));
   }
 }

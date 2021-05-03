@@ -1,15 +1,20 @@
+import 'package:cache/app/modules/database/database.dart';
+import 'package:cache/app/modules/security/auth.dart';
+import 'package:cache/app/modules/user/cacheuser.dart';
+import 'package:cache/app/modules/user/simpleUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cache/play_ui/easy_widgets/easy_widgets.dart';
+import 'package:provider/provider.dart';
 
-class MyWalletPage extends StatefulWidget {
+class MyWalletPage extends StatefulWidget  {
   @override
   _MyWalletPageState createState() => _MyWalletPageState();
 }
 
-class _MyWalletPageState extends State<MyWalletPage> {
+class _MyWalletPageState extends State<MyWalletPage> with SingleTickerProviderStateMixin {
   double notificationOpacity = 1;
   bool notification = false;
   String date = returnDate();
@@ -27,191 +32,13 @@ class _MyWalletPageState extends State<MyWalletPage> {
 
   String dropdownValue = "Day";
 
-  void changepage() {
-    if (selectedTab == 0) {
-      setState(() {
-        button0 = const Color(0xffe3a33d);
-        button1 = const Color(0xff386785);
-        button2 = Colors.white;
-        button3 = const Color(0xff386785);
-        button4 = const Color(0xff386785);
-      });
-      print("0");
-    }
-    if (selectedTab == 1) {
-      setState(() {
-        button0 = const Color(0xff386785);
-        button1 = const Color(0xffe3a33d);
-        button2 = Colors.white;
-        button3 = const Color(0xff386785);
-        button4 = const Color(0xff386785);
-      });
-      print("1");
-    }
-    if (selectedTab == 2) {
-      setState(() {
-        button0 = const Color(0xff386785);
-        button1 = const Color(0xff386785);
-        button2 = const Color(0xffe3a33d);
-        button3 = const Color(0xff386785);
-        button4 = const Color(0xff386785);
-      });
-      print("2");
-    }
-    if (selectedTab == 3) {
-      setState(() {
-        button0 = const Color(0xff386785);
-        button1 = const Color(0xff386785);
-        button2 = Colors.white;
-        button3 = const Color(0xffe3a33d);
-        button4 = const Color(0xff386785);
-      });
-      print("3");
-    }
-    if (selectedTab == 4) {
-      setState(() {
-        button0 = const Color(0xff386785);
-        button1 = const Color(0xff386785);
-        button2 = Colors.white;
-        button3 = const Color(0xff386785);
-        button4 = const Color(0xffe3a33d);
-      });
-      print("4");
-    }
-  }
 
-  Widget navBar(){
-    return Container(
-      color: const Color(0xff1b394c),
-      child: SafeArea(
-        child: Container(
-          height: 66.5,
-          decoration: BoxDecoration(
-            color: const Color(0xff1b394c),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xff000000).withOpacity(0.25),
-                blurRadius: 15.0, // has the effect of softening the shadow
-                spreadRadius: 0.5, // has the effect of extending the shadow
-                offset: Offset(
-                  0.0, // horizontal, move right 10
-                  -20.0, // vertical, move down 10
-                ),
-              ),
-            ],
-          ),
-          child: Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    selectedTab = 0;
-                    changepage();
-                  },
-                  child: Container(
-                    width: 66,
-                    child: SvgPicture.asset(
-                      "assets/Wallet.svg",
-                      color: button0,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    selectedTab = 1;
-                    changepage();
-                    Modular.to.pushReplacementNamed("/wallet/records");
-                  },
-                  child: Container(
-                    width: 66,
-                    child: SvgPicture.asset(
-                      "assets/Horizontal_view.svg",
-                      color: button1,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Modular.to.pushNamed("wallet/add-funds");
-                  },
-                  child: Container(
-                    width: 48.0,
-                    height: 48.0,
-                    decoration: new BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xff000000).withOpacity(0.5),
-                          blurRadius:
-                          15.0, // has the effect of softening the shadow
-                          spreadRadius:
-                          0.5, // has the effect of extending the shadow
-                          offset: Offset(
-                            0.0, // horizontal, move right 10
-                            0.0, // vertical, move down 10
-                          ),
-                        ),
-                      ],
-                      shape: BoxShape.circle,
-                      color: const Color(0xff315fd6),
-                    ),
-                    child: Icon(Icons.add, color: button2),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    selectedTab = 3;
-                    changepage();
-                    Modular.to.pushReplacementNamed("/wallet/chatbot");
-                  },
-                  child: Container(
-                    width: 66,
-                    child: SvgPicture.asset(
-                      "assets/chatbot.svg",
-                      color: button3,
-                      height:48,
-                      width: 48,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    selectedTab = 4;
-                    changepage();
-                    Modular.to.pushReplacementNamed("/wallet/accounts");
-                  },
-                  child: Container(
-                    width: 66,
-                    child: SvgPicture.asset(
-                      "assets/Credit_card.svg",
-                      color: button4,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget returnRiyalSVG(){
-    return Container(
-      width: 23.33333396911621,
-      height: 42.66666793823242,
-      child: SvgPicture.asset(
-        'assets/riyal.svg',
-        color: Colors.white60,
-        height: 50,
-        width: 50,
-      ),
-    );
-  }
 
   Widget build(BuildContext context) {
-    return Scaffold(
+    final user = Provider.of<SimpleUser>(context);
+    AuthService _auth = AuthService();
+
+    return user == null? Center( child: CircularProgressIndicator()) :Scaffold(
       backgroundColor: const Color(0xff112a39),
       appBar: AppBar(
         actions: <Widget>[
@@ -246,8 +73,10 @@ class _MyWalletPageState extends State<MyWalletPage> {
           IconButton(
             icon: Icon(Icons.search, color: const Color(0xff7099b2)),
             color: const Color(0xff7099b2),
-            onPressed: () {
+            onPressed: () async {
               print("Search Button Pressed");
+              Modular.to.navigate("/security/auth-types", replaceAll: true);
+              await _auth.signOut();
             },
           ),
         ],
@@ -256,7 +85,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
           icon: Icon(Icons.dehaze, color: const Color(0xff7099b2)),
           color: const Color(0xff7099b2),
           onPressed: () {
-            print('sidebar');
+            Modular.to.pushNamed('/security/profile');
           },
         ),
         elevation: 0,
@@ -271,8 +100,9 @@ class _MyWalletPageState extends State<MyWalletPage> {
         ),
         centerTitle: true,
       ),
+
       body: //scaffold's body
-          SingleChildScrollView(
+      SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -284,9 +114,9 @@ class _MyWalletPageState extends State<MyWalletPage> {
                       BoxShadow(
                         color: const Color(0xff000000).withOpacity(0.25),
                         blurRadius:
-                            15.0, // has the effect of softening the shadow
+                        15.0, // has the effect of softening the shadow
                         spreadRadius:
-                            0.5, // has the effect of extending the shadow
+                        0.5, // has the effect of extending the shadow
                         offset: Offset(
                           0.0, // horizontal, move right 10
                           10.0, // vertical, move down 10
@@ -364,24 +194,37 @@ class _MyWalletPageState extends State<MyWalletPage> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
                           returnRiyalSVG(),
-                          Text(
-                            totalMoney1,
-                            style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.w200,
-                              fontSize: 73.33,
-                              color: Color(0xffffffff),
-                            ),
-                          ),
-                          Container(
-                            height: 42.66666793823242,
-                            child: Text(
-                              totalMoney2,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 24,
-                                color: Color(0xffeeeeee).withOpacity(0.75),
-                              ),
-                            ),
-                          )
+                          StreamBuilder(
+                              stream: Database(uid:user.uid).getUserTransactionInfo(),
+                              builder: (context, snapshot) {
+
+                                if (snapshot.hasData) {
+
+                                  Map<String, dynamic> balance = snapshot.data;
+                                  return Text(
+                                      balance["Balance"].toString(),
+                                      style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.w200,
+                                        fontSize: 25.33,
+                                        color: Color(0xffffffff),)
+
+                                  );
+
+                                }else{
+                                  return Text("no data found");
+                                }
+                              }),
+
+                          // Container(
+                          //   height: 42.66666793823242,
+                          //   child: Text(
+                          //     totalMoney2,
+                          //     style: GoogleFonts.montserrat(
+                          //       fontSize: 24,
+                          //       color: Color(0xffeeeeee).withOpacity(0.75),
+                          //     ),
+                          //   ),
+                          // )
                         ],
                       ),
                     ],
@@ -400,9 +243,9 @@ class _MyWalletPageState extends State<MyWalletPage> {
                       BoxShadow(
                         color: const Color(0xff000000).withOpacity(0.25),
                         blurRadius:
-                            15.0, // has the effect of softening the shadow
+                        15.0, // has the effect of softening the shadow
                         spreadRadius:
-                            0.5, // has the effect of extending the shadow
+                        0.5, // has the effect of extending the shadow
                         offset: Offset(
                           0.0, // horizontal, move right 10
                           10.0, // vertical, move down 10
@@ -453,7 +296,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                               children: <Widget>[
                                 Container(
                                   transform:
-                                      Matrix4.translationValues(15, 0, 0.0),
+                                  Matrix4.translationValues(15, 0, 0.0),
                                   child: Text(
                                     dropdownValue,
                                     style: GoogleFonts.montserrat(
@@ -465,7 +308,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                                 ),
                                 Container(
                                   transform:
-                                      Matrix4.translationValues(-10, 0, 0.0),
+                                  Matrix4.translationValues(-10, 0, 0.0),
                                   child: Theme(
                                     data: Theme.of(context).copyWith(
                                       canvasColor: const Color(0xff0e2737),
@@ -478,12 +321,12 @@ class _MyWalletPageState extends State<MyWalletPage> {
                                           'Mount',
                                           'Year'
                                         ].map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
+                                                (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
                                         onChanged: (String newValue) {
                                           setState(() {
                                             print(newValue);
@@ -525,7 +368,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                                         width: 29,
                                         child: CircleAvatar(
                                           backgroundColor:
-                                              const Color(0xff1c3a4d),
+                                          const Color(0xff1c3a4d),
                                         ),
                                       ),
                                     ),
@@ -535,7 +378,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                                   ),
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
                                         width: 60.33333206176758,
@@ -582,7 +425,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                                         width: 29,
                                         child: CircleAvatar(
                                           backgroundColor:
-                                              const Color(0xff1c3a4d),
+                                          const Color(0xff1c3a4d),
                                         ),
                                       ),
                                     ),
@@ -592,7 +435,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                                   ),
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
                                         width: 60.33333206176758,
@@ -631,11 +474,194 @@ class _MyWalletPageState extends State<MyWalletPage> {
             Container(
               height: 100,
             ),
+
           ],
         ),
       ),
       bottomNavigationBar: navBar(),
     );
   }
-}
 
+  void changepage() {
+    if (selectedTab == 0) {
+      setState(() {
+        button0 = const Color(0xffe3a33d);
+        button1 = const Color(0xff386785);
+        button2 = Colors.white;
+        button3 = const Color(0xff386785);
+        button4 = const Color(0xff386785);
+      });
+      print("0");
+    }
+    if (selectedTab == 1) {
+      setState(() {
+        button0 = const Color(0xff386785);
+        button1 = const Color(0xffe3a33d);
+        button2 = Colors.white;
+        button3 = const Color(0xff386785);
+        button4 = const Color(0xff386785);
+      });
+      print("1");
+    }
+    if (selectedTab == 2) {
+      setState(() {
+        button0 = const Color(0xff386785);
+        button1 = const Color(0xff386785);
+        button2 = const Color(0xffe3a33d);
+        button3 = const Color(0xff386785);
+        button4 = const Color(0xff386785);
+      });
+      print("2");
+    }
+    if (selectedTab == 3) {
+      setState(() {
+        button0 = const Color(0xff386785);
+        button1 = const Color(0xff386785);
+        button2 = Colors.white;
+        button3 = const Color(0xffe3a33d);
+        button4 = const Color(0xff386785);
+      });
+      print("3");
+    }
+    if (selectedTab == 4) {
+      setState(() {
+        button0 = const Color(0xff386785);
+        button1 = const Color(0xff386785);
+        button2 = Colors.white;
+        button3 = const Color(0xff386785);
+        button4 = const Color(0xffe3a33d);
+      });
+      print("4");
+    }
+  }
+
+  Widget navBar() {
+    return Container(
+      color: const Color(0xff1b394c),
+      child: SafeArea(
+        child: Container(
+          height: 66.5,
+          decoration: BoxDecoration(
+            color: const Color(0xff1b394c),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xff000000).withOpacity(0.25),
+                blurRadius: 15.0, // has the effect of softening the shadow
+                spreadRadius: 0.5, // has the effect of extending the shadow
+                offset: Offset(
+                  0.0, // horizontal, move right 10
+                  -20.0, // vertical, move down 10
+                ),
+              ),
+            ],
+          ),
+          child: Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    selectedTab = 0;
+                    changepage();
+                  },
+                  child: Container(
+                    width: 66,
+                    child: SvgPicture.asset(
+                      "assets/Wallet.svg",
+                      color: button0,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    selectedTab = 1;
+                    changepage();
+                    Modular.to.pushReplacementNamed("/wallet/records");
+                  },
+                  child: Container(
+                    width: 66,
+                    child: SvgPicture.asset(
+                      "assets/Horizontal_view.svg",
+                      color: button1,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Modular.to.pushNamed("/wallet/add-funds");
+                  },
+                  child: Container(
+                    width: 48.0,
+                    height: 48.0,
+                    decoration: new BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xff000000).withOpacity(0.5),
+                          blurRadius:
+                          15.0, // has the effect of softening the shadow
+                          spreadRadius:
+                          0.5, // has the effect of extending the shadow
+                          offset: Offset(
+                            0.0, // horizontal, move right 10
+                            0.0, // vertical, move down 10
+                          ),
+                        ),
+                      ],
+                      shape: BoxShape.circle,
+                      color: const Color(0xff315fd6),
+                    ),
+                    child: Icon(Icons.add, color: button2),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    selectedTab = 3;
+                    changepage();
+                    Modular.to.pushReplacementNamed("/wallet/chatbot");
+                  },
+                  child: Container(
+                    width: 66,
+                    child: SvgPicture.asset(
+                      "assets/chatbot.svg",
+                      color: button3,
+                      height: 48,
+                      width: 48,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    selectedTab = 4;
+                    changepage();
+                    Modular.to.pushReplacementNamed("/wallet/accounts");
+                  },
+                  child: Container(
+                    width: 66,
+                    child: SvgPicture.asset(
+                      "assets/Credit_card.svg",
+                      color: button4,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget returnRiyalSVG() {
+    return Container(
+      width: 23.33333396911621,
+      height: 42.66666793823242,
+      child: SvgPicture.asset(
+        'assets/riyal.svg',
+        color: Colors.white60,
+        height: 50,
+        width: 50,
+      ),
+    );
+  }
+}

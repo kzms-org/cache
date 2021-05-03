@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:cache/app/modules/user/cacheuser.dart';
+import 'app/app_widget.dart';
 import 'app/modules/security/auth.dart';
 
 
@@ -15,8 +16,11 @@ void main() async {
   runApp(
     StreamProvider<CacheUser>.value(
       value: AuthService().user,
+
+      initialData: null,
       child: ModularApp(
         module: AppModule(),
+        child: AppWidget(),
       ))
     );
 }

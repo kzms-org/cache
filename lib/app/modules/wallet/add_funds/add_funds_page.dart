@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'add_funds_controller.dart';
 
 class AddFundsPage extends StatefulWidget {
   @override
@@ -8,6 +9,8 @@ class AddFundsPage extends StatefulWidget {
 }
 
 class _AddFundsPageState extends State<AddFundsPage> {
+  final addFundsController  = Modular.get<AddFundsController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +77,7 @@ class _AddFundsPageState extends State<AddFundsPage> {
                 padding: EdgeInsets.fromLTRB(20, 25, 15, 0),
                 child: GestureDetector(
                   onTap: () {
-                    print("Upload transactions");
+                    addFundsController.selectFileToUpload();
                   },
                   child: Container(
                     child: Container(

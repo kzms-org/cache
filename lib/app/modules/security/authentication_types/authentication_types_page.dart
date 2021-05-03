@@ -126,7 +126,7 @@ class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
           ButtonWidget(
             text: 'Login',
             onTap: () {
-              Modular.to.pushReplacementNamed('/security/login');
+              Modular.to.pushNamed('/security/login');
             },
           ),
           Container(
@@ -137,7 +137,7 @@ class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
             backgroudColor: Theme.of(context).accentColor,
             splashColor: Theme.of(context).primaryColor,
             onTap: () {
-              Modular.to.pushReplacementNamed('/security/signup');
+              Modular.to.pushNamed('/security/signup');
             },
           ),
           Container(
@@ -175,7 +175,7 @@ class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
               }else{
                 print('signed in');
                 print(result);
-                Modular.to.pushReplacementNamed("/wallet");
+                Modular.to.pushReplacementNamed("/wallet/dashboard");
               }
             },
           ),

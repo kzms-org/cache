@@ -12,10 +12,10 @@ mixin _$SignUpController on _SignUpControllerBase, Store {
   final _$signUpAsyncAction = AsyncAction('signUp');
 
   @override
-  Future<dynamic> signUp(String username, String email,
+  Future<dynamic> signUp(String firstName, String lastName, String email,
       String emailConfirmation, String password) {
     return _$signUpAsyncAction
-        .run(() => super.signUp(username, email, emailConfirmation, password));
+        .run(() => super.signUp(firstName, lastName, email, emailConfirmation, password));
   }
 
   @override

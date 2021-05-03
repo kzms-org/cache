@@ -8,10 +8,8 @@ import 'package:cache/play_ui/text_widget/text_widget.dart';
 
 import 'login_controller.dart';
 
-/**
- * To do:
- * Add condition to check if the email and username is empty or not.
- */
+/// To do:
+/// Add condition to check if the email and username is empty or not.
 
 
 class LoginPage extends StatefulWidget {
@@ -70,6 +68,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return PageScaffoldWidget(
       title: 'Login',
+
+
       child: //scaffold's body
           Container(
         child: Column(
@@ -112,7 +112,6 @@ class _LoginPageState extends State<LoginPage> {
             ButtonWidget(
               text: 'Login',
               onTap: () {
-                print('email inloginpage: '+ email);
                 loginController.loginWithUsernameAndPassword(email, password);
               },
             ),

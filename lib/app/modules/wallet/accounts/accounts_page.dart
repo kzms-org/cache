@@ -1,8 +1,11 @@
+import 'package:cache/app/modules/user/cacheuser.dart';
+import 'package:cache/app/modules/user/simpleUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cache/play_ui/easy_widgets/easy_widgets.dart';
+import 'package:provider/provider.dart';
 
 class AccountsPage extends StatefulWidget {
   @override
@@ -10,7 +13,7 @@ class AccountsPage extends StatefulWidget {
 }
 
 class _AccountsPageState extends State<AccountsPage> {
-  String username = "User";
+
   String date = returnDate();
 
 
@@ -107,7 +110,7 @@ class _AccountsPageState extends State<AccountsPage> {
                   onTap: () {
                     selectedTab = 0;
                     changepage();
-                    Modular.to.pushReplacementNamed("/wallet");
+                    Modular.to.pushReplacementNamed("/wallet/dashboard");
                   },
                   child: Container(
                     width: 66,
@@ -133,7 +136,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Modular.to.pushNamed("wallet/add-funds");
+                    Modular.to.pushNamed("/wallet/add-funds");
                   },
                   child: Container(
                     width: 48.0,
@@ -197,6 +200,10 @@ class _AccountsPageState extends State<AccountsPage> {
 
 
   Widget build(BuildContext context) {
+    final user = Provider.of<SimpleUser>(context);
+
+    print(user);
+
     return Scaffold(
       backgroundColor: const Color(0xff112a39),
       appBar: AppBar(
@@ -257,9 +264,10 @@ class _AccountsPageState extends State<AccountsPage> {
                         children: <Widget>[
                           Container(
                             child: Text(
-                              username,
+                              user.firstName,
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.montserrat(
-                                fontSize: 20,
+                                fontSize: 15,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xffeeeeee),
                               ),

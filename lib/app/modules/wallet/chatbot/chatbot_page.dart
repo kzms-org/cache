@@ -1,13 +1,20 @@
+import 'dart:async';
+
+import 'package:cache/app/modules/database/database.dart';
+import 'package:cache/app/modules/database/messages.dart';
+import 'package:cache/app/modules/user/simpleUser.dart';
+import 'package:cache/app/modules/wallet/chatbot/chat_message.dart';
+import 'package:cache/app/modules/wallet/chatbot/chatbot_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:focused_menu/modals.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cache/play_ui/play_ui.dart';
-import 'package:cache/play_ui/text_widget/text_widget.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:cache/play_ui/modal/modal.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 
 class ChatbotPage extends StatefulWidget {
@@ -16,21 +23,10 @@ class ChatbotPage extends StatefulWidget {
 }
 
 
-
 class _ChatbotPageState extends State<ChatbotPage> {
+  ChatBotController chatBotController = Modular.get<ChatBotController>();
 
-  Map<String,List<String>> questions = {
-    "Forecast": [
-      "Show me my forecast for the next week.",
-      "How much will I have at the end of the month?"
-    ],
-    "Statistics": [
-      "How much money am I spending on average.",
-      "My income this month.",
-      "My income this year.",
-      "Show me the spending graph."
-    ]
-  };
+
   Modal modal = new Modal();
 
   // NavBar items START....................
@@ -40,6 +36,67 @@ class _ChatbotPageState extends State<ChatbotPage> {
   Color button2 = Colors.white;
   Color button3 = const Color(0xffe3a33d);
   Color button4 = const Color(0xff386785);
+
+
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<SimpleUser>(context);
+
+    return Scaffold(
+      backgroundColor: const Color(0xff112a39),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(Icons.dehaze, color: const Color(0xff7099b2)),
+          color: const Color(0xff7099b2),
+          onPressed: () {
+            //Modular.to.pushNamed('/security/profile');
+            print('sidebar');
+          },
+        ),
+        elevation: 0,
+        title: Text(
+          'CacheBot',
+          textAlign: TextAlign.center,
+          style: GoogleFonts.montserrat(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Color(0xffeeeeee),
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+          reverse: true,
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.end,
+              verticalDirection: VerticalDirection.up,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                StreamBuilder(
+                stream: Database(uid: user.uid).getAllMessagesWithChatBot(),
+                builder: (context, snapshot){
+                  if(snapshot.hasData){
+                    List<Messages> messages = snapshot.data;
+                return ListView.builder(
+                  physics: ScrollPhysics(),
+                  padding: EdgeInsets.fromLTRB(1.0, 5.0, 1.0, 5.0),
+                  shrinkWrap: true,
+                  reverse: true,
+                  itemBuilder: (_, int index) => ChatMessage(type: messages[index].userMessage,
+                                                              name: messages[index].senderName,
+                                                              text: messages[index].message),
+                  itemCount: messages.length,
+                );}else{
+                    return Center(child:CircularProgressIndicator());
+                  }
+                  }),
+
+              ])),
+      bottomNavigationBar: navBar(),
+    );
+  }
 
   // Gives color to specific icons in the navbar.
   void changepage() {
@@ -125,7 +182,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
                   onTap: () {
                     selectedTab = 0;
                     changepage();
-                    Modular.to.pushReplacementNamed("/wallet");
+                    Modular.to.pushReplacementNamed("/wallet/dashboard");
                   },
                   child: Container(
                     width: 66,
@@ -150,10 +207,14 @@ class _ChatbotPageState extends State<ChatbotPage> {
                   ),
                 ),
                 FocusedMenuHolder(
-                  menuWidth: MediaQuery.of(context).size.width*0.50,
+                  menuWidth: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.50,
                   blurSize: 5.0,
                   menuItemExtent: 45,
-                  menuBoxDecoration: BoxDecoration(color: Colors.grey,borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                  menuBoxDecoration: BoxDecoration(color: Colors.grey,
+                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
                   duration: Duration(milliseconds: 100),
                   animateMenuItems: true,
                   blurBackgroundColor: Colors.black54,
@@ -161,13 +222,20 @@ class _ChatbotPageState extends State<ChatbotPage> {
                   openWithTap: true,
                   menuItems: <FocusedMenuItem>[
                     FocusedMenuItem(
-                        title: Text("Forecast", style:TextStyle(color: Colors.black)),
-                        onPressed: () => modal.mainBottomSheet(context, questions["Forecast"])
+                        title: Text(
+                            "Forecast", style: TextStyle(color: Colors.black)),
+                        onPressed: () =>
+                            modal.mainBottomSheet(
+                                context, chatBotController.questions["Forecast"])
 
                     ),
-                    FocusedMenuItem(title: Text("Statistics", style:TextStyle(color: Colors.black)), onPressed: () => modal.mainBottomSheet(context, questions["Statistics"])),
+                    FocusedMenuItem(title: Text(
+                        "Statistics", style: TextStyle(color: Colors.black)),
+                        onPressed: () =>
+                            modal.mainBottomSheet(
+                                context, chatBotController.questions["Statistics"])),
                   ],
-                  onPressed: (){},
+                  onPressed: () {},
                   child: Container(
                     width: 48.0,
                     height: 48.0,
@@ -176,9 +244,9 @@ class _ChatbotPageState extends State<ChatbotPage> {
                         BoxShadow(
                           color: const Color(0xff000000).withOpacity(0.5),
                           blurRadius:
-                              15.0, // has the effect of softening the shadow
+                          15.0, // has the effect of softening the shadow
                           spreadRadius:
-                              0.5, // has the effect of extending the shadow
+                          0.5, // has the effect of extending the shadow
                           offset: Offset(
                             0.0, // horizontal, move right 10
                             0.0, // vertical, move down 10
@@ -211,7 +279,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
                     child: SvgPicture.asset(
                       "assets/chatbot.svg",
                       color: button3,
-                      height:48,
+                      height: 48,
                       width: 48,
                     ),
                   ),
@@ -238,38 +306,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
     );
   }
 
-  // NavBar items END......................
+// NavBar items END......................
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xff112a39),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: Icon(Icons.dehaze, color: const Color(0xff7099b2)),
-          color: const Color(0xff7099b2),
-          onPressed: () {
-            //Modular.to.pushNamed('/security/profile');
-            print('sidebar');
-          },
-        ),
-        elevation: 0,
-        title: Text(
-          'CacheBot',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.montserrat(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: Color(0xffeeeeee),
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Column(children: <Widget>[]),
-      ),
-      bottomNavigationBar: navBar(),
-    );
-  }
 }
+
