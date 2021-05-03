@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:cache/app/modules/database/database.dart';
 import 'package:cache/app/modules/pythonapi/python_api.dart';
+import 'package:cache/app/modules/user/simpleUser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart' as path;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
@@ -12,6 +14,7 @@ import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 part 'add_funds_controller.g.dart';
 
@@ -19,10 +22,11 @@ class AddFundsController = _AddFundsControllerBase with _$AddFundsController;
 
 abstract class _AddFundsControllerBase with Store {
   PythonApi pythonApi = PythonApi();
-  final user = FirebaseAuth.instance.currentUser;
+
 
   // uses filepicker class select a file from the device.
-  Future selectFileToUpload() async{
+  Future selectFileToUpload(BuildContext context) async{
+    final user = Provider.of<SimpleUser>(context, listen:false);
     // when user clicks on upload csv file open the file picker
     FilePickerResult filePickerResult = await FilePicker.platform.pickFiles(type: FileType.custom,
     allowedExtensions: ['csv','jpg'],
@@ -45,17 +49,17 @@ abstract class _AddFundsControllerBase with Store {
       final  result = await pythonApi.sendCSVFileUsingPostRequest("/csvPreProcessing",renamedCSVFile);
 
       // read the json object with all transactions
-      Map<String, dynamic> allTransactions = jsonDecode(result);
+      Map<String, dynamic> allTransactions = json.decode(result);
+      print(allTransactions);
       // add to collection
       await Database(uid: user.uid).uploadTransactionsCSV(allTransactions);
-
-
 
 
     }
   }
 
-  Future uploadFileToFirebaseStorage() async{
+  Future uploadFileToFirebaseStorage(BuildContext context) async{
+    final user = Provider.of<SimpleUser>(context, listen:false);
     FilePickerResult filePickerResult = await FilePicker.platform.pickFiles(type: FileType.custom,
       allowedExtensions: ['csv','jpg'],
     );

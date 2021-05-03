@@ -41,7 +41,7 @@ class Database {
 
   
   Future<void> uploadTransactionsCSV(Map allTransactionsJSON) async {
-    
+    print(uid);
     // INCOME
     List<dynamic> incomes = allTransactionsJSON["income"];
     incomes.forEach((transaction) async {
@@ -67,9 +67,10 @@ class Database {
     // META DATA
     List<dynamic> metaData = allTransactionsJSON["User_info"];
     metaData.forEach((metaData) async {
+      print(metaData);
       await transactionsCollection.doc(uid).set({
-        'Balance': metaData["balance"],
-        'Latest_Date': metaData["latest_date"],
+        'Balance': metaData["Balance"],
+        'Latest_Date': metaData["Latest_Date"],
       });
     });
 
@@ -83,6 +84,7 @@ class Database {
 
   // USER DETAILS
   SimpleUser _getUserData(DocumentSnapshot snapshot){
+    print(snapshot.data()[uid]);
     return SimpleUser(
       uid: snapshot.data()["uid"],
       firstName: snapshot.data()["firstName"],
@@ -144,6 +146,26 @@ class Database {
         .map(_allExpenseFromSnapshot);
   }
 
+  List<UserTransaction> _allExpenseTrainingDataFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return UserTransaction(
+        transactionID: doc.id,
+        description: doc.data()["description"],
+        transactionDate: DateFormat("yyyy-MM-dd")
+            .parse(doc.data()["transactionDate"].toDate().toString()),
+        transactionAmount: doc.data()["amount"],
+        transactionType: "expense",
+      );
+    }).toList();
+  }
+  Stream<List<UserTransaction>> getExpenseTrainingDataSnapshot() {
+    CollectionReference expenseCollection =
+    FirebaseFirestore.instance.collection('Transactions/$uid/user_expense');
+    return expenseCollection
+        .orderBy("transactionDate", descending: true)
+        .snapshots()
+        .map(_allExpenseTrainingDataFromSnapshot);
+  }
   // TRANSACTION INFORMATION
   Map<String,dynamic> _userTransactionInfoSnapshot(DocumentSnapshot snapshot) {
     return snapshot.data();

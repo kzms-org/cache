@@ -77,7 +77,7 @@ class _AddFundsPageState extends State<AddFundsPage> {
                 padding: EdgeInsets.fromLTRB(20, 25, 15, 0),
                 child: GestureDetector(
                   onTap: () {
-                    addFundsController.selectFileToUpload();
+                    addFundsController.selectFileToUpload(context);
                   },
                   child: Container(
                     child: Container(

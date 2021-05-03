@@ -7,6 +7,7 @@ class ChatMessage extends StatelessWidget {
   final String name;
   final bool type;
 
+
   ChatMessage({this.type, this.name, this.text});
 
   @override
@@ -21,23 +22,27 @@ class ChatMessage extends StatelessWidget {
 
           child: Align(
             alignment:this.type ? Alignment.centerRight : Alignment.centerLeft,
-            child: Container(
-              width:250,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: this.type ? Colors.blueGrey : Colors.blue,
-              ),
-              padding: EdgeInsets.all(10),
-              child:Container(
-                  child: Text(this.text,
-                      overflow: TextOverflow.visible,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 15,
-                        color: this.type ? Colors.white : Colors.white,
-                        fontWeight: FontWeight.normal,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 250),
+              child: Container(
 
-                      ))),
-            ),
+                decoration: BoxDecoration(
+                  borderRadius: this.type? BorderRadius.only(topRight: Radius.circular(2),topLeft: Radius.circular(10), bottomRight: Radius.circular(10),bottomLeft: Radius.circular(10)): BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(2), bottomRight: Radius.circular(10),bottomLeft: Radius.circular(10)),
+                  color: this.type ? Colors.blueGrey : Colors.blue,
+                ),
+                padding: EdgeInsets.all(10),
+                child:Container(
+                    child: Text(this.text,
+                        overflow: TextOverflow.visible,
+                        style: GoogleFonts.montserrat(
+                          fontSize: 15,
+                          color: this.type ? Colors.white : Colors.white,
+                          fontWeight: FontWeight.normal,
+
+                        ))),
+              ),
+            )
+
           )
         );
   }

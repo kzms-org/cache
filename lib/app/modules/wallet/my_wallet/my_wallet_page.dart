@@ -36,6 +36,8 @@ class _MyWalletPageState extends State<MyWalletPage> with SingleTickerProviderSt
 
   Widget build(BuildContext context) {
     final user = Provider.of<SimpleUser>(context);
+    print("SIMPLE USER USER");
+    print(user);
     AuthService _auth = AuthService();
 
     return user == null? Center( child: CircularProgressIndicator()) :Scaffold(
@@ -211,7 +213,14 @@ class _MyWalletPageState extends State<MyWalletPage> with SingleTickerProviderSt
                                   );
 
                                 }else{
-                                  return Text("no data found");
+                                  return Text(
+                                      "0.00",
+                                      style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.w200,
+                                        fontSize: 25.33,
+                                        color: Color(0xffffffff),)
+
+                                  );
                                 }
                               }),
 

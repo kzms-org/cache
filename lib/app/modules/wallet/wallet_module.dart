@@ -1,4 +1,5 @@
 import 'package:cache/app/AuthGuard.dart';
+import 'package:cache/app/modules/pythonapi/python_api.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cache/app/modules/wallet/edit_item/edit_item_page.dart';
 import 'package:cache/app/modules/wallet/open_item/open_item_page.dart';
@@ -17,6 +18,7 @@ class WalletModule extends Module {
   List<Bind> get binds => [
     Bind((i) => AddFundsController()),
     Bind((i) => ChatBotController()),
+    Bind((i) => PythonApi()),
   ];
 
   @override

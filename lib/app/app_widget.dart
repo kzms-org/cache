@@ -26,7 +26,7 @@ class AppWidget extends StatelessWidget with ThemeMixin {
       ).modular();
     } else {
       print("INSIDE SIMPLE USER STREAM PROV INIT");
-      print(user);
+      print(user.uid);
 
       // if user is authenticated
       return StreamProvider<SimpleUser>.value(

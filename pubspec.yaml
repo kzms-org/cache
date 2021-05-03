@@ -45,6 +45,7 @@ dependencies:
   csv: ^5.0.0
   file_picker: ^3.0.1
   multipart_request: ^0.3.1
+  datetime_picker_formfield: ^2.0.0
   http:
 
 dev_dependencies:

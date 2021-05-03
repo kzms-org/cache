@@ -8,42 +8,13 @@ import 'package:cache/app/modules/wallet/chatbot/chatbot_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class Modal{
-  ChatBotController chatBotController = ChatBotController();
-  mainBottomSheet(BuildContext context, List<String> data){
+  final chatBotController = Modular.get<ChatBotController>();
+  String dropdownValue;
 
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context){
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-          for ( var i in data )
-
-              _createTile(context, i.toString(), Icons.message ),
-            ],
-          );
-        }
-    );
-  }
-
-  ListTile _createTile(BuildContext context, String name, IconData icon){
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(name),
-      onTap: (){
-        _sendToCloud(name, context);
-        Navigator.pop(context);
-
-
-      },
-    );
-  }
-
-  _sendToCloud(String message, BuildContext context){
-    chatBotController.uploadUserMessage(message, context);
-  }
 
 }
