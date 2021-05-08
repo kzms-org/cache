@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cache/app/modules/database/transaction.dart';
 import 'package:cache/app/modules/user/cacheuser.dart';
@@ -6,8 +7,10 @@ import 'package:cache/app/modules/database/messages.dart';
 import 'package:cache/app/modules/user/simpleUser.dart';
 import 'package:cache/app/modules/wallet/chatbot/chat_message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/intl.dart';
@@ -18,6 +21,7 @@ import 'package:mobx/mobx.dart';
 
 class Database {
   final String uid;
+  String imageUrl = "";
 
   // COLLECTION REFERENCES
   final CollectionReference userCollection =
@@ -69,8 +73,9 @@ class Database {
     metaData.forEach((metaData) async {
       print(metaData);
       await transactionsCollection.doc(uid).set({
-        'Balance': metaData["Balance"],
+        'Balance': double.parse(metaData["Balance"]),
         'Latest_Date': metaData["Latest_Date"],
+
       });
     });
 
@@ -78,8 +83,29 @@ class Database {
   
   
   // Upload one transaction document
-  Future<void> uploadSingleTransaction() async {
-    
+  Future<void> addIncome(double amount, DateTime date, String description, double currentBalance) async {
+    await transactionsCollection.doc(uid).collection("user_income").add({
+      'description': description,
+      'transactionDate':date,
+      'amount': amount
+    });
+
+    return await transactionsCollection.doc(uid).set({
+      'Balance': currentBalance + amount,
+      'Latest_Date': DateTime.now(),
+    });
+  }
+  Future<void> addExpense(double amount, DateTime date, String description, double currentBalance) async {
+    await transactionsCollection.doc(uid).collection("user_expense").add({
+      'description': description,
+      'transactionDate':date,
+      'amount': amount
+    });
+
+    return await transactionsCollection.doc(uid).set({
+      'Balance': currentBalance - amount,
+      'Latest_Date': DateTime.now(),
+    });
   }
 
   // USER DETAILS
@@ -136,12 +162,12 @@ class Database {
       );
     }).toList();
   }
-  Stream<List<UserTransaction>> getExpenseSnapshot() {
+  Stream<List<UserTransaction>> getExpenseSnapshot(int limit) {
     CollectionReference expenseCollection =
-        FirebaseFirestore.instance.collection('Transactions/$uid/user_expense');
+    FirebaseFirestore.instance.collection('Transactions/$uid/user_expense');
     return expenseCollection
         .orderBy("transactionDate", descending: true)
-        .limit(20)
+        .limit(limit)
         .snapshots()
         .map(_allExpenseFromSnapshot);
   }
@@ -180,13 +206,11 @@ class Database {
   }
 
   // UPLOAD MESSAGE
-  Future<void> uploadMessage(
-      String message, bool userMessage, String senderName) async {
+  Future<void> uploadMessage (String message, bool userMessage, String senderName, bool isText)async {
     CollectionReference messagesCollection =
-        FirebaseFirestore.instance.collection('Messages/$uid/ChatMessages');
+    FirebaseFirestore.instance.collection('Messages/$uid/ChatMessages');
 
-    // create a document with a timestamp id
-
+    print("inside upload");
     DocumentReference documentReference = messagesCollection
         .doc(DateTime.now().millisecondsSinceEpoch.toString());
 
@@ -196,7 +220,22 @@ class Database {
         "userMessage": userMessage,
         "senderName": senderName,
         "message": message,
+        "isText": isText,
       });
+    });
+  }
+
+  Future uploadFile(File imageFile,bool userMessage, String senderName, bool isText) async{
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(
+        'uploads/$fileName');
+
+    UploadTask uploadTask = firebaseStorageRef.putFile(imageFile);
+    TaskSnapshot taskSnapshot = await uploadTask;
+    taskSnapshot.ref.getDownloadURL().then((downloadUrl) {
+        imageUrl = downloadUrl;
+        print(imageUrl);
+        uploadMessage(imageUrl, userMessage, senderName, isText);
     });
   }
 
@@ -208,6 +247,7 @@ class Database {
        message:doc.data()["message"],
        userMessage:doc.data()["userMessage"],
        senderName:doc.data()["senderName"],
+       isText:doc.data()["isText"],
      );
     }).toList();
   }
@@ -219,5 +259,26 @@ class Database {
         .limit(20)
         .snapshots()
         .map(_allMessagesWithChatBot);
+  }
+
+  List<UserTransaction> _lastWeekExpenseFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return UserTransaction(
+        transactionID: doc.id,
+        description: doc.data()["description"],
+        transactionDate: DateFormat("yyyy-MM-dd")
+            .parse(doc.data()["transactionDate"].toDate().toString()),
+        transactionAmount: doc.data()["amount"],
+        transactionType: "expense",
+      );
+    }).toList();
+  }
+  Stream<List<UserTransaction>> getLastWeekExpenseSnapshot() {
+    CollectionReference expenseCollection =
+    FirebaseFirestore.instance.collection('Transactions/$uid/user_expense');
+    return expenseCollection
+        .orderBy("transactionDate", descending: true)
+        .snapshots()
+        .map(_lastWeekExpenseFromSnapshot);
   }
 }

@@ -81,7 +81,9 @@ class _ChatbotPageState extends State<ChatbotPage> {
                           itemBuilder: (_, int index) => ChatMessage(
                               type: messages[index].userMessage,
                               name: messages[index].senderName,
-                              text: messages[index].message),
+                              message: messages[index].message,
+                              isText: messages[index].isText,
+                          ),
                           itemCount: messages.length,
                         );
                       } else {
@@ -319,7 +321,6 @@ class _ChatbotPageState extends State<ChatbotPage> {
 
     }else if(type == "Statistics"){
 
-      widgetList.add(createTileTimeBased( context,  "What is my average spending this...",  Icons.message));
       widgetList.add(createTileTimeBased( context,  "What is my total income this...",  Icons.message));
       for (var j in data["goal-based-question"])
         widgetList.add(_createTileGoalBased(context, j.toString(), Icons.emoji_events));
@@ -336,8 +337,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
     return GestureDetector(
       onTap: () async {
         print("SpendingForecast");
-
-        chatBotController.uploadUserMessageTimeBased(text,context , "Week");
+        chatBotController.timeBased(text,context , "Week");
         Navigator.pop(context);
       },
       child: Row(
@@ -401,8 +401,6 @@ class _ChatbotPageState extends State<ChatbotPage> {
                           decoration: InputDecoration(
                             labelText:"How much do you want to save?",
                             labelStyle: GoogleFonts.montserrat(fontSize: 14, color: Colors.white),
-
-
                           ),
                           keyboardType: TextInputType.number,
                           style:GoogleFonts.montserrat(color: Colors.white) ,
@@ -421,20 +419,17 @@ class _ChatbotPageState extends State<ChatbotPage> {
 
                           onShowPicker: (context, currentValue) async {
                             final date = await showDatePicker(
+
                                 context: context,
                                 firstDate: DateTime(1900),
                                 initialDate: currentValue ?? DateTime.now(),
                                 lastDate: DateTime(2100),);
                             return date;
-
                           },
                           onChanged:(DateTime currentValue){
                             goalDate = currentValue;
                           }
                         ),
-
-
-
                       ],
                     ),
                   ),
@@ -446,7 +441,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
                       onPressed: () {
                         // your code
                         print("submit pressed");
-                        chatBotController.uploadUserMessageGoalBased( text, context,savingAmount,goalDate );
+                        chatBotController.goalBased( text, context,savingAmount,goalDate );
                         Navigator.pop(context);
                       })
                 ],
@@ -479,10 +474,8 @@ class _ChatbotPageState extends State<ChatbotPage> {
           ]),
     );
   }
-
-
-
 }
+
 Widget questionWidget(IconData icon, String text){
   return Expanded(
     child: ListTile(

@@ -1,35 +1,45 @@
 import 'dart:convert';
-
 import 'package:cache/app/modules/database/database.dart';
 import 'package:cache/app/modules/pythonapi/python_api.dart';
 import 'package:cache/app/modules/user/simpleUser.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path/path.dart' as path;
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mobx/mobx.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
-
 part 'add_funds_controller.g.dart';
 
 class AddFundsController = _AddFundsControllerBase with _$AddFundsController;
 
 abstract class _AddFundsControllerBase with Store {
-  PythonApi pythonApi = PythonApi();
+  PythonApi pythonApi = Modular.get<PythonApi>();
 
+  Future addIncome(double amount, DateTime date, String description, BuildContext context) async{
+    final user = Provider.of<SimpleUser>(context, listen:false);
+    await pythonApi.getBalanceData(user.uid);
+    Future.delayed(Duration(seconds: 2), () {
+      Database(uid: user.uid).addIncome(amount, date, description, pythonApi.balance);
+    });
 
+  }
+  Future addExpense(double amount, DateTime date, String description, BuildContext context) async{
+    final user = Provider.of<SimpleUser>(context, listen:false);
+    await pythonApi.getBalanceData(user.uid);
+    Future.delayed(Duration(seconds: 2), () {
+      Database(uid: user.uid).addExpense(amount, date, description, pythonApi.balance);
+    });
+
+  }
   // uses filepicker class select a file from the device.
   Future selectFileToUpload(BuildContext context) async{
     final user = Provider.of<SimpleUser>(context, listen:false);
     // when user clicks on upload csv file open the file picker
     FilePickerResult filePickerResult = await FilePicker.platform.pickFiles(type: FileType.custom,
-    allowedExtensions: ['csv','jpg'],
+      allowedExtensions: ['.csv','csv'],
     );
 
     if(filePickerResult != null){
@@ -43,11 +53,12 @@ abstract class _AddFundsControllerBase with Store {
       String newPath = path.join(dir,"receiptReport.csv");
 
       File renamedCSVFile = await File(fileToUpload.path).copy(newPath);
+      print(renamedCSVFile.runtimeType);
 
 
       // Send this file to the python script here
       final  result = await pythonApi.sendCSVFileUsingPostRequest("/csvPreProcessing",renamedCSVFile);
-
+      print(result);
       // read the json object with all transactions
       Map<String, dynamic> allTransactions = json.decode(result);
       print(allTransactions);
@@ -61,7 +72,7 @@ abstract class _AddFundsControllerBase with Store {
   Future uploadFileToFirebaseStorage(BuildContext context) async{
     final user = Provider.of<SimpleUser>(context, listen:false);
     FilePickerResult filePickerResult = await FilePicker.platform.pickFiles(type: FileType.custom,
-      allowedExtensions: ['csv','jpg'],
+      allowedExtensions: ['csv','jpg''.mp4'],
     );
 
     if(filePickerResult != null) {

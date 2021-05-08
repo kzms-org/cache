@@ -27,7 +27,6 @@ class DropdownBuilderState extends State<DropdownBuilder> {
           items: <String>[
             'Week',
             'Month',
-            'Year'
           ].map<DropdownMenuItem<String>>(
                   (String value) {
                 return DropdownMenuItem<String>(
@@ -41,7 +40,7 @@ class DropdownBuilderState extends State<DropdownBuilder> {
               dropdownValue;
             });
 
-            chatBotController.uploadUserMessageTimeBased(widget.message,context, dropdownValue);
+            chatBotController.timeBased(widget.message,context, dropdownValue);
             Navigator.pop(context);
           },
         );

@@ -3,53 +3,44 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:cache/app/modules/database/database.dart';
 import 'package:cache/app/modules/database/transaction.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart';
-import 'package:multipart_request/multipart_request.dart' as multipartRequest;
 
 
 class PythonApi {
   String apiURL = "cacheflask.herokuapp.com";
-
   List<String> dates = [];
   List<double> amounts = [];
   double balance = 0.0;
   bool check = true;
 
-  // sample template
-  Future<dynamic> getData(String route, dynamic data) async {
-    final response = await http.get(Uri.https(apiURL, route));
-  }
-  // sample template
-  Future<dynamic> sendDataUsingPostRequest(String route, dynamic data) async {
-    return await http.post(
-      Uri.https(apiURL, route),
-      headers: <String, String>{
-        'Content-Type': 'csv; charset=UTF-8',
-      },
-      body: '',
-    ).then((value) => print(value.body));
-  }
-  // sample template
-  Future<dynamic> getChatBotReply(String route, Map<String,List<String>> questionMap, int question) async{
-    print(apiURL + " sending data here");
+  // common tasks
+  Future<void> getTransactionData(String uid) async{
+    Stream<List<UserTransaction>> userTransactions = Database(uid: uid.trim() ).getExpenseTrainingDataSnapshot();
+    userTransactions.listen((data) =>
+        data.forEach((element) {
 
-    // inset data into a variable
-    Map<String, dynamic> data = {
-      "questionMap": questionMap,
-      "question": question,
-    };
+          dates.add(element.transactionDate.toString());
+          amounts.add( element.transactionAmount);
+          return "success";
+        }));
 
-    // send data using post request
-    Response response = await http.post(Uri.https(apiURL, route),
-      headers: {"Content-Type":"application/json"},
-      body: jsonEncode(data),
+  }
+  Future<void> getBalanceData(String uid) async{
+    Stream<Map<String,dynamic>> userTransactions = Database(uid: uid.trim()).getUserTransactionInfo();
+    userTransactions.listen((data) =>
+    balance = data["Balance"]
     );
-    print("THIS IS CHATBOT REPLY YESS:"+response.body);
-    return response.body;
+
+  }
+  Future<dynamic> sendingJsonApiPostRequest(var body, String route) async{
+    return await http.post(Uri.https(apiURL, route),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    );
   }
 
   // CSV UPLOAD
@@ -84,34 +75,7 @@ class PythonApi {
     return responseString.body;
   }
 
-
-  Future<void> getTransactionData(String uid) async{
-    Stream<List<UserTransaction>> userTransactions = Database(uid: uid.trim() ).getExpenseTrainingDataSnapshot();
-    userTransactions.listen((data) =>
-        data.forEach((element) {
-
-         dates.add(element.transactionDate.toString());
-          amounts.add( element.transactionAmount);
-          return "success";
-        }));
-
-  }
-  Future<void> getBalanceData(String uid) async{
-    Stream<Map<String,dynamic>> userTransactions = Database(uid: uid.trim()).getUserTransactionInfo();
-    userTransactions.listen((data) =>
-        balance = data["Balance"]
-        );
-
-  }
-  Future<dynamic> sendingJsonApiPostRequest(var body, String route) async{
-    return await http.post(Uri.https(apiURL, route),
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-      },
-      body: body,
-    );
-  }
-
+  // Questions
   Future<Response> spendingForecastReply(Map<String, dynamic> jsonifiedTransactions, int days, String uid,String route) async {
     print("This is inside pythonapi");
     //send data to api
@@ -121,15 +85,24 @@ class PythonApi {
     });
     Response response = await sendingJsonApiPostRequest(body,route);
 
-    print((response.body).runtimeType);
     Future.delayed(Duration(seconds: 2),() {dates.clear(); amounts.clear();});
     return response;
   }
+  Future<dynamic>  goalTrackingReply(Map<String, dynamic> jsonifiedTransactions, double balance, double savingAmount, DateTime goalDate, String uid, String route) async {
+    String goalDateString = "${goalDate.year}-${goalDate.month}-${goalDate.day} ${goalDate.hour}:${goalDate.minute}:${goalDate.second}";
+    var body = jsonEncode(<String, dynamic>{
+      'balance': balance,
+      'goalDate': goalDateString,
+      'savingAmount': savingAmount,
+      "transactions": jsonifiedTransactions,
+    });
 
-  Future<dynamic>  goalTrackingReply() {
+    Response response = await sendingJsonApiPostRequest(body,route);
+
+    Future.delayed(Duration(seconds: 2),() {dates.clear(); amounts.clear();});
+    return response;
 
   }
-
   Future<dynamic> balanceForecastReply(Map<String, dynamic> jsonifiedTransactions, double balance,int days, String uid,String route) async {
     print("This is inside pythonapi");
     //send data to api
@@ -144,9 +117,15 @@ class PythonApi {
     Future.delayed(Duration(seconds: 2),() {dates.clear(); amounts.clear();});
     return response.body;
   }
+  Future<dynamic> financialAdviceReply(Map<String, dynamic> jsonifiedTransactions, String uid, String route) async {
+    var body = jsonEncode(<String, dynamic>{
+      "transactions": jsonifiedTransactions,
+    });
 
-  Future<dynamic> financialAdviceReply() {
+    Response response = await sendingJsonApiPostRequest(body,route);
 
+    Future.delayed(Duration(seconds: 2),() {dates.clear(); amounts.clear();});
+    return response;
   }
 
 }

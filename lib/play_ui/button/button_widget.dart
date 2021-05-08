@@ -115,7 +115,7 @@ class ButtonWidget extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      decoration: BoxDecoration(
+      decoration:decoration !=null? decoration:BoxDecoration(
         color: backgroudColorValue,
         borderRadius: BorderRadius.circular(24),
       ),

@@ -21,6 +21,7 @@ class AppWidget extends StatelessWidget with ThemeMixin {
       // if there is no user
       return MaterialApp(
         title: 'Cache',
+        debugShowCheckedModeBanner: false,
         theme: getTheme(context),
         initialRoute: "/security/auth-types",
       ).modular();

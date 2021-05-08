@@ -20,24 +20,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac6c908e-70c0-488b-9f40-717ee3950e4c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/dropdown_builder.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/mohammed.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/google-icon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/google.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/no_image_available.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/modules/wallet/full_photo/full_photo.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/modules/wallet/graphs/line_tiles.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/app_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/app_widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/database/database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/database/database.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/database/messages.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/database/messages.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/pythonapi/python_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/pythonapi/python_api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/security/authentication_types/authentication_types_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/security/authentication_types/authentication_types_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/add_funds/add_funds_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/add_funds/add_funds_controller.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/add_funds/add_funds_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/add_funds/add_funds_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/chat_message.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/chat_message.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/chatbot_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/chatbot_controller.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/chatbot_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/chatbot_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/log.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/dropdown_builder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/chatbot/dropdown_builder.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/edit_item/edit_item_page.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/my_wallet/my_wallet_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/my_wallet/my_wallet_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/open_item/open_item_page.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/records/expenses.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/records/expenses.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/records/records_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/records/records_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/send_request/send_request_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/send_request/send_request_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/wallet/wallet_module.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/wallet/wallet_module.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/play_ui/codeblocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/play_ui/codeblocks.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/play_ui/easy_widgets/easy_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/play_ui/easy_widgets/easy_widgets.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/play_ui/modal/modal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/play_ui/modal/modal.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/play_ui/button/button_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/play_ui/button/button_widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,8 +58,8 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DartProblemsView" group-by-severity="false" />
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_3a_API_30_x86]" />
+  <component name="DartProblemsView" auto-scroll-to-source="true" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_4_API_27]" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -72,7 +85,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -80,7 +93,13 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/app/modules/wallet" />
+      <recent name="$PROJECT_DIR$/lib/play_ui/full_photo" />
+      <recent name="$PROJECT_DIR$/lib/app/modules/wallet/chatbot" />
       <recent name="$PROJECT_DIR$/assets" />
       <recent name="$PROJECT_DIR$" />
     </key>
@@ -120,11 +139,12 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="946" y="510" width="729" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1619968036925">
-      <screen x="0" y="27" width="2560" height="1363" />
+    <state x="1284" y="510" width="729" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1620247912844">
+      <screen x="0" y="27" width="4480" height="1363" />
     </state>
     <state x="946" y="510" width="657" height="403" key="#com.intellij.fileTypes.FileTypeChooser/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617307972042" />
     <state x="946" y="510" width="729" height="403" key="#com.intellij.fileTypes.FileTypeChooser/0.27.2560.1363@0.27.2560.1363" timestamp="1619968036925" />
+    <state x="1284" y="510" key="#com.intellij.fileTypes.FileTypeChooser/0.27.4480.1363@0.27.4480.1363" timestamp="1620247912844" />
     <state x="963" y="445" width="624" height="533" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1618584303153">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
@@ -152,54 +172,49 @@
     </state>
     <state x="1063" y="466" width="424" height="491" key="FileChooserDialogImpl/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617112445208" />
     <state x="1063" y="466" key="FileChooserDialogImpl/0.27.2560.1363@0.27.2560.1363" timestamp="1619481609721" />
-    <state width="1569" height="409" key="GridCell.Tab.0.bottom" timestamp="1620052305476">
+    <state width="1620" height="464" key="GridCell.Tab.0.bottom" timestamp="1620453708761">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state width="2514" height="482" key="GridCell.Tab.0.bottom/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1619805697668" />
-    <state width="1569" height="409" key="GridCell.Tab.0.bottom/0.27.2560.1363@0.27.2560.1363" timestamp="1620052305476" />
-    <state width="2514" height="206" key="GridCell.Tab.0.bottom/0.27.4480.1363@0.27.4480.1363" timestamp="1618770433473" />
-    <state width="1569" height="409" key="GridCell.Tab.0.center" timestamp="1620052305475">
+    <state width="2514" height="271" key="GridCell.Tab.0.bottom/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1620334707146" />
+    <state width="1620" height="464" key="GridCell.Tab.0.bottom/0.27.2560.1363@0.27.2560.1363" timestamp="1620453708761" />
+    <state width="2514" height="630" key="GridCell.Tab.0.bottom/0.27.4480.1363@0.27.4480.1363" timestamp="1620255709380" />
+    <state width="1620" height="464" key="GridCell.Tab.0.center" timestamp="1620453708760">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state width="2514" height="482" key="GridCell.Tab.0.center/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1619805697668" />
-    <state width="1569" height="409" key="GridCell.Tab.0.center/0.27.2560.1363@0.27.2560.1363" timestamp="1620052305475" />
-    <state width="2514" height="206" key="GridCell.Tab.0.center/0.27.4480.1363@0.27.4480.1363" timestamp="1618770433473" />
-    <state width="1569" height="409" key="GridCell.Tab.0.left" timestamp="1620052305474">
+    <state width="2514" height="271" key="GridCell.Tab.0.center/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1620334707145" />
+    <state width="1620" height="464" key="GridCell.Tab.0.center/0.27.2560.1363@0.27.2560.1363" timestamp="1620453708760" />
+    <state width="2514" height="630" key="GridCell.Tab.0.center/0.27.4480.1363@0.27.4480.1363" timestamp="1620255709378" />
+    <state width="1620" height="464" key="GridCell.Tab.0.left" timestamp="1620453708760">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state width="2514" height="482" key="GridCell.Tab.0.left/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1619805697667" />
-    <state width="1569" height="409" key="GridCell.Tab.0.left/0.27.2560.1363@0.27.2560.1363" timestamp="1620052305474" />
-    <state width="2514" height="206" key="GridCell.Tab.0.left/0.27.4480.1363@0.27.4480.1363" timestamp="1618770433472" />
-    <state width="1569" height="409" key="GridCell.Tab.0.right" timestamp="1620052305475">
+    <state width="2514" height="271" key="GridCell.Tab.0.left/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1620334707145" />
+    <state width="1620" height="464" key="GridCell.Tab.0.left/0.27.2560.1363@0.27.2560.1363" timestamp="1620453708760" />
+    <state width="2514" height="630" key="GridCell.Tab.0.left/0.27.4480.1363@0.27.4480.1363" timestamp="1620255709377" />
+    <state width="1620" height="464" key="GridCell.Tab.0.right" timestamp="1620453708760">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state width="2514" height="482" key="GridCell.Tab.0.right/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1619805697668" />
-    <state width="1569" height="409" key="GridCell.Tab.0.right/0.27.2560.1363@0.27.2560.1363" timestamp="1620052305475" />
-    <state width="2514" height="206" key="GridCell.Tab.0.right/0.27.4480.1363@0.27.4480.1363" timestamp="1618770433473" />
+    <state width="2514" height="271" key="GridCell.Tab.0.right/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1620334707146" />
+    <state width="1620" height="464" key="GridCell.Tab.0.right/0.27.2560.1363@0.27.2560.1363" timestamp="1620453708760" />
+    <state width="2514" height="630" key="GridCell.Tab.0.right/0.27.4480.1363@0.27.4480.1363" timestamp="1620255709379" />
     <state x="2560" y="103" width="1920" height="737" key="SettingsEditor" timestamp="1618754617638">
       <screen x="0" y="27" width="4480" height="1363" />
     </state>
     <state x="786" y="103" width="1413" height="737" key="SettingsEditor/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1617544121767" />
     <state x="2560" y="103" width="1920" height="737" key="SettingsEditor/0.27.4480.1363@0.27.4480.1363" timestamp="1618754617638" />
-    <state x="984" y="272" width="947" height="870" key="find.popup" timestamp="1620050186897">
+    <state x="1391" y="317" width="857" height="789" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1620242061353">
+      <screen x="0" y="27" width="4480" height="1363" />
+    </state>
+    <state x="1391" y="317" width="857" height="789" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.27.4480.1363@0.27.4480.1363" timestamp="1620242061353" />
+    <state x="676" y="240" width="947" height="870" key="find.popup" timestamp="1620446213673">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state x="969" y="273" width="714" height="870" key="find.popup/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1619752590460" />
-    <state x="984" y="272" width="947" height="870" key="find.popup/0.27.2560.1363@0.27.2560.1363" timestamp="1620050186897" />
-    <state x="1583" y="336" width="670" height="58" key="search.everywhere.popup" timestamp="1619740605161">
+    <state x="91" y="268" width="714" height="870" key="find.popup/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1620320576279" />
+    <state x="676" y="240" width="947" height="870" key="find.popup/0.27.2560.1363@0.27.2560.1363" timestamp="1620446213673" />
+    <state x="782" y="491" width="1658" height="870" key="find.popup/0.27.4480.1363@0.27.4480.1363" timestamp="1620248281264" />
+    <state x="1583" y="336" width="672" height="160" key="search.everywhere.popup" timestamp="1620311280323">
       <screen x="0" y="27" width="2560" height="1363" />
     </state>
-    <state x="1583" y="336" width="670" height="58" key="search.everywhere.popup/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1619740605161" />
+    <state x="1583" y="336" width="672" height="160" key="search.everywhere.popup/0.27.2560.1363/2560.0.1920.1080@0.27.2560.1363" timestamp="1620311280323" />
     <state x="1583" y="336" width="672" height="678" key="search.everywhere.popup/0.27.2560.1363@0.27.2560.1363" timestamp="1618967769708" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/app/modules/wallet/add_funds/add_funds_controller.dart</url>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -88,7 +88,7 @@ class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
             style: GoogleFonts.montserrat(
               fontSize: 10.66,
               fontWeight: FontWeight.w600,
-              color: Color(0xffeeeeee),
+              color: Colors.black,
             ),
           ),
         ),
@@ -110,13 +110,13 @@ class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           createHeader(
-            logo: Image(
-              image: AssetImage(
-                  "assets/Logo.png"
-              ),
-              height:40,
-              width:40
-            ),
+            // logo: Image(
+            //   image: AssetImage(
+            //       "assets/Logo.png"
+            //   ),
+            //   height:40,
+            //   width:40
+            // ),
             title: 'Cache',
             description: 'You are rich, we just help you realize that!',
           ),
@@ -135,7 +135,7 @@ class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
           ButtonWidget(
             text: 'Sign up',
             backgroudColor: Theme.of(context).accentColor,
-            splashColor: Theme.of(context).primaryColor,
+            splashColor: const Color(0xff112a39),
             onTap: () {
               Modular.to.pushNamed('/security/signup');
             },
@@ -148,37 +148,23 @@ class _AuthenticationTypesPageState extends State<AuthenticationTypesPage> {
             height: 27.5,
           ),
           ButtonWidget.icon(
-            text: 'Login with Twitter',
+            text: 'Login with Google',
             backgroudColor: HexColor('#1c3a4d'),
             color: HexColor('#58b5ef'),
             icon: SvgPicture.asset(
-              "assets/twitter.svg",
+              "assets/google-icon.svg",
+              width: 20,
+              height: 20,
               color: HexColor('#58b5ef'),
             ),
             onTap: () {
-              print("Login with Twitter Pressed");
+              print("Login with Google Pressed");
             },
           ),
           Container(
             height: 10,
           ),
-          ButtonWidget.icon(
-            text: 'Login Anonymously',
-            backgroudColor: HexColor('#1c3a4d'),
-            color: HexColor('#58b5ef'),
-            onTap: () async{
-              print("Anonymous login");
-              dynamic result = await _auth.logInAnonymously();
 
-              if(result == null){
-                print('error signing in..');
-              }else{
-                print('signed in');
-                print(result);
-                Modular.to.pushReplacementNamed("/wallet/dashboard");
-              }
-            },
-          ),
           Container(
             height: 50,
           ),
