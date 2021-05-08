@@ -75,9 +75,10 @@ class AuthService{
     // sign out
     Future signOut() async {
       try {
-        Modular.to.pushReplacementNamed("/security/auth-types");
 
-        return await _auth.signOut();
+        await _auth.signOut();
+        // return Modular.to.pushReplacementNamed("/security/auth-types");
+
       } catch (error) {
         print(error.toString());
         return null;

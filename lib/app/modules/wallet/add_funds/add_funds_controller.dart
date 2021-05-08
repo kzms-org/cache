@@ -39,7 +39,7 @@ abstract class _AddFundsControllerBase with Store {
     final user = Provider.of<SimpleUser>(context, listen:false);
     // when user clicks on upload csv file open the file picker
     FilePickerResult filePickerResult = await FilePicker.platform.pickFiles(type: FileType.custom,
-      allowedExtensions: ['.csv','csv'],
+      allowedExtensions: ['.csv'],
     );
 
     if(filePickerResult != null){
@@ -58,10 +58,9 @@ abstract class _AddFundsControllerBase with Store {
 
       // Send this file to the python script here
       final  result = await pythonApi.sendCSVFileUsingPostRequest("/csvPreProcessing",renamedCSVFile);
-      print(result);
       // read the json object with all transactions
       Map<String, dynamic> allTransactions = json.decode(result);
-      print(allTransactions);
+      print(allTransactions["expense"].last);
       // add to collection
       await Database(uid: user.uid).uploadTransactionsCSV(allTransactions);
 

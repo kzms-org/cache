@@ -90,7 +90,7 @@ class _MyWalletPageState extends State<MyWalletPage> with SingleTickerProviderSt
             icon: Icon(Icons.search, color: const Color(0xff7099b2)),
             color: const Color(0xff7099b2),
             onPressed: () async {
-              print("Search Button Pressed");
+              print(user.uid);
             },
           ),
         ],
@@ -171,7 +171,7 @@ class _MyWalletPageState extends State<MyWalletPage> with SingleTickerProviderSt
                           ),
                           GestureDetector(
                             onTap: () {
-                              print("add button pressed");
+                              print(user.uid);
                             },
                             child: Container(
                               width: 78,

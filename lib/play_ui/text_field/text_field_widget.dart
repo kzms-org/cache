@@ -6,9 +6,9 @@ class TextFieldWidget extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final String label;
   final bool obscureText;
-
   const TextFieldWidget({
     Key key,
+
     this.onChanged,
     this.label = "",
     this.obscureText = false,
