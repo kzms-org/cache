@@ -47,7 +47,11 @@ class ChatBotController {
     var route;
     final user = Provider.of<SimpleUser>(context, listen: false);
     if (message == "Show my spending pattern") {
-      Modular.to.pushReplacementNamed("/wallet/dashboard");
+      if(pythonApi.dates.isEmpty)
+        sendFeatureUnavailMsg(user);
+      else {
+        Modular.to.pushReplacementNamed("/wallet/dashboard");
+      }
     } else if (message == "How can I improve my spending?") {
       route = "/financialAdvising";
       await pythonApi.getTransactionData(user.uid);
@@ -57,19 +61,29 @@ class ChatBotController {
           "ds": pythonApi.dates,
           "y": pythonApi.amounts
         };
+        if(pythonApi.dates.isEmpty)
+          sendFeatureUnavailMsg(user);
+        else {
+          pythonApi.financialAdviceReply(jsonifiedTransactions, user.uid, route)
+              .then((response) {
+            print("financial advice response");
+            Map<String, dynamic> data = json.decode(response.body);
 
-        pythonApi.financialAdviceReply(jsonifiedTransactions, user.uid, route).then((response) {
-          print("financial advice response");
-          Map<String, dynamic> data = json.decode(response.body);
-
-          Database(uid: user.uid).uploadMessage(data["message"], false, "ChatBot", true);
-        });
+            Database(uid: user.uid).uploadMessage(
+                data["message"], false, "ChatBot", true);
+          });
+        }
       });
+
     } else if (message == "what is my average spending this week"){
-      print("AVG SPENDING");
-      DateTime currentDate = DateTime.now();
-      var lastMonday = currentDate.subtract(Duration(days: 7));
-      // Database(uid: user.uid).getExpenseSnapshot(limit)
+      if(pythonApi.dates.isEmpty)
+        sendFeatureUnavailMsg(user);
+      else {
+        print("AVG SPENDING");
+        DateTime currentDate = DateTime.now();
+        var lastMonday = currentDate.subtract(Duration(days: 7));
+        // Database(uid: user.uid).getExpenseSnapshot(limit)
+      }
     }
 
   }
@@ -80,7 +94,6 @@ class ChatBotController {
     Database(uid: user.uid).uploadMessage(newMessage, true, user.firstName, true);
     timeBasedReply(oldMessage, dropdownValue, context);
   }
-
   Future<void> timeBasedReply(String message, String dropdownValue, BuildContext context) async {
     var route;
     final user = Provider.of<SimpleUser>(context, listen: false);
@@ -88,23 +101,31 @@ class ChatBotController {
       int days = convertDropDownValueToDays(dropdownValue);
       route = "/spendingForecast";
       await pythonApi.getTransactionData(user.uid);
-      Future.delayed(Duration(seconds: 2), () {
-        print(pythonApi.amounts);
-        Map<String, dynamic> jsonifiedTransactions = {
-          "ds": pythonApi.dates,
-          "y": pythonApi.amounts
-        };
-        pythonApi.spendingForecastReply(jsonifiedTransactions, days, user.uid, route).then((response) async {
-          print("inside response");
 
-          Map<String, dynamic> data = json.decode(response.body); 
+        Future.delayed(Duration(seconds: 2), () {
+          print(pythonApi.amounts);
+          Map<String, dynamic> jsonifiedTransactions = {
+            "ds": pythonApi.dates,
+            "y": pythonApi.amounts
+          };
+          if(pythonApi.dates.isEmpty)
+            sendFeatureUnavailMsg(user);
+          else {
+            pythonApi.spendingForecastReply(
+                jsonifiedTransactions, days, user.uid, route).then((
+                response) async {
+              print("inside response");
 
-           File testImage = await byteImagetoImage(data["image"]);
-          Database(uid: user.uid).uploadFile(testImage, false, "ChatBot", false);
-           Database(uid: user.uid).uploadMessage(data["message"], false, "ChatBot", true);
+              Map<String, dynamic> data = json.decode(response.body);
+
+              File testImage = await byteImagetoImage(data["image"]);
+              Database(uid: user.uid).uploadFile(
+                  testImage, false, "ChatBot", false);
+              Database(uid: user.uid).uploadMessage(
+                  data["message"], false, "ChatBot", true);
+            });
+          }
         });
-      });
-
 
     }
     else if (message == "Tell me my balance at the end of the..." &&  dropdownValue != null) {
@@ -112,23 +133,38 @@ class ChatBotController {
       int days = convertDropDownValueToDays(dropdownValue);
       await pythonApi.getTransactionData(user.uid);
       await pythonApi.getBalanceData(user.uid);
-      Database(uid: user.uid).uploadMessage("One moment please.", false, "ChatBot", true);
-      
-      Future.delayed(Duration(seconds: 4), () {
-        Map<String, dynamic> jsonifiedTransactions = {
-          "ds": pythonApi.dates,
-          "y": pythonApi.amounts
-        };
 
-        pythonApi.balanceForecastReply(jsonifiedTransactions, pythonApi.balance, days, user.uid, route).then((response) {
-                print("Balance forecast response");
-                Map<String, dynamic> data = json.decode(response);
-                print(data);
-                Database(uid: user.uid).uploadMessage(data["message"], false, "ChatBot", true);
+        Database(uid: user.uid).uploadMessage(
+            "One moment please.", false, "ChatBot", true);
+
+        Future.delayed(Duration(seconds: 4), () {
+          Map<String, dynamic> jsonifiedTransactions = {
+            "ds": pythonApi.dates,
+            "y": pythonApi.amounts
+          };
+          if(pythonApi.dates.isEmpty)
+            sendFeatureUnavailMsg(user);
+          else {
+            pythonApi.balanceForecastReply(
+                jsonifiedTransactions, pythonApi.balance, days, user.uid, route)
+                .then((response) {
+              print("Balance forecast response");
+              Map<String, dynamic> data = json.decode(response);
+              print(data);
+              Database(uid: user.uid).uploadMessage(
+                  data["message"], false, "ChatBot", true);
+            });
+          }
         });
-      });
+
     }
-    else if (message == "What is my total income this..." && dropdownValue != null) {}
+    else if (message == "What is my total income this..." && dropdownValue != null) {
+      if(pythonApi.dates.isEmpty)
+        sendFeatureUnavailMsg(user);
+      else {
+
+      }
+    }
   }
 
   void goalBased(String message, BuildContext context, double savingAmount, DateTime goalDate) {
@@ -136,7 +172,6 @@ class ChatBotController {
     Database(uid: user.uid).uploadMessage(message, true, user.firstName, true);
     goalBasedReply(message, savingAmount, goalDate, context);
   }
-
   Future<void> goalBasedReply(String message, double savingAmount, DateTime goalDate, BuildContext context) async {
     var route;
     final user = Provider.of<SimpleUser>(context, listen: false);
@@ -147,21 +182,29 @@ class ChatBotController {
       await pythonApi.getTransactionData(user.uid);
       await pythonApi.getBalanceData(user.uid);
 
-      Future.delayed(Duration(seconds: 2), () {
-        Map<String, dynamic> jsonifiedTransactions = {
-          "ds": pythonApi.dates,
-          "y": pythonApi.amounts
-        };
+        Future.delayed(Duration(seconds: 2), () {
+          Map<String, dynamic> jsonifiedTransactions = {
+            "ds": pythonApi.dates,
+            "y": pythonApi.amounts
+          };
+          if(pythonApi.dates.isEmpty)
+            sendFeatureUnavailMsg(user);
+          else {
+            pythonApi.goalTrackingReply(
+                jsonifiedTransactions, pythonApi.balance, savingAmount,
+                goalDate,
+                user.uid, route).then((response) {
+              print("Goal based response");
+              Map<String, dynamic> data = json.decode(response.body);
 
-        pythonApi.goalTrackingReply(jsonifiedTransactions, pythonApi.balance, savingAmount ,goalDate, user.uid, route).then((response) {
-          print("Goal based response");
-          Map<String, dynamic> data = json.decode(response.body);
-
-          Database(uid: user.uid).uploadMessage(data["message"], false, "ChatBot", true);
+              Database(uid: user.uid).uploadMessage(
+                  data["message"], false, "ChatBot", true);
+            });
+          }
         });
-      });
+      }
     }
-  }
+
 
   int convertDropDownValueToDays(String dropdownValue) {
     int days;
@@ -174,7 +217,6 @@ class ChatBotController {
     }
     return days;
   }
-
   Future<File> byteImagetoImage(List<dynamic> data) async {
     data = data.map((s) => s as int).toList();
     final bytes = Uint8List.fromList(data);
@@ -182,4 +224,10 @@ class ChatBotController {
     String tempPath = tempDir.path;
     return await File(tempPath+"temp.png").writeAsBytes(bytes);
   }
+
+  void sendFeatureUnavailMsg(SimpleUser user) {
+    Database(uid: user.uid).uploadMessage("This feature is not currently available. Please try adding transactions to use this feature.", false, "ChatBot", true);
+  }
+
+
 }

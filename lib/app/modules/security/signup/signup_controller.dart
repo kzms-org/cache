@@ -28,7 +28,6 @@ abstract class _SignUpControllerBase with Store {
         }else{
           print('signed in check result below');
           print(result);
-          Modular.to.pushReplacementNamed("/security/login");
         }
 
       }else{

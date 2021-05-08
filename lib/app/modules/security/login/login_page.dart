@@ -112,9 +112,14 @@ class _LoginPageState extends State<LoginPage> {
             ButtonWidget(
               text: 'Login',
               onTap: () {
-                loginController.loginWithUsernameAndPassword(email, password);
-              },
-            ),
+               var result =  loginController.loginWithUsernameAndPassword(email, password,context);
+               print("The email badly formatted");
+
+               }
+
+
+                 ),
+
             Container(
               height: 47,
             ),

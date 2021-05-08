@@ -171,7 +171,7 @@ class _MyWalletPageState extends State<MyWalletPage> with SingleTickerProviderSt
                           ),
                           GestureDetector(
                             onTap: () {
-                              print(user.uid);
+                              Modular.to.pushNamed("/wallet/add-single-transaction",arguments: 0);
                             },
                             child: Container(
                               width: 78,
@@ -323,22 +323,19 @@ class _MyWalletPageState extends State<MyWalletPage> with SingleTickerProviderSt
 
 
                                         if(maxValueY < groupedAmount)
-                                          maxValueY = groupedAmount + 10;
+                                          maxValueY = groupedAmount;
 
                                         date  = v[0].transactionDate.day;
                                         month = v[0].transactionDate.month;
                                         dateMonth = "${month}.${date}";
-
                                         last30TransactionsPoints.add(FlSpot(double.parse(dateMonth), groupedAmount));
-
                                       });
 
-
-
                                       last30TransactionsPoints.sort((a, b) => a.x.compareTo(b.x));
-
+                                      maxValueY += (maxValueY*0.25);
                                       double minValueX = last30TransactionsPoints[0].x;
                                       double maxValueX = last30TransactionsPoints.last.x;
+
 
                                       return Container(
                                           child: LineChart(

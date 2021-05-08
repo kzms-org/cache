@@ -48,11 +48,19 @@ class LineTitles {
     leftTitles: SideTitles(
       showTitles: true,
       getTextStyles: (value) => const TextStyle(
-        color: Color(0xff67727d),
+        color: Color(0xfffcfcfc),
         fontWeight: FontWeight.bold,
         fontSize: 12,
       ),
       getTitles: (value) {
+        switch (value.toInt()){
+          case 1:
+            return '10';
+          case 2: return '20';
+          case 4: return '50';
+          case 6: return '100';
+
+        }
         return '';
       },
       reservedSize: 0,
