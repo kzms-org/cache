@@ -9,10 +9,6 @@ part 'records_controller.g.dart';
 class RecordsController = _RecordsControllerBase with _$RecordsController;
 
 abstract class _RecordsControllerBase with Store {
-  final user = FirebaseAuth.instance.currentUser;
 
-  Stream<List<UserTransaction>> getIncome()  {
-    return Database(uid: user.uid).getIncomeSnapshot();
-  }
 
 }

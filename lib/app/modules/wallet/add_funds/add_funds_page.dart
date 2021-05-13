@@ -77,7 +77,7 @@ class _AddFundsPageState extends State<AddFundsPage> {
                 padding: EdgeInsets.fromLTRB(20, 25, 15, 0),
                 child: GestureDetector(
                   onTap: () {
-                    addFundsController.selectFileToUpload();
+                    addFundsController.selectFileToUpload(context);
                   },
                   child: Container(
                     child: Container(
@@ -123,14 +123,18 @@ class _AddFundsPageState extends State<AddFundsPage> {
                                         color: Color(0xff888888),
                                       ),
                                     ),
-                                  )
+                                  ),
+
+
                                 ],
                               ),
+
                             ],
                           ),
                           Container(
-                            height: 14,
+                            height: 25,
                           ),
+
                           Container(
                               padding: EdgeInsets.fromLTRB(50, 0, 0, 0),
                               child: Container(
@@ -144,7 +148,155 @@ class _AddFundsPageState extends State<AddFundsPage> {
                 ),
               ),
               Container(
-                height: 50,
+                height: 5,
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(20, 25, 15, 0),
+                child: GestureDetector(
+                  onTap: () {
+                    Modular.to.pushReplacementNamed("/wallet/add-single-transaction",arguments: 1);
+
+                  },
+                  child: Container(
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                child: CircleAvatar(
+                                  backgroundColor: const Color(0xffe9486d),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Icon(
+                                      Icons.money_off,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 14,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    child: Text(
+                                      "Add new expense",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 14.67,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xffeeeeee),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "You can add new expense manually.",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 10.67,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xff888888),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+
+                          Container(
+                            height: 25,
+                          ),
+
+                          Container(
+                              padding: EdgeInsets.fromLTRB(50, 0, 0, 0),
+                              child: Container(
+                                height: 1,
+                                color: const Color(0xff23475d),
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                height: 5,
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(20, 25, 15, 0),
+                child: GestureDetector(
+                  onTap: () {
+                    Modular.to.pushReplacementNamed("/wallet/add-single-transaction",arguments: 0);
+                  },
+                  child: Container(
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                child: CircleAvatar(
+                                  backgroundColor: const Color(0xffe9486d),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Icon(
+                                      Icons.attach_money,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 14,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    child: Text(
+                                      "Add new income",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 14.67,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xffeeeeee),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "You can add new income manually.",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 10.67,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xff888888),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+
+                          Container(
+                            height: 25,
+                          ),
+
+                          Container(
+                              padding: EdgeInsets.fromLTRB(50, 0, 0, 0),
+                              child: Container(
+                                height: 1,
+                                color: const Color(0xff23475d),
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

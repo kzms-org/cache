@@ -13,13 +13,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class RecordsPage extends StatefulWidget {
+
+
+
   @override
   _RecordsPageState createState() => _RecordsPageState();
 }
 
 class _RecordsPageState extends State<RecordsPage> {
   RecordsController recordsController = RecordsController();
-
   int selectedTab = 1;
   int tabcount = 5;
   Color button0 = const Color(0xff386785);
@@ -111,7 +113,7 @@ class _RecordsPageState extends State<RecordsPage> {
                   onTap: () {
                     selectedTab = 0;
                     changepage();
-                    Modular.to.pushReplacementNamed("/wallet");
+                    Modular.to.pushReplacementNamed("/wallet/dashboard");
                   },
                   child: Container(
                     width: 66,
@@ -270,15 +272,16 @@ class _RecordsPageState extends State<RecordsPage> {
 }
 
 class Page1 extends StatelessWidget {
-  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<CacheUser>(context);
+
     return Container(
         color: const Color(0xff112a39),
         child: Center(
             child: StreamBuilder<List<UserTransaction>>(
-                stream: Database(uid: user.uid).getExpenseSnapshot(),
+                stream: Database(uid: user.uid).getExpenseSnapshot(30),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<UserTransaction> expenses = snapshot.data;
@@ -300,7 +303,6 @@ class Page1 extends StatelessWidget {
 }
 
 class Page2 extends StatelessWidget {
-  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {

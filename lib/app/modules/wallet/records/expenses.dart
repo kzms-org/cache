@@ -81,33 +81,36 @@ class Expenses extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              "-" + money.toString()+" sar",
-                              textAlign: TextAlign.end,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 14.67,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xffdd5757),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Container(
+                              child: Text(
+                                "-" + money.toString()+" sar",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.end,
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 14.67,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xffdd5757),
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            width: 70,
-                            child: Text(
-                              DateFormat("d MMM, yyyy").format(date),
-                              textAlign: TextAlign.end,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 10.67,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff888888),
+                            Container(
+                              width: 70,
+                              child: Text(
+                                DateFormat("d MMM, yyyy").format(date),
+                                textAlign: TextAlign.end,
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 10.67,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff888888),
+                                ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),

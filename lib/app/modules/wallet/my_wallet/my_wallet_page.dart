@@ -1,26 +1,41 @@
 import 'package:cache/app/modules/database/database.dart';
-import 'package:cache/app/modules/user/cacheuser.dart';
+import 'package:cache/app/modules/database/transaction.dart';
+import 'package:cache/app/modules/security/auth.dart';
+import 'package:cache/app/modules/wallet/graphs/line_tiles.dart';
+import 'package:collection/collection.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:cache/app/modules/user/simpleUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cache/play_ui/easy_widgets/easy_widgets.dart';
+import 'package:jiffy/jiffy.dart';
+import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
+import 'dart:math';
 
-class MyWalletPage extends StatefulWidget {
+class MyWalletPage extends StatefulWidget  {
   @override
   _MyWalletPageState createState() => _MyWalletPageState();
 }
 
-class _MyWalletPageState extends State<MyWalletPage> {
+class _MyWalletPageState extends State<MyWalletPage> with SingleTickerProviderStateMixin {
   double notificationOpacity = 1;
   bool notification = false;
-  String date = returnDate();
+  String currentDate = returnDate();
   String totalMoney1 = "6791";
   String totalMoney2 = ".90";
   String lastWeekComp = "+25% ";
+  final List<Color> gradientColors = [
+    const Color(0xff23b6e6),
+    const Color(0xff02d39a),
+  ];
 
+  int date;
+  int month;
+  int year;
+  String dateMonth;
   int selectedTab = 0;
   int tabcount = 5;
   Color button0 = const Color(0xffe3a33d);
@@ -30,6 +45,369 @@ class _MyWalletPageState extends State<MyWalletPage> {
   Color button4 = const Color(0xff386785);
 
   String dropdownValue = "Day";
+
+
+
+  Widget build(BuildContext context) {
+    final user = Provider.of<SimpleUser>(context);
+    print("SIMPLE USER USER");
+    print(user);
+    AuthService _auth = AuthService();
+
+    return user == null? Center( child: CircularProgressIndicator()) :Scaffold(
+      backgroundColor: const Color(0xff112a39),
+      appBar: AppBar(
+        actions: <Widget>[
+          Column(
+            children: <Widget>[
+              Container(
+                transform: Matrix4.translationValues(10, 19, 0.0),
+                height: 5,
+                width: 5,
+                child: CircleAvatar(
+                  backgroundColor: Colors.red.withOpacity(notificationOpacity),
+                ),
+              ),
+              // IconButton(
+              //   icon: Icon(Icons.notifications, color: const Color(0xff7099b2)),
+              //   color: const Color(0xff7099b2),
+              //   onPressed: () {
+              //     print("Notifications Button Pressed");
+              //     setState(() {
+              //       if (notification == true) {
+              //         notificationOpacity = 1;
+              //         notification = false;
+              //       } else {
+              //         notificationOpacity = 0;
+              //         notification = true;
+              //       }
+              //     });
+              //   },
+              // ),
+            ],
+          ),
+          IconButton(
+            icon: Icon(Icons.search, color: const Color(0xff7099b2)),
+            color: const Color(0xff7099b2),
+            onPressed: () async {
+              print(user.uid);
+            },
+          ),
+        ],
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(Icons.dehaze, color: const Color(0xff7099b2)),
+          color: const Color(0xff7099b2),
+          onPressed: () {
+            Modular.to.pushNamed('/security/profile');
+          },
+        ),
+        elevation: 0,
+        title: Text(
+          'Dashboard',
+          textAlign: TextAlign.center,
+          style: GoogleFonts.montserrat(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Color(0xffeeeeee),
+          ),
+        ),
+        centerTitle: true,
+      ),
+
+      body: //scaffold's body
+      SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(18.3, 0, 18.3, 0),
+              child: Container(
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xff000000).withOpacity(0.25),
+                        blurRadius:
+                        15.0, // has the effect of softening the shadow
+                        spreadRadius:
+                        0.5, // has the effect of extending the shadow
+                        offset: Offset(
+                          0.0, // horizontal, move right 10
+                          10.0, // vertical, move down 10
+                        ),
+                      ),
+                    ],
+                    color: const Color(0xff315fd6),
+                    borderRadius: BorderRadius.circular(15)),
+                alignment: Alignment.center,
+                height: 200,
+                child: Container(
+                  padding: EdgeInsets.all(25),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Balance',
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xffffffff),
+                                ),
+                              ),
+                              Text(
+                                'Today, ' + currentDate,
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 11.33,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xffeeeeee).withOpacity(0.5),
+                                ),
+                              ),
+                            ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Modular.to.pushNamed("/wallet/add-single-transaction",arguments: 0);
+                            },
+                            child: Container(
+                              width: 78,
+                              height: 33,
+                              decoration: BoxDecoration(
+                                color: Color(0xff0e2737).withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(17),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      'Add',
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 12.67,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xffffffff),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(height: 8),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          returnRiyalSVG(),
+                          StreamBuilder(
+                              stream: Database(uid:user.uid).getUserTransactionInfo(),
+                              builder: (context, snapshot) {
+
+                                if (snapshot.hasData) {
+
+                                  Map<String, dynamic> data = snapshot.data;
+                                  double balance = data["Balance"];
+                                  return Text(
+                                      balance.toInt().toString(),
+                                      style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.w200,
+                                        fontSize: 50.33,
+                                        color: Color(0xffffffff),)
+
+                                  );
+
+                                }else{
+                                  return Text(
+                                      "0.00",
+                                      style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.w200,
+                                        fontSize: 25.33,
+                                        color: Color(0xffffffff),)
+
+                                  );
+                                }
+                              }),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              height: 36,
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(18.3, 0, 18.3, 0),
+              child: Container(
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xff000000).withOpacity(0.25),
+                        blurRadius:
+                        15.0, // has the effect of softening the shadow
+                        spreadRadius:
+                        0.5, // has the effect of extending the shadow
+                        offset: Offset(
+                          0.0, // horizontal, move right 10
+                          10.0, // vertical, move down 10
+                        ),
+                      ),
+                    ],
+                    color: const Color(0xff1c3a4d),
+                    borderRadius: BorderRadius.circular(15)),
+                alignment: Alignment.center,
+                height: 350.33,
+                child: Container(
+                  padding: EdgeInsets.all(25),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Your Spending',
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xffffffff),
+                                ),
+                              ),
+                              Text(
+                                'Today, ' + currentDate,
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 11.33,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xffeeeeee).withOpacity(0.5),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Container(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            height: 250,
+                            width: 300,
+                            child:
+                              StreamBuilder(
+                                  stream: Database(uid:user.uid).getExpenseSnapshot(20),
+                                  builder: (context, snapshot) {
+                                    print("snapshotdata");
+                                    if (snapshot.hasData && snapshot.data.length != 0) {
+                                      double maxValueY = 30;
+                                      List<UserTransaction> expenses = snapshot.data;
+                                      Map<DateTime, List<UserTransaction>> groupedExpenses = groupTransactionsByDate(expenses);
+
+                                      List<FlSpot> last30TransactionsPoints = [];
+                                      groupedExpenses.forEach((k,v) {
+                                        double groupedAmount = 0;
+                                        for(var singleTransaction in v)
+                                          groupedAmount += singleTransaction.transactionAmount;
+
+
+                                        if(maxValueY < groupedAmount)
+                                          maxValueY = groupedAmount;
+
+                                        date  = v[0].transactionDate.day;
+                                        month = v[0].transactionDate.month;
+                                        dateMonth = "${month}.${date}";
+                                        last30TransactionsPoints.add(FlSpot(double.parse(dateMonth), groupedAmount));
+                                      });
+
+                                      last30TransactionsPoints.sort((a, b) => a.x.compareTo(b.x));
+                                      maxValueY += (maxValueY*0.25);
+                                      double minValueX = last30TransactionsPoints[0].x;
+                                      double maxValueX = last30TransactionsPoints.last.x;
+
+
+                                      return Container(
+                                          child: LineChart(
+                                        LineChartData(
+                                          minX: minValueX,
+                                          maxX: maxValueX,
+                                          minY: 0,
+                                          maxY:maxValueY,
+                                          titlesData: LineTitles.getTitleData(maxValueX, maxValueY, minValueX, 0),
+                                          gridData: FlGridData(
+                                            show: true,
+                                            getDrawingHorizontalLine: (value){
+                                              return FlLine(
+                                                color: const Color(0xff37434d),
+                                                strokeWidth: 1
+                                              );
+                                            },
+                                            drawHorizontalLine: true,
+                                            drawVerticalLine: true,
+
+                                          ),
+                                          borderData: FlBorderData(
+                                            show: true,
+                                            border: Border.all(color: const Color(0xff377434d), width:1),
+                                          ),
+                                          lineBarsData: [
+                                            LineChartBarData(
+                                              spots: last30TransactionsPoints,
+                                              isCurved: true,
+                                              colors: gradientColors,
+                                              barWidth: 3,
+                                              //dotData:FlDotData(show: false),
+                                              belowBarData: BarAreaData(
+                                                show: true,
+                                                colors: gradientColors.map((color) => color.withOpacity(0.3))
+                                                        .toList()
+                                              )
+                                            )
+                                          ]
+                                        )
+                                      )
+                                      );
+                                    }else{
+                                      return Text(
+                                          "No Data",
+                                          style: GoogleFonts.montserrat(
+                                            fontWeight: FontWeight.w200,
+                                            fontSize: 25.33,
+                                            color: Color(0xffffffff),)
+                                      );
+                                    }
+                                  }),
+                            ),
+
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              height: 100,
+            ),
+
+          ],
+        ),
+      ),
+      bottomNavigationBar: navBar(),
+    );
+  }
 
   void changepage() {
     if (selectedTab == 0) {
@@ -201,6 +579,14 @@ class _MyWalletPageState extends State<MyWalletPage> {
     );
   }
 
+  Map<DateTime, List<UserTransaction>> groupTransactionsByDate(List<UserTransaction> transaction) {
+    final groupedTransactions = groupBy(transaction, (UserTransaction e) {
+      return e.transactionDate;
+    });
+    return groupedTransactions;
+  }
+
+
   Widget returnRiyalSVG() {
     return Container(
       width: 23.33333396911621,
@@ -213,451 +599,4 @@ class _MyWalletPageState extends State<MyWalletPage> {
       ),
     );
   }
-
-  Widget build(BuildContext context) {
-    final user = Provider.of<SimpleUser>(context);
-
-    return Scaffold(
-      backgroundColor: const Color(0xff112a39),
-      appBar: AppBar(
-        actions: <Widget>[
-          Column(
-            children: <Widget>[
-              Container(
-                transform: Matrix4.translationValues(10, 19, 0.0),
-                height: 5,
-                width: 5,
-                child: CircleAvatar(
-                  backgroundColor: Colors.red.withOpacity(notificationOpacity),
-                ),
-              ),
-              // IconButton(
-              //   icon: Icon(Icons.notifications, color: const Color(0xff7099b2)),
-              //   color: const Color(0xff7099b2),
-              //   onPressed: () {
-              //     print("Notifications Button Pressed");
-              //     setState(() {
-              //       if (notification == true) {
-              //         notificationOpacity = 1;
-              //         notification = false;
-              //       } else {
-              //         notificationOpacity = 0;
-              //         notification = true;
-              //       }
-              //     });
-              //   },
-              // ),
-            ],
-          ),
-          IconButton(
-            icon: Icon(Icons.search, color: const Color(0xff7099b2)),
-            color: const Color(0xff7099b2),
-            onPressed: () {
-              print("Search Button Pressed");
-            },
-          ),
-        ],
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: Icon(Icons.dehaze, color: const Color(0xff7099b2)),
-          color: const Color(0xff7099b2),
-          onPressed: () {
-            Modular.to.pushNamed('/security/profile');
-          },
-        ),
-        elevation: 0,
-        title: Text(
-          'Dashboard',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.montserrat(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: Color(0xffeeeeee),
-          ),
-        ),
-        centerTitle: true,
-      ),
-
-      body: //scaffold's body
-      SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(18.3, 0, 18.3, 0),
-              child: Container(
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xff000000).withOpacity(0.25),
-                        blurRadius:
-                        15.0, // has the effect of softening the shadow
-                        spreadRadius:
-                        0.5, // has the effect of extending the shadow
-                        offset: Offset(
-                          0.0, // horizontal, move right 10
-                          10.0, // vertical, move down 10
-                        ),
-                      ),
-                    ],
-                    color: const Color(0xff315fd6),
-                    borderRadius: BorderRadius.circular(15)),
-                alignment: Alignment.center,
-                height: 200,
-                child: Container(
-                  padding: EdgeInsets.all(25),
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Balance',
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xffffffff),
-                                ),
-                              ),
-                              Text(
-                                'Today, ' + date,
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 11.33,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xffeeeeee).withOpacity(0.5),
-                                ),
-                              ),
-                            ],
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              print("add button pressed");
-                            },
-                            child: Container(
-                              width: 78,
-                              height: 33,
-                              decoration: BoxDecoration(
-                                color: Color(0xff0e2737).withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(17),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      'Add',
-                                      style: GoogleFonts.montserrat(
-                                        fontSize: 12.67,
-                                        fontWeight: FontWeight.w600,
-                                        color: Color(0xffffffff),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(height: 8),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          returnRiyalSVG(),
-                          StreamBuilder(
-                              stream: Database(uid: user.uid)
-                                  .getUserTransactionInfo(),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-
-                                  var balance = snapshot.data.toString();
-                                  print(balance);
-                                  return Text(
-                                      balance.toString(),
-                                  style: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w200,
-                                  fontSize: 73.33,
-                                  color: Color(0xffffffff),)
-
-                                );
-
-                              }else{
-                                  return Text("no data found");
-                                }
-                              }),
-
-                          // Container(
-                          //   height: 42.66666793823242,
-                          //   child: Text(
-                          //     totalMoney2,
-                          //     style: GoogleFonts.montserrat(
-                          //       fontSize: 24,
-                          //       color: Color(0xffeeeeee).withOpacity(0.75),
-                          //     ),
-                          //   ),
-                          // )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              height: 36,
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(18.3, 0, 18.3, 0),
-              child: Container(
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xff000000).withOpacity(0.25),
-                        blurRadius:
-                        15.0, // has the effect of softening the shadow
-                        spreadRadius:
-                        0.5, // has the effect of extending the shadow
-                        offset: Offset(
-                          0.0, // horizontal, move right 10
-                          10.0, // vertical, move down 10
-                        ),
-                      ),
-                    ],
-                    color: const Color(0xff1c3a4d),
-                    borderRadius: BorderRadius.circular(15)),
-                alignment: Alignment.center,
-                height: 305.33,
-                child: Container(
-                  padding: EdgeInsets.all(25),
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Activity',
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xffffffff),
-                                ),
-                              ),
-                              Text(
-                                'Today, ' + date,
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 11.33,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xffeeeeee).withOpacity(0.5),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            width: 114,
-                            height: 33,
-                            decoration: BoxDecoration(
-                              color: const Color(0xff0e2737),
-                              borderRadius: BorderRadius.circular(17),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Container(
-                                  transform:
-                                  Matrix4.translationValues(15, 0, 0.0),
-                                  child: Text(
-                                    dropdownValue,
-                                    style: GoogleFonts.montserrat(
-                                      fontSize: 12.67,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xffffffff),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  transform:
-                                  Matrix4.translationValues(-10, 0, 0.0),
-                                  child: Theme(
-                                    data: Theme.of(context).copyWith(
-                                      canvasColor: const Color(0xff0e2737),
-                                    ),
-                                    child: DropdownButtonHideUnderline(
-                                      child: DropdownButton(
-                                        items: <String>[
-                                          'Day',
-                                          'Week',
-                                          'Mount',
-                                          'Year'
-                                        ].map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(value),
-                                              );
-                                            }).toList(),
-                                        onChanged: (String newValue) {
-                                          setState(() {
-                                            print(newValue);
-                                            dropdownValue = newValue;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(height: 8),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                            height: 159,
-                          ),
-                        ],
-                      ),
-                      Container(
-                          alignment: Alignment.bottomLeft,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    height: 33,
-                                    width: 33,
-                                    child: CircleAvatar(
-                                      backgroundColor: const Color(0xff7099B2),
-                                      child: Container(
-                                        height: 29,
-                                        width: 29,
-                                        child: CircleAvatar(
-                                          backgroundColor:
-                                          const Color(0xff1c3a4d),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 14,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        width: 60.33333206176758,
-                                        child: Text(
-                                          'Expn.',
-                                          style: GoogleFonts.montserrat(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xffeeeeee),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 83,
-                                        child: Text(
-                                          '+23% Cmpr.',
-                                          style: GoogleFonts.montserrat(
-                                            fontSize: 10.67,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xffeeeeee)
-                                                .withOpacity(0.5),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                color: const Color(0xff0d2839),
-                                width: 2,
-                                height: 40,
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    height: 33,
-                                    width: 33,
-                                    child: CircleAvatar(
-                                      backgroundColor: const Color(0xff7099B2),
-                                      child: Container(
-                                        height: 29,
-                                        width: 29,
-                                        child: CircleAvatar(
-                                          backgroundColor:
-                                          const Color(0xff1c3a4d),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 14,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        width: 60.33333206176758,
-                                        child: Text(
-                                          'Earn.',
-                                          style: GoogleFonts.montserrat(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xffeeeeee),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 83,
-                                        child: Text(
-                                          '+63% Cmpr.',
-                                          style: GoogleFonts.montserrat(
-                                            fontSize: 10.67,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xffeeeeee)
-                                                .withOpacity(0.5),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              height: 100,
-            ),
-
-          ],
-        ),
-      ),
-      bottomNavigationBar: navBar(),
-    );
-  }
 }
-

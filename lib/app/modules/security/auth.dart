@@ -1,6 +1,7 @@
 import 'package:cache/app/modules/database/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cache/app/modules/user/cacheuser.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 // Authentication issues link: https://stackoverflow.com/questions/59377277/undefined-class-authresult-in-flutter
 
@@ -74,7 +75,10 @@ class AuthService{
     // sign out
     Future signOut() async {
       try {
-        return await _auth.signOut();
+
+        await _auth.signOut();
+        // return Modular.to.pushReplacementNamed("/security/auth-types");
+
       } catch (error) {
         print(error.toString());
         return null;

@@ -1,17 +1,29 @@
+import 'package:cache/app/modules/wallet/add_funds/add_funds_controller.dart';
+import 'package:cache/play_ui/button/button_widget.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class SendRequestPage extends StatefulWidget {
+  final int initialIndex;
+
+  const SendRequestPage({Key key, this.initialIndex}) : super(key: key);
+
   @override
-  _SendRequestPageState createState() => _SendRequestPageState();
+  _SendRequestPageState createState() => _SendRequestPageState(initialIndex);
 }
 
 class _SendRequestPageState extends State<SendRequestPage> {
-  Widget build(BuildContext context) {
-    return DefaultTabController(
+  int initialIndex;
 
-      length: 3,
+  _SendRequestPageState( this.initialIndex);
+  Widget build(BuildContext context) {
+
+    return DefaultTabController(
+      length: 2,
+      initialIndex: initialIndex,
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: const Color(0xff1c3a4d),
@@ -23,7 +35,6 @@ class _SendRequestPageState extends State<SendRequestPage> {
                 Modular.to.pop();
               },
             ),
-            // elemanlarımızın iconları, isimleri vb.
             bottom: TabBar(
               unselectedLabelColor: const Color(0xffeeeeee).withOpacity(0.5),
               labelColor: Color(0xfff5a623),
@@ -33,7 +44,7 @@ class _SendRequestPageState extends State<SendRequestPage> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      'RQUST',
+                      'INCOME',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         fontSize: 10.67,
@@ -46,20 +57,7 @@ class _SendRequestPageState extends State<SendRequestPage> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      'SEND',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 10.67,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                Tab(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'TRNSF',
+                      'EXPENSE',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         fontSize: 10.67,
@@ -76,7 +74,7 @@ class _SendRequestPageState extends State<SendRequestPage> {
             children: <Widget>[
               Page1(),
               Page2(),
-              Page3(),
+
             ],
           )),
     );
@@ -88,10 +86,13 @@ class Page1 extends StatefulWidget {
   Page1State createState() => new Page1State();
 }
 
-class Page1State extends State<Page1>
-    with AutomaticKeepAliveClientMixin<Page1> {
-  String dropdownValue = "Day";
+class Page1State extends State<Page1> with AutomaticKeepAliveClientMixin<Page1> {
   bool get wantKeepAlive => true;
+  AddFundsController addFundsController = Modular.get<AddFundsController>();
+  double incomeAmount = 0;
+  DateTime incomeDate;
+  final format = DateFormat("yyyy-MM-dd");
+  String incomeDescription;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -109,7 +110,7 @@ class Page1State extends State<Page1>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'BUDGET',
+                          'AMOUNT',
                           style: GoogleFonts.montserrat(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
@@ -117,24 +118,23 @@ class Page1State extends State<Page1>
                           ),
                         ),
                         Container(
-                          height: 7,
-                        ),
-                        Container(
                           width: 150,
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          child: TextField(
-                              keyboardType: TextInputType.number,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 13.33,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xffeeeeee),
-                              ),
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                hintStyle: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              )),
+                          child: TextFormField(
+                            cursorColor: Color(0xfff5a623),
+                            decoration: InputDecoration(
+                              labelStyle: GoogleFonts.montserrat(fontSize: 14, color: Colors.white),
+                            ),
+                            keyboardType: TextInputType.number,
+                            style:GoogleFonts.montserrat(color: Colors.white) ,
+                            onChanged: (String val){
+                              if(val == "") val = "0.0";
+                              incomeAmount = double.parse(val);
+                              setState(() {
+                                incomeAmount;
+                              });
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -145,7 +145,7 @@ class Page1State extends State<Page1>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'CUR',
+                          'CURRANCY',
                           style: GoogleFonts.montserrat(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
@@ -156,59 +156,16 @@ class Page1State extends State<Page1>
                           height: 7,
                         ),
                         Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Container(
-                                transform:
-                                    Matrix4.translationValues(15, 0, 0.0),
-                                child: Text(
-                                  dropdownValue,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 12.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                transform:
-                                    Matrix4.translationValues(-10, 0, 0.0),
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                    canvasColor: const Color(0xff0e2737),
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      items: <String>[
-                                        'Day',
-                                        'Week',
-                                        'Mount',
-                                        'Year'
-                                      ].map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (String newValue) {
-                                        setState(() {
-                                          print(newValue);
-                                          dropdownValue = newValue;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                          transform:
+                          Matrix4.translationValues(30, 0, 0.0),
+                          child: Text(
+                            "SAR",
+                            style: GoogleFonts.montserrat(
+                              fontSize: 12.67,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xffffffff),
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: 115,
-                          height: 1.25,
-                          color: const Color(0xff0D202B),
                         ),
                       ],
                     ),
@@ -218,155 +175,96 @@ class Page1State extends State<Page1>
               Container(
                 height: 15,
               ),
-              Container(
-                padding: EdgeInsets.fromLTRB(30, 0, 27.5, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'To',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 13.33,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff768b98),
-                      ),
-                    ),
-                    Container(
-                      width: 27.5,
-                    ),
-                    Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.fromLTRB(27.5, 30, 0, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Container(
-                          width: 200,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  dropdownValue,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 12.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                    canvasColor: const Color(0xff0e2737),
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      items: <String>[
-                                        'Day',
-                                        'Week',
-                                        'Mount',
-                                        'Year'
-                                      ].map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (String newValue) {
-                                        setState(() {
-                                          print(newValue);
-                                          dropdownValue = newValue;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                        Text(
+                          'DESCRIPTION',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff768b98),
                           ),
                         ),
                         Container(
-                          width: 200,
-                          height: 1.25,
-                          color: const Color(0xff0D202B),
+                          width: 350,
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: TextFormField(
+                            cursorColor: Color(0xfff5a623),
+                            decoration: InputDecoration(
+                              labelStyle: GoogleFonts.montserrat(fontSize: 14, color: Colors.white),
+                            ),
+                            maxLines: 4,
+                            keyboardType: TextInputType.multiline,
+                            style: GoogleFonts.montserrat(color: Colors.white) ,
+                            onChanged: (String val){
+                              incomeDescription = val;
+                              setState(() {
+                                incomeDescription;
+                              });
+                            },
+                          ),
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+
+                ],
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(40, 0, 27.5, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'From',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 13.33,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff768b98),
-                      ),
-                    ),
-                    Container(
-                      width: 27.5,
-                    ),
-                    Column(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.fromLTRB(27.5, 30, 0, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Container(
-                          width: 200,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  dropdownValue,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 12.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                    canvasColor: const Color(0xff0e2737),
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      items: <String>[
-                                        'Day',
-                                        'Week',
-                                        'Mount',
-                                        'Year'
-                                      ].map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (String newValue) {
-                                        setState(() {
-                                          print(newValue);
-                                          dropdownValue = newValue;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                        Text(
+                          'TRANSACTION DATE',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff768b98),
                           ),
                         ),
                         Container(
-                          width: 200,
-                          height: 1.25,
-                          color: const Color(0xff0D202B),
+                          width: 350,
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: DateTimeField(
+                              format: format,
+                              decoration: InputDecoration(
+                                labelStyle: GoogleFonts.montserrat(fontSize: 14, color: Colors.white),
+                              ),
+                              style: GoogleFonts.montserrat(fontSize: 14, color: Colors.white),
+                              onShowPicker: (context, currentValue) async {
+                                final date = await showDatePicker(
+                                  context: context,
+                                  firstDate: DateTime(1900),
+                                  initialDate: currentValue ?? DateTime.now(),
+                                  lastDate: DateTime(2100),);
+                                return date;
+                              },
+                              onChanged:(DateTime currentValue){
+                                incomeDate = currentValue;
+                              }
+                          ),
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+
+                ],
+              ),
+              Container(
+                height: 15,
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(25, 24, 25, 24),
@@ -377,14 +275,6 @@ class Page1State extends State<Page1>
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          'Fees',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xffeeeeee).withOpacity(0.5),
-                          ),
-                        ),
                         Text(
                           'Total',
                           style: GoogleFonts.montserrat(
@@ -402,22 +292,41 @@ class Page1State extends State<Page1>
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         Text(
-                          '\$25.29',
-                          textAlign: TextAlign.end,
-                          style: GoogleFonts.montserrat(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xffeeeeee).withOpacity(0.5),
-                          ),
-                        ),
-                        Text(
-                          '\$245.29',
+                          incomeAmount.toString()+" SAR",
                           textAlign: TextAlign.end,
                           style: GoogleFonts.montserrat(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
                             color: Color(0xffeeeeee),
                           ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(25, 24, 25, 24),
+                height: 96,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        ButtonWidget(
+                          width: 150,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff315fd6),
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                          text: 'Add',
+                          color: Colors.white,
+                          onTap: () {
+                            print("adding");
+                            addFundsController.addIncome(incomeAmount, incomeDate, incomeDescription, context);
+                            Modular.to.pop();
+                          },
                         ),
                       ],
                     )
@@ -435,10 +344,13 @@ class Page2 extends StatefulWidget {
   Page2State createState() => new Page2State();
 }
 
-class Page2State extends State<Page2>
-    with AutomaticKeepAliveClientMixin<Page2> {
+class Page2State extends State<Page2> with AutomaticKeepAliveClientMixin<Page2> {
   bool get wantKeepAlive => true;
-  String dropdownValue = "Day";
+  AddFundsController addFundsController = Modular.get<AddFundsController>();
+  double expenseAmount = 0;
+  DateTime expenseDate;
+  final format = DateFormat("yyyy-MM-dd");
+  String expenseDescription;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -456,7 +368,7 @@ class Page2State extends State<Page2>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'BUDGET',
+                          'AMOUNT',
                           style: GoogleFonts.montserrat(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
@@ -464,24 +376,23 @@ class Page2State extends State<Page2>
                           ),
                         ),
                         Container(
-                          height: 7,
-                        ),
-                        Container(
                           width: 150,
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          child: TextField(
-                              keyboardType: TextInputType.number,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 13.33,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xffeeeeee),
-                              ),
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                hintStyle: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              )),
+                          child: TextFormField(
+                            cursorColor: Color(0xfff5a623),
+                            decoration: InputDecoration(
+                              labelStyle: GoogleFonts.montserrat(fontSize: 14, color: Colors.white),
+                            ),
+                            keyboardType: TextInputType.number,
+                            style:GoogleFonts.montserrat(color: Colors.white) ,
+                            onChanged: (String val){
+                              if(val == "") val = "0.0";
+                              expenseAmount = double.parse(val);
+                              setState(() {
+                                expenseAmount;
+                              });
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -492,7 +403,7 @@ class Page2State extends State<Page2>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'CUR',
+                          'CURRANCY',
                           style: GoogleFonts.montserrat(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
@@ -503,59 +414,16 @@ class Page2State extends State<Page2>
                           height: 7,
                         ),
                         Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Container(
-                                transform:
-                                    Matrix4.translationValues(15, 0, 0.0),
-                                child: Text(
-                                  dropdownValue,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 12.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                transform:
-                                    Matrix4.translationValues(-10, 0, 0.0),
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                    canvasColor: const Color(0xff0e2737),
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      items: <String>[
-                                        'Day',
-                                        'Week',
-                                        'Mount',
-                                        'Year'
-                                      ].map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (String newValue) {
-                                        setState(() {
-                                          print(newValue);
-                                          dropdownValue = newValue;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                          transform:
+                          Matrix4.translationValues(30, 0, 0.0),
+                          child: Text(
+                            "SAR",
+                            style: GoogleFonts.montserrat(
+                              fontSize: 12.67,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xffffffff),
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: 115,
-                          height: 1.25,
-                          color: const Color(0xff0D202B),
                         ),
                       ],
                     ),
@@ -565,237 +433,8 @@ class Page2State extends State<Page2>
               Container(
                 height: 15,
               ),
-              Container(
-                padding: EdgeInsets.fromLTRB(30, 0, 27.5, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'To',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 13.33,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff768b98),
-                      ),
-                    ),
-                    Container(
-                      width: 27.5,
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Container(
-                          width: 200,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  dropdownValue,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 12.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                    canvasColor: const Color(0xff0e2737),
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      items: <String>[
-                                        'Day',
-                                        'Week',
-                                        'Mount',
-                                        'Year'
-                                      ].map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (String newValue) {
-                                        setState(() {
-                                          print(newValue);
-                                          dropdownValue = newValue;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 200,
-                          height: 1.25,
-                          color: const Color(0xff0D202B),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(40, 0, 27.5, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'From',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 13.33,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff768b98),
-                      ),
-                    ),
-                    Container(
-                      width: 27.5,
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Container(
-                          width: 200,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  dropdownValue,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 12.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                    canvasColor: const Color(0xff0e2737),
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      items: <String>[
-                                        'Day',
-                                        'Week',
-                                        'Mount',
-                                        'Year'
-                                      ].map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (String newValue) {
-                                        setState(() {
-                                          print(newValue);
-                                          dropdownValue = newValue;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 200,
-                          height: 1.25,
-                          color: const Color(0xff0D202B),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(25, 24, 25, 24),
-                height: 96,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Fees',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xffeeeeee).withOpacity(0.5),
-                          ),
-                        ),
-                        Text(
-                          'Total',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xffeeeeee),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      height: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Text(
-                          '\$25.29',
-                          textAlign: TextAlign.end,
-                          style: GoogleFonts.montserrat(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xffeeeeee).withOpacity(0.5),
-                          ),
-                        ),
-                        Text(
-                          '\$245.29',
-                          textAlign: TextAlign.end,
-                          style: GoogleFonts.montserrat(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xffeeeeee),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ));
-  }
-}
-
-class Page3 extends StatefulWidget {
-  @override
-  Page3State createState() => new Page3State();
-}
-
-class Page3State extends State<Page3>
-    with AutomaticKeepAliveClientMixin<Page3> {
-  String dropdownValue = "Day";
-  bool get wantKeepAlive => true;
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return Container(
-        color: const Color(0xff112a39),
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.fromLTRB(27.5, 30, 0, 0),
@@ -803,7 +442,7 @@ class Page3State extends State<Page3>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'BUDGET',
+                          'DESCRIPTION',
                           style: GoogleFonts.montserrat(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
@@ -811,256 +450,79 @@ class Page3State extends State<Page3>
                           ),
                         ),
                         Container(
-                          height: 7,
-                        ),
-                        Container(
-                          width: 150,
+                          width: 350,
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          child: TextField(
-                              keyboardType: TextInputType.number,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 13.33,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xffeeeeee),
-                              ),
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                hintStyle: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              )),
+                          child: TextFormField(
+                            cursorColor: Color(0xfff5a623),
+                            decoration: InputDecoration(
+                              labelStyle: GoogleFonts.montserrat(fontSize: 14, color: Colors.white),
+                            ),
+                            maxLines: 4,
+                            keyboardType: TextInputType.multiline,
+                            style: GoogleFonts.montserrat(color: Colors.white) ,
+                            onChanged: (String val){
+                              expenseDescription = val;
+                              setState(() {
+                                expenseDescription;
+                              });
+                            },
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(0, 30, 27.5, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'CUR',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff768b98),
-                          ),
-                        ),
-                        Container(
-                          height: 7,
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Container(
-                                transform:
-                                    Matrix4.translationValues(15, 0, 0.0),
-                                child: Text(
-                                  dropdownValue,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 12.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                transform:
-                                    Matrix4.translationValues(-10, 0, 0.0),
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                    canvasColor: const Color(0xff0e2737),
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      items: <String>[
-                                        'Day',
-                                        'Week',
-                                        'Mount',
-                                        'Year'
-                                      ].map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (String newValue) {
-                                        setState(() {
-                                          print(newValue);
-                                          dropdownValue = newValue;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 115,
-                          height: 1.25,
-                          color: const Color(0xff0D202B),
-                        ),
-                      ],
-                    ),
-                  )
+
                 ],
               ),
               Container(
                 height: 15,
               ),
-              Container(
-                padding: EdgeInsets.fromLTRB(30, 0, 27.5, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'To',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 13.33,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff768b98),
-                      ),
-                    ),
-                    Container(
-                      width: 27.5,
-                    ),
-                    Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.fromLTRB(27.5, 30, 0, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Container(
-                          width: 200,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  dropdownValue,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 12.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                    canvasColor: const Color(0xff0e2737),
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      items: <String>[
-                                        'Day',
-                                        'Week',
-                                        'Mount',
-                                        'Year'
-                                      ].map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (String newValue) {
-                                        setState(() {
-                                          print(newValue);
-                                          dropdownValue = newValue;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                        Text(
+                          'TRANSACTION DATE',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff768b98),
                           ),
                         ),
                         Container(
-                          width: 200,
-                          height: 1.25,
-                          color: const Color(0xff0D202B),
+                          width: 350,
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: DateTimeField(
+                              format: format,
+                              decoration: InputDecoration(
+                                labelStyle: GoogleFonts.montserrat(fontSize: 14, color: Colors.white),
+                              ),
+                              style: GoogleFonts.montserrat(fontSize: 14, color: Colors.white),
+                              onShowPicker: (context, currentValue) async {
+                                final date = await showDatePicker(
+                                  context: context,
+                                  firstDate: DateTime(1900),
+                                  initialDate: currentValue ?? DateTime.now(),
+                                  lastDate: DateTime(2100),);
+                                return date;
+                              },
+                              onChanged:(DateTime currentValue){
+                                expenseDate = currentValue;
+                              }
+                          ),
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+
+                ],
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(40, 0, 27.5, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'From',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 13.33,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff768b98),
-                      ),
-                    ),
-                    Container(
-                      width: 27.5,
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Container(
-                          width: 200,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  dropdownValue,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 12.67,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                    canvasColor: const Color(0xff0e2737),
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      items: <String>[
-                                        'Day',
-                                        'Week',
-                                        'Mount',
-                                        'Year'
-                                      ].map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (String newValue) {
-                                        setState(() {
-                                          print(newValue);
-                                          dropdownValue = newValue;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 200,
-                          height: 1.25,
-                          color: const Color(0xff0D202B),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                height: 15,
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(25, 24, 25, 24),
@@ -1071,14 +533,6 @@ class Page3State extends State<Page3>
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          'Fees',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xffeeeeee).withOpacity(0.5),
-                          ),
-                        ),
                         Text(
                           'Total',
                           style: GoogleFonts.montserrat(
@@ -1096,16 +550,7 @@ class Page3State extends State<Page3>
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         Text(
-                          '\$25.29',
-                          textAlign: TextAlign.end,
-                          style: GoogleFonts.montserrat(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xffeeeeee).withOpacity(0.5),
-                          ),
-                        ),
-                        Text(
-                          '\$245.29',
+                          expenseAmount.toString()+" SAR",
                           textAlign: TextAlign.end,
                           style: GoogleFonts.montserrat(
                             fontSize: 24,
@@ -1118,8 +563,37 @@ class Page3State extends State<Page3>
                   ],
                 ),
               ),
+              Container(
+                padding: EdgeInsets.fromLTRB(25, 24, 25, 24),
+                height: 96,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        ButtonWidget(
+                          width: 150,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff315fd6),
+                            borderRadius: BorderRadius.circular(2),
+
+                          ),
+                          text: 'Add',
+                          color: Colors.white,
+                          onTap: () {
+                            addFundsController.addExpense(expenseAmount, expenseDate, expenseDescription,context);
+                            Modular.to.pop();
+                            },
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ));
   }
 }
+
